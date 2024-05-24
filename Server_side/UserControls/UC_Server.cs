@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
-namespace Project_Meoware.UserControls
+namespace Server_side.UserControls
 {
     public partial class UC_Server : UserControl
     {
@@ -106,7 +106,7 @@ namespace Project_Meoware.UserControls
                 string clientOS = GetClientOS(clientSocket);
 
 
-                listView1.Items.Add(new ListViewItem(new string[] { "more info" , clientIP, clientHostname, connectTime.ToString("HH:mm:ss"), clientOS}));
+                listView1.Items.Add(new ListViewItem(new string[] { "more info", clientIP, clientHostname, connectTime.ToString("HH:mm:ss"), clientOS }));
 
                 Thread clientThread = new Thread(() => ReceiveMessages(clientSocket, clientIP, clientHostname, connectTime, clientOS));
                 clientThread.Start();
@@ -179,6 +179,7 @@ namespace Project_Meoware.UserControls
 
         }
 
+        // for testing create temp connection
         private void Create_connection_btn_Click(object sender, EventArgs e)
         {
             new Client().Show();

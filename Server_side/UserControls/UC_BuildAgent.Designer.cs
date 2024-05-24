@@ -1,4 +1,7 @@
-﻿namespace Project_Meoware.UserControls
+﻿using static Guna.UI2.WinForms.Suite.Descriptions;
+using System.Xml.Linq;
+
+namespace Server_side.UserControls
 {
     partial class UC_BuildAgent
     {

@@ -1,4 +1,4 @@
-﻿namespace Project_Meoware
+﻿namespace Server_side
 {
     partial class Client
     {

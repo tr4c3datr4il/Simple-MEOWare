@@ -1,4 +1,8 @@
-﻿namespace Project_Meoware
+﻿using static Guna.UI2.WinForms.Suite.Descriptions;
+using static System.Net.Mime.MediaTypeNames;
+using System.Xml.Linq;
+
+namespace Server_side
 {
     partial class ClientInfo
     {

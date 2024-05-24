@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Project_Meoware
+namespace Server_side
 {
     public partial class ClientInfo : Form
     {

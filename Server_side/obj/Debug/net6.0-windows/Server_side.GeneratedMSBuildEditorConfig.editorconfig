@@ -14,6 +14,6 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = Server_side
-build_property.ProjectDir = D:\Local-Lab\Workspace\C2_Meoware\Server_side\
+build_property.ProjectDir = \\wsl.localhost\Ubuntu\home\tranminhprvt01\Backup\STUDY\LTM\Simple-MEOWare\Server_side\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 

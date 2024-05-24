@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Project_Meoware.UserControls
+namespace Server_side.UserControls
 {
     public partial class UC_BuildAgent : UserControl
     {

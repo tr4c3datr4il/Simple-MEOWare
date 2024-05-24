@@ -1,4 +1,4 @@
-﻿namespace Project_Meoware.UserControls
+﻿namespace Server_side.UserControls
 {
     partial class UC_Server
     {

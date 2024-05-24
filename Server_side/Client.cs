@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 
-namespace Project_Meoware
+namespace Server_side
 {
     public partial class Client : Form
     {

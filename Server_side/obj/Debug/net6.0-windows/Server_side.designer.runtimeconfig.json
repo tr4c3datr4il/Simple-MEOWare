@@ -12,9 +12,8 @@
       }
     ],
     "additionalProbingPaths": [
-      "C:\\Users\\huadu\\.dotnet\\store\\|arch|\\|tfm|",
-      "C:\\Users\\huadu\\.nuget\\packages",
-      "D:\\Win-Tools\\ETC\\VStudio-SDK\\NuGetPackages"
+      "C:\\Users\\tranminhprvt01\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\tranminhprvt01\\.nuget\\packages"
     ],
     "configProperties": {
       "Microsoft.NETCore.DotNetHostPolicy.SetAppPaths": true

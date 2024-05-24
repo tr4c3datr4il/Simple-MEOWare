@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Configuration;
 
-namespace Project_Meoware.UserControls
+namespace Server_side.UserControls
 {
     public partial class UC_Config : UserControl
     {
