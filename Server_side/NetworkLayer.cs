@@ -63,11 +63,13 @@ namespace Server_side
                     SendPassPhrase(clientSocket);
 
                     string clientIP = ((IPEndPoint)clientSocket.RemoteEndPoint).Address.ToString();
+                    string port = ((IPEndPoint)clientSocket.RemoteEndPoint).Port.ToString();
+                    string clientIPPort = $"{clientIP}:{port}";
                     string clientHostname = Dns.GetHostEntry(clientIP).HostName;
                     string connectTime = DateTime.Now.ToString();
                     string clientOS = "";
 
-                    OnClientConnected?.Invoke(clientIP, clientHostname, connectTime, clientOS);
+                    OnClientConnected?.Invoke(clientIPPort, clientHostname, connectTime, clientOS);
                 }
                 catch (Exception e)
                 {
@@ -106,6 +108,15 @@ namespace Server_side
             return data;
         }
 
+        public static bool SocketConnected(Socket socket)
+        {
+            bool part1 = socket.Poll(1000, SelectMode.SelectRead);
+            bool part2 = (socket.Available == 0);
+            if (part1 && part2)
+                return false;
+            else
+                return true;
+        }
 
         // Initialize the connection with the client
         public static void ReceivePublicKey(Socket socket)

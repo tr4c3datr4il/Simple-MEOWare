@@ -52,7 +52,7 @@ namespace Server_side
             ipLabel = new Label();
             commandBox = new TextBox();
             cmdComboBox = new ComboBox();
-            textBox1 = new TextBox();
+            agentfileBox = new TextBox();
             label5 = new Label();
             groupBox1.SuspendLayout();
             SuspendLayout();
@@ -243,27 +243,29 @@ namespace Server_side
             // 
             // cmdComboBox
             // 
+            cmdComboBox.AllowDrop = true;
             cmdComboBox.FormattingEnabled = true;
-            cmdComboBox.Location = new Point(11, 444);
+            cmdComboBox.Location = new Point(11, 437);
             cmdComboBox.Name = "cmdComboBox";
             cmdComboBox.Size = new Size(151, 28);
             cmdComboBox.TabIndex = 9;
+            cmdComboBox.SelectedIndexChanged += cmdComboBox_SelectedIndexChanged;
             // 
-            // textBox1
+            // agentfileBox
             // 
-            textBox1.Location = new Point(11, 478);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(845, 27);
-            textBox1.TabIndex = 10;
+            agentfileBox.Location = new Point(11, 504);
+            agentfileBox.Name = "agentfileBox";
+            agentfileBox.Size = new Size(845, 27);
+            agentfileBox.TabIndex = 10;
             // 
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(11, 421);
+            label5.Location = new Point(11, 481);
             label5.Name = "label5";
-            label5.Size = new Size(136, 20);
+            label5.Size = new Size(118, 20);
             label5.TabIndex = 11;
-            label5.Text = "Built-in Commands";
+            label5.Text = "File Path (Agent)";
             // 
             // ClientInfo
             // 
@@ -271,7 +273,7 @@ namespace Server_side
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1297, 659);
             Controls.Add(label5);
-            Controls.Add(textBox1);
+            Controls.Add(agentfileBox);
             Controls.Add(cmdComboBox);
             Controls.Add(commandBox);
             Controls.Add(label1);
@@ -308,7 +310,7 @@ namespace Server_side
         private Label label3;
         private Label label2;
         private ComboBox cmdComboBox;
-        private TextBox textBox1;
+        private TextBox agentfileBox;
         private Label label5;
     }
 }

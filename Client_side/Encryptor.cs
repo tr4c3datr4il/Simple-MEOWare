@@ -39,9 +39,6 @@ namespace Client_side
             {
                 this.Key = rfc.GetBytes(32);
                 this.IV = rfc.GetBytes(16);
-
-                Console.WriteLine("Key: " + Convert.ToBase64String(this.Key));
-                Console.WriteLine("IV: " + Convert.ToBase64String(this.IV));
             }
         }
 

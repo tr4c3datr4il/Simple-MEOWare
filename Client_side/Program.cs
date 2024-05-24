@@ -4,6 +4,7 @@ using System.Net.Sockets;
 public class Program
 {
     public static Socket clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+    
     public static void Main()
     {
         // Connect to the server and send the public key
@@ -23,10 +24,15 @@ public class Program
                 byte[] encryptedResult = encryptor.Encrypt(result);
                 NetworkLayer.SendResult(encryptedResult);
             }
+            catch (SocketException)
+            {
+                break;
+            }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                NetworkLayer.SendResult(e.Message);
             }
         }
+        Environment.Exit(0);
     }
 }

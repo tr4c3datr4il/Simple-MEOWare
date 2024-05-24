@@ -43,6 +43,17 @@ namespace Server_side.UserControls
                 string connectTime = selectedItem.SubItems[3].Text;
                 string clientOS = selectedItem.SubItems[4].Text;
 
+                var client = NetworkLayer.clientList.SelectMany(dict => dict)
+                    .Where(kvp => kvp.Key.RemoteEndPoint.ToString().Contains(clientIP))
+                    .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
+
+                if (client.Count == 0 || !NetworkLayer.SocketConnected(client.Keys.First()))
+                {
+                    MessageBox.Show("Client disconnected", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    RemoveClientFromListView(clientIP);
+                    return;
+                }
+
                 ClientInfo clientInfoForm = new ClientInfo(clientIP, clientHostname, connectTime, clientOS);
                 clientInfoForm.Show();
             }
@@ -63,6 +74,24 @@ namespace Server_side.UserControls
 
             ListViewItem item = new ListViewItem(new[] { "Click", clientIP, clientHostname, connectTime, clientOS });
             clientListView.Items.Add(item);
+        }
+
+        private void RemoveClientFromListView(string clientIP)
+        {
+            if (clientListView.Items != null)
+            {
+                if (clientListView.Items.Count > 0)
+                {
+                    foreach (ListViewItem item in clientListView.Items)
+                    {
+                        if (item.SubItems[1].Text == clientIP)
+                        {
+                            clientListView.Items.Remove(item);
+                            break;
+                        }
+                    }
+                }
+            }
         }
     }
 

