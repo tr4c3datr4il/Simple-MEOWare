@@ -36,7 +36,7 @@ namespace Client_side
             }
         }
 
-        private byte[] Encrypt(string msg)
+        public byte[] Encrypt(string msg)
         {
             using (AesManaged aes = new AesManaged())
             {
@@ -57,7 +57,48 @@ namespace Client_side
             }
         }
 
-        private string Decrypt(byte[] msg)
+        public byte[] Encrypt(byte[] msg)
+        {
+            using (AesManaged aes = new AesManaged())
+            {
+                aes.Key = this.Key;
+                aes.IV = this.IV;
+                aes.BlockSize = 128;
+                aes.Mode = CipherMode.CBC;
+                aes.Padding = PaddingMode.PKCS7;
+                using (MemoryStream memoryStream = new MemoryStream())
+                {
+                    using (CryptoStream cryptoStream = new CryptoStream(memoryStream, aes.CreateEncryptor(), CryptoStreamMode.Write))
+                    {
+                        cryptoStream.Write(msg, 0, msg.Length);
+                    }
+                    return memoryStream.ToArray();
+                }
+            }
+        }
+
+        public string Decrypt(string msg)
+        {
+            using (AesManaged aes = new AesManaged())
+            {
+                aes.Key = this.Key;
+                aes.IV = this.IV;
+                aes.BlockSize = 128;
+                aes.Mode = CipherMode.CBC;
+                aes.Padding = PaddingMode.PKCS7;
+                using (MemoryStream memoryStream = new MemoryStream(Encoding.UTF8.GetBytes(msg)))
+                {
+                    using (CryptoStream cryptoStream = new CryptoStream(memoryStream, aes.CreateDecryptor(), CryptoStreamMode.Read))
+                    {
+                        byte[] array = new byte[msg.Length];
+                        cryptoStream.Read(array, 0, array.Length);
+                        return Encoding.UTF8.GetString(array);
+                    }
+                }
+            }
+        }
+
+        public string Decrypt(byte[] msg)
         {
             using (AesManaged aes = new AesManaged())
             {

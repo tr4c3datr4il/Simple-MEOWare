@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Local-Lab\\Workspace\\C2_Meoware\\Client_side\\Client_side.csproj",
+      "projectUniqueName": "D:\\Local-Lab\\Workspace\\C2_Meoware\\Simple-MEOWare\\Client_side\\Client_side.csproj",
       "projectName": "Client_side",
-      "projectPath": "D:\\Local-Lab\\Workspace\\C2_Meoware\\Client_side\\Client_side.csproj",
+      "projectPath": "D:\\Local-Lab\\Workspace\\C2_Meoware\\Simple-MEOWare\\Client_side\\Client_side.csproj",
       "packagesPath": "C:\\Users\\huadu\\.nuget\\packages\\",
-      "outputPath": "D:\\Local-Lab\\Workspace\\C2_Meoware\\Client_side\\obj\\",
+      "outputPath": "D:\\Local-Lab\\Workspace\\C2_Meoware\\Simple-MEOWare\\Client_side\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "D:\\Win-Tools\\ETC\\VStudio-SDK\\NuGetPackages"
