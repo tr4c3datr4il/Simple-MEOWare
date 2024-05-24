@@ -41,6 +41,8 @@ namespace Client_side
             return data;
         }
 
+
+        // Initialize the connection by sending the public key
         public static void SendPublicKey()
         {
             byte[] publicKey = rsa.ExportSubjectPublicKeyInfo();

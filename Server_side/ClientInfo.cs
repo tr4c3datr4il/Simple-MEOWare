@@ -47,14 +47,19 @@ namespace Server_side
             byte[] encryptedCommand = encryptor.Encrypt(command.Trim());
             NetworkLayer.Send(socket, encryptedCommand);
 
-            agentLogBox.AppendText(commandBox.Text + Environment.NewLine);
+            logging("Command sent: " + commandBox.Text);
 
             // Receive response
             byte[] response = NetworkLayer.ReceiveResult(socket);
             string decryptedResponse = encryptor.Decrypt(response);
-            agentLogBox.AppendText(decryptedResponse + Environment.NewLine);
+            logging("Response received: " + decryptedResponse);
 
             commandBox.Text = "";
+        }
+
+        private void logging(string log)
+        {
+            agentLogBox.AppendText(log + Environment.NewLine);
         }
     }
 

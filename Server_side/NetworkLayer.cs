@@ -106,12 +106,14 @@ namespace Server_side
             return data;
         }
 
-        public static void ReceivePublicKey(Socket clientSocket)
+
+        // Initialize the connection with the client
+        public static void ReceivePublicKey(Socket socket)
         {
             try
             {
                 byte[] data = new byte[4096];
-                Receive(clientSocket, data);
+                Receive(socket, data);
                 rsa.ImportSubjectPublicKeyInfo(data, out _);
             }
             catch (Exception e)
@@ -121,18 +123,18 @@ namespace Server_side
             }
         }
 
-        public static void SendPassPhrase(Socket clientSocket)
+        public static void SendPassPhrase(Socket socket)
         {
             try
             {
-                string passPhrase = RandomString(16);
+                string passPhrase = RandomString(32);
                 byte[] data = Encoding.UTF8.GetBytes(passPhrase);
                 byte[] encryptedData = rsa.Encrypt(data, true);
-                Send(clientSocket, encryptedData);
+                Send(socket, encryptedData);
 
                 Dictionary<Socket, string> client = new Dictionary<Socket, string>
                 {
-                    { clientSocket, passPhrase }
+                    { socket, passPhrase }
                 };
                 clientList.Add(client);
             }

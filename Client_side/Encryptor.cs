@@ -32,10 +32,6 @@ namespace Client_side
             return Convert.FromBase64String(Encoding.UTF8.GetString(s));
         }
 
-        public Encryptor()
-        {
-        }
-
         public Encryptor(string passwd)
         {
             byte[] salt = Hasher(passwd);
