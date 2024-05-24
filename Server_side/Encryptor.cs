@@ -5,7 +5,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Client_side
+namespace Server_side
 {
     internal class Encryptor
     {

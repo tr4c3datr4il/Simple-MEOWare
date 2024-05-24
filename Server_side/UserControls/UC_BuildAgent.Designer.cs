@@ -31,42 +31,44 @@ namespace Server_side.UserControls
         /// </summary>
         private void InitializeComponent()
         {
-            radioButton1 = new RadioButton();
-            radioButton2 = new RadioButton();
-            button1 = new Button();
+            linuxBuildBtn = new RadioButton();
+            windowsBuildBtn = new RadioButton();
+            buildBtn = new Button();
             richTextBox1 = new RichTextBox();
+            groupBox1 = new GroupBox();
+            groupBox1.SuspendLayout();
             SuspendLayout();
             // 
-            // radioButton1
+            // linuxBuildBtn
             // 
-            radioButton1.AutoSize = true;
-            radioButton1.Location = new Point(105, 113);
-            radioButton1.Name = "radioButton1";
-            radioButton1.Size = new Size(117, 24);
-            radioButton1.TabIndex = 0;
-            radioButton1.TabStop = true;
-            radioButton1.Text = "radioButton1";
-            radioButton1.UseVisualStyleBackColor = true;
+            linuxBuildBtn.AutoSize = true;
+            linuxBuildBtn.Location = new Point(34, 30);
+            linuxBuildBtn.Name = "linuxBuildBtn";
+            linuxBuildBtn.Size = new Size(64, 24);
+            linuxBuildBtn.TabIndex = 0;
+            linuxBuildBtn.TabStop = true;
+            linuxBuildBtn.Text = "Linux";
+            linuxBuildBtn.UseVisualStyleBackColor = true;
             // 
-            // radioButton2
+            // windowsBuildBtn
             // 
-            radioButton2.AutoSize = true;
-            radioButton2.Location = new Point(106, 148);
-            radioButton2.Name = "radioButton2";
-            radioButton2.Size = new Size(117, 24);
-            radioButton2.TabIndex = 1;
-            radioButton2.TabStop = true;
-            radioButton2.Text = "radioButton2";
-            radioButton2.UseVisualStyleBackColor = true;
+            windowsBuildBtn.AutoSize = true;
+            windowsBuildBtn.Location = new Point(34, 71);
+            windowsBuildBtn.Name = "windowsBuildBtn";
+            windowsBuildBtn.Size = new Size(91, 24);
+            windowsBuildBtn.TabIndex = 1;
+            windowsBuildBtn.TabStop = true;
+            windowsBuildBtn.Text = "Windows";
+            windowsBuildBtn.UseVisualStyleBackColor = true;
             // 
-            // button1
+            // buildBtn
             // 
-            button1.Location = new Point(648, 78);
-            button1.Name = "button1";
-            button1.Size = new Size(94, 29);
-            button1.TabIndex = 2;
-            button1.Text = "button1";
-            button1.UseVisualStyleBackColor = true;
+            buildBtn.Location = new Point(1585, 705);
+            buildBtn.Name = "buildBtn";
+            buildBtn.Size = new Size(137, 65);
+            buildBtn.TabIndex = 2;
+            buildBtn.Text = "Build";
+            buildBtn.UseVisualStyleBackColor = true;
             // 
             // richTextBox1
             // 
@@ -76,25 +78,37 @@ namespace Server_side.UserControls
             richTextBox1.TabIndex = 3;
             richTextBox1.Text = "";
             // 
+            // groupBox1
+            // 
+            groupBox1.Controls.Add(windowsBuildBtn);
+            groupBox1.Controls.Add(linuxBuildBtn);
+            groupBox1.Location = new Point(71, 76);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Size = new Size(194, 117);
+            groupBox1.TabIndex = 4;
+            groupBox1.TabStop = false;
+            groupBox1.Text = "Operating System";
+            // 
             // UC_BuildAgent
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(richTextBox1);
-            Controls.Add(button1);
-            Controls.Add(radioButton2);
-            Controls.Add(radioButton1);
+            Controls.Add(buildBtn);
+            Controls.Add(groupBox1);
             Name = "UC_BuildAgent";
             Size = new Size(1839, 861);
+            groupBox1.ResumeLayout(false);
+            groupBox1.PerformLayout();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
 
-        private RadioButton radioButton1;
-        private RadioButton radioButton2;
-        private Button button1;
+        private RadioButton linuxBuildBtn;
+        private RadioButton windowsBuildBtn;
+        private Button buildBtn;
         private RichTextBox richTextBox1;
+        private GroupBox groupBox1;
     }
 }

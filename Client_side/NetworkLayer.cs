@@ -28,17 +28,17 @@ namespace Client_side
             Program.clientSocket.Send(buffer, 0, buffer.Length, SocketFlags.None);
         }
 
-        public static string ReceiveCommand()
+        public static byte[] ReceiveCommand()
         {
-            byte[] buffer = new byte[Program.clientSocket.SendBufferSize];
+            byte[] buffer = new byte[Program.clientSocket.ReceiveBufferSize];
             int bytesRead = Program.clientSocket.Receive(buffer);
-            byte[] formatted = new byte[bytesRead];
+            byte[] data = new byte[bytesRead];
             for (int i = 0; i < bytesRead; i++)
             {
-                formatted[i] = buffer[i];
+                data[i] = buffer[i];
             }
-            string strData = Encoding.UTF8.GetString(formatted);
-            return strData;
+            
+            return data;
         }
 
         public static void SendPublicKey()

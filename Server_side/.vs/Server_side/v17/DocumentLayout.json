@@ -1,18 +1,34 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "D:\\Local-Lab\\Workspace\\C2_Meoware\\Server_side\\",
+  "WorkspaceRootPath": "D:\\Local-Lab\\Workspace\\C2_Meoware\\Simple-MEOWare\\Server_side\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{77E219EC-B3A2-480C-AC53-339D06CD2737}|Server_side.csproj|d:\\local-lab\\workspace\\c2_meoware\\server_side\\menu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "AbsoluteMoniker": "D:0:0:{77E219EC-B3A2-480C-AC53-339D06CD2737}|Server_side.csproj|d:\\local-lab\\workspace\\c2_meoware\\simple-meoware\\server_side\\clientinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{77E219EC-B3A2-480C-AC53-339D06CD2737}|Server_side.csproj|solutionrelative:clientinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{77E219EC-B3A2-480C-AC53-339D06CD2737}|Server_side.csproj|d:\\local-lab\\workspace\\c2_meoware\\simple-meoware\\server_side\\networklayer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{77E219EC-B3A2-480C-AC53-339D06CD2737}|Server_side.csproj|solutionrelative:networklayer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{77E219EC-B3A2-480C-AC53-339D06CD2737}|Server_side.csproj|d:\\local-lab\\workspace\\c2_meoware\\simple-meoware\\server_side\\encryptor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{77E219EC-B3A2-480C-AC53-339D06CD2737}|Server_side.csproj|solutionrelative:encryptor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{77E219EC-B3A2-480C-AC53-339D06CD2737}|Server_side.csproj|d:\\local-lab\\workspace\\c2_meoware\\simple-meoware\\server_side\\usercontrols\\uc_server.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{77E219EC-B3A2-480C-AC53-339D06CD2737}|Server_side.csproj|solutionrelative:usercontrols\\uc_server.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{77E219EC-B3A2-480C-AC53-339D06CD2737}|Server_side.csproj|d:\\local-lab\\workspace\\c2_meoware\\simple-meoware\\server_side\\menu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{77E219EC-B3A2-480C-AC53-339D06CD2737}|Server_side.csproj|solutionrelative:menu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{77E219EC-B3A2-480C-AC53-339D06CD2737}|Server_side.csproj|d:\\local-lab\\workspace\\c2_meoware\\simple-meoware\\server_side\\clientinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{77E219EC-B3A2-480C-AC53-339D06CD2737}|Server_side.csproj|solutionrelative:clientinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{77E219EC-B3A2-480C-AC53-339D06CD2737}|Server_side.csproj|d:\\local-lab\\workspace\\c2_meoware\\simple-meoware\\server_side\\menu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{77E219EC-B3A2-480C-AC53-339D06CD2737}|Server_side.csproj|solutionrelative:menu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{77E219EC-B3A2-480C-AC53-339D06CD2737}|Server_side.csproj|d:\\local-lab\\workspace\\c2_meoware\\server_side\\intro.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{77E219EC-B3A2-480C-AC53-339D06CD2737}|Server_side.csproj|solutionrelative:intro.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{77E219EC-B3A2-480C-AC53-339D06CD2737}|Server_side.csproj|d:\\local-lab\\workspace\\c2_meoware\\server_side\\intro.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{77E219EC-B3A2-480C-AC53-339D06CD2737}|Server_side.csproj|solutionrelative:intro.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,44 +38,96 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Menu.cs [Design]",
-              "DocumentMoniker": "D:\\Local-Lab\\Workspace\\C2_Meoware\\Server_side\\Menu.cs",
-              "RelativeDocumentMoniker": "Menu.cs",
-              "ToolTip": "D:\\Local-Lab\\Workspace\\C2_Meoware\\Server_side\\Menu.cs [Design]",
-              "RelativeToolTip": "Menu.cs [Design]",
+              "DocumentIndex": 5,
+              "Title": "ClientInfo.cs [Design]",
+              "DocumentMoniker": "D:\\Local-Lab\\Workspace\\C2_Meoware\\Simple-MEOWare\\Server_side\\ClientInfo.cs",
+              "RelativeDocumentMoniker": "ClientInfo.cs",
+              "ToolTip": "D:\\Local-Lab\\Workspace\\C2_Meoware\\Simple-MEOWare\\Server_side\\ClientInfo.cs [Design]",
+              "RelativeToolTip": "ClientInfo.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-21T11:00:25.24Z",
+              "WhenOpened": "2024-05-24T18:09:41.737Z",
               "EditorCaption": " [Design]"
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "Intro.cs [Design]",
-              "DocumentMoniker": "D:\\Local-Lab\\Workspace\\C2_Meoware\\Server_side\\Intro.cs",
-              "RelativeDocumentMoniker": "Intro.cs",
-              "ToolTip": "D:\\Local-Lab\\Workspace\\C2_Meoware\\Server_side\\Intro.cs [Design]",
-              "RelativeToolTip": "Intro.cs [Design]",
+              "Title": "Encryptor.cs",
+              "DocumentMoniker": "D:\\Local-Lab\\Workspace\\C2_Meoware\\Simple-MEOWare\\Server_side\\Encryptor.cs",
+              "RelativeDocumentMoniker": "Encryptor.cs",
+              "ToolTip": "D:\\Local-Lab\\Workspace\\C2_Meoware\\Simple-MEOWare\\Server_side\\Encryptor.cs",
+              "RelativeToolTip": "Encryptor.cs",
+              "ViewState": "AQIAAHIAAAAAAAAAAAAAAIIAAAAcAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-21T10:58:57.108Z",
-              "EditorCaption": " [Design]"
+              "WhenOpened": "2024-05-24T18:11:02.67Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ClientInfo.cs",
+              "DocumentMoniker": "D:\\Local-Lab\\Workspace\\C2_Meoware\\Simple-MEOWare\\Server_side\\ClientInfo.cs",
+              "RelativeDocumentMoniker": "ClientInfo.cs",
+              "ToolTip": "D:\\Local-Lab\\Workspace\\C2_Meoware\\Simple-MEOWare\\Server_side\\ClientInfo.cs",
+              "RelativeToolTip": "ClientInfo.cs",
+              "ViewState": "AQIAACYAAAAAAAAAAAAswDQAAABBAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-24T17:42:39.962Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "Intro.cs",
-              "DocumentMoniker": "D:\\Local-Lab\\Workspace\\C2_Meoware\\Server_side\\Intro.cs",
-              "RelativeDocumentMoniker": "Intro.cs",
-              "ToolTip": "D:\\Local-Lab\\Workspace\\C2_Meoware\\Server_side\\Intro.cs",
-              "RelativeToolTip": "Intro.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAATAAAA",
+              "Title": "NetworkLayer.cs",
+              "DocumentMoniker": "D:\\Local-Lab\\Workspace\\C2_Meoware\\Simple-MEOWare\\Server_side\\NetworkLayer.cs",
+              "RelativeDocumentMoniker": "NetworkLayer.cs",
+              "ToolTip": "D:\\Local-Lab\\Workspace\\C2_Meoware\\Simple-MEOWare\\Server_side\\NetworkLayer.cs",
+              "RelativeToolTip": "NetworkLayer.cs",
+              "ViewState": "AQIAAFkAAAAAAAAAAAA2wGoAAAAJAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-21T10:57:56.883Z",
+              "WhenOpened": "2024-05-24T16:38:28.893Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "UC_Server.cs",
+              "DocumentMoniker": "D:\\Local-Lab\\Workspace\\C2_Meoware\\Simple-MEOWare\\Server_side\\UserControls\\UC_Server.cs",
+              "RelativeDocumentMoniker": "UserControls\\UC_Server.cs",
+              "ToolTip": "D:\\Local-Lab\\Workspace\\C2_Meoware\\Simple-MEOWare\\Server_side\\UserControls\\UC_Server.cs",
+              "RelativeToolTip": "UserControls\\UC_Server.cs",
+              "ViewState": "AQIAAC8AAAAAAAAAAAAAACsAAAA5AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-24T16:24:39.924Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Menu.cs",
+              "DocumentMoniker": "D:\\Local-Lab\\Workspace\\C2_Meoware\\Simple-MEOWare\\Server_side\\Menu.cs",
+              "RelativeDocumentMoniker": "Menu.cs",
+              "ToolTip": "D:\\Local-Lab\\Workspace\\C2_Meoware\\Simple-MEOWare\\Server_side\\Menu.cs",
+              "RelativeToolTip": "Menu.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAB8AAAAJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-24T16:20:16.235Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Menu.cs [Design]",
+              "DocumentMoniker": "D:\\Local-Lab\\Workspace\\C2_Meoware\\Simple-MEOWare\\Server_side\\Menu.cs",
+              "RelativeDocumentMoniker": "Menu.cs",
+              "ToolTip": "D:\\Local-Lab\\Workspace\\C2_Meoware\\Simple-MEOWare\\Server_side\\Menu.cs [Design]",
+              "RelativeToolTip": "Menu.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-21T11:00:25.24Z",
+              "EditorCaption": " [Design]"
             }
           ]
         }

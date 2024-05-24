@@ -39,7 +39,7 @@ namespace Server_side
 
         private void Exit_btn_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Environment.Exit(0);
         }
 
     }

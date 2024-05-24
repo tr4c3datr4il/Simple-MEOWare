@@ -29,14 +29,13 @@
         private void InitializeComponent()
         {
             Listen = new Button();
-            listView1 = new ListView();
-            columnHeader5 = new ColumnHeader();
-            columnHeader1 = new ColumnHeader();
-            columnHeader2 = new ColumnHeader();
-            columnHeader3 = new ColumnHeader();
-            columnHeader4 = new ColumnHeader();
+            clientListView = new ListView();
+            interactCollumn = new ColumnHeader();
+            ipCollumn = new ColumnHeader();
+            hostnameCollumn = new ColumnHeader();
+            conTimeCollumn = new ColumnHeader();
+            osCollumn = new ColumnHeader();
             Stop = new Button();
-            Create_connection_btn = new Button();
             SuspendLayout();
             // 
             // Listen
@@ -49,42 +48,42 @@
             Listen.UseVisualStyleBackColor = true;
             Listen.Click += Listen_Click;
             // 
-            // listView1
+            // clientListView
             // 
-            listView1.BackColor = SystemColors.Info;
-            listView1.Columns.AddRange(new ColumnHeader[] { columnHeader5, columnHeader1, columnHeader2, columnHeader3, columnHeader4 });
-            listView1.Location = new Point(19, 37);
-            listView1.Name = "listView1";
-            listView1.Size = new Size(1325, 637);
-            listView1.TabIndex = 1;
-            listView1.UseCompatibleStateImageBehavior = false;
-            listView1.View = View.Details;
-            listView1.DoubleClick += listView1_DoubleClick;
+            clientListView.BackColor = SystemColors.Info;
+            clientListView.Columns.AddRange(new ColumnHeader[] { interactCollumn, ipCollumn, hostnameCollumn, conTimeCollumn, osCollumn });
+            clientListView.Location = new Point(19, 37);
+            clientListView.Name = "clientListView";
+            clientListView.Size = new Size(1325, 637);
+            clientListView.TabIndex = 1;
+            clientListView.UseCompatibleStateImageBehavior = false;
+            clientListView.View = View.Details;
+            clientListView.DoubleClick += listView1_DoubleClick;
             // 
-            // columnHeader5
+            // interactCollumn
             // 
-            columnHeader5.Text = "Clickme";
-            columnHeader5.Width = 200;
+            interactCollumn.Text = "Interact";
+            interactCollumn.Width = 200;
             // 
-            // columnHeader1
+            // ipCollumn
             // 
-            columnHeader1.Text = "IP";
-            columnHeader1.Width = 160;
+            ipCollumn.Text = "IP";
+            ipCollumn.Width = 160;
             // 
-            // columnHeader2
+            // hostnameCollumn
             // 
-            columnHeader2.Text = "Hostname";
-            columnHeader2.Width = 300;
+            hostnameCollumn.Text = "Host Name";
+            hostnameCollumn.Width = 300;
             // 
-            // columnHeader3
+            // conTimeCollumn
             // 
-            columnHeader3.Text = "Connect_time";
-            columnHeader3.Width = 200;
+            conTimeCollumn.Text = "Connect Time";
+            conTimeCollumn.Width = 200;
             // 
-            // columnHeader4
+            // osCollumn
             // 
-            columnHeader4.Text = "OS";
-            columnHeader4.Width = 400;
+            osCollumn.Text = "OS";
+            osCollumn.Width = 400;
             // 
             // Stop
             // 
@@ -96,26 +95,15 @@
             Stop.UseVisualStyleBackColor = true;
             Stop.Click += Stop_Click;
             // 
-            // Create_connection_btn
-            // 
-            Create_connection_btn.Location = new Point(1468, 336);
-            Create_connection_btn.Name = "Create_connection_btn";
-            Create_connection_btn.Size = new Size(193, 88);
-            Create_connection_btn.TabIndex = 3;
-            Create_connection_btn.Text = "make connection";
-            Create_connection_btn.UseVisualStyleBackColor = true;
-            Create_connection_btn.Click += Create_connection_btn_Click;
-            // 
             // UC_Server
             // 
             AutoScaleDimensions = new SizeF(13F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            Controls.Add(Create_connection_btn);
             Controls.Add(Stop);
-            Controls.Add(listView1);
+            Controls.Add(clientListView);
             Controls.Add(Listen);
-            Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold, GraphicsUnit.Point);
             Margin = new Padding(5);
             Name = "UC_Server";
             Size = new Size(1839, 861);
@@ -125,13 +113,12 @@
         #endregion
 
         private System.Windows.Forms.Button Listen;
-        private System.Windows.Forms.ListView listView1;
-        private ColumnHeader columnHeader1;
-        private ColumnHeader columnHeader2;
-        private ColumnHeader columnHeader3;
-        private ColumnHeader columnHeader4;
+        private System.Windows.Forms.ListView clientListView;
+        private ColumnHeader ipCollumn;
+        private ColumnHeader hostnameCollumn;
+        private ColumnHeader conTimeCollumn;
+        private ColumnHeader osCollumn;
         private Button Stop;
-        private Button Create_connection_btn;
-        private ColumnHeader columnHeader5;
+        private ColumnHeader interactCollumn;
     }
 }
