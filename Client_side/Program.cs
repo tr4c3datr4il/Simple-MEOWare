@@ -20,9 +20,7 @@ public class Program
             {
                 byte[] command = NetworkLayer.ReceiveCommand();
                 string decryptedCommand = encryptor.Decrypt(command);
-                string result = HandleCommand.ProcessCommand(decryptedCommand);
-                byte[] encryptedResult = encryptor.Encrypt(result);
-                NetworkLayer.SendResult(encryptedResult);
+                HandleCommand.ProcessCommand(decryptedCommand, encryptor);
             }
             catch (SocketException)
             {

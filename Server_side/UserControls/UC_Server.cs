@@ -54,8 +54,18 @@ namespace Server_side.UserControls
                     return;
                 }
 
-                ClientInfo clientInfoForm = new ClientInfo(clientIP, clientHostname, connectTime, clientOS);
-                clientInfoForm.Show();
+
+                // Using thread to avoid blocking the UI
+                Thread t = new Thread(() =>
+                {
+                    ClientInfo clientInfo = new ClientInfo(clientIP, clientHostname, connectTime, clientOS);
+                    clientInfo.Show();
+                    Application.Run(clientInfo);
+                });
+
+                // Fix 'DragDrop registration did not succeed.'
+                t.SetApartmentState(ApartmentState.STA);
+                t.Start();
             }
         }
 

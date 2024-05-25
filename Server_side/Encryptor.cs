@@ -22,14 +22,9 @@ namespace Server_side
             return Convert.ToBase64String(s);
         }
 
-        public static string InvertStr(string s)
+        public static byte[] InvertStr(string s)
         {
-            return Encoding.UTF8.GetString(Convert.FromBase64String(s));
-        }
-
-        public static byte[] InvertStr(byte[] s)
-        {
-            return Convert.FromBase64String(Encoding.UTF8.GetString(s));
+            return Convert.FromBase64String(s);
         }
 
         public Encryptor(string passwd)

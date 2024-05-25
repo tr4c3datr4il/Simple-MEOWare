@@ -1,8 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "bTLgKFE3PXdt27xwAyMZxIfG4wW2daYJz4DsGzIkbmgH4BkZ10tfsFwaT0moVEXdNxQPBfXdCaSrc1EUoAK12g==",
+  "dgSpecHash": "8JX8AhBJbgxYFAJR50h+cLWzJVa1R5XVEEPbhT00fznzEbWyckGvfZZt5ZB97c9IuYblbmZViJcyJllPtWBdtQ==",
   "success": true,
   "projectFilePath": "D:\\Local-Lab\\Workspace\\C2_Meoware\\Simple-MEOWare\\Client_side\\Client_side.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\huadu\\.nuget\\packages\\microsoft.win32.systemevents\\8.0.0\\microsoft.win32.systemevents.8.0.0.nupkg.sha512",
+    "C:\\Users\\huadu\\.nuget\\packages\\system.drawing.common\\8.0.5\\system.drawing.common.8.0.5.nupkg.sha512"
+  ],
   "logs": []
 }
