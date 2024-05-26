@@ -1,3 +1,4 @@
+using System.Configuration;
 using System.Net.Sockets;
 
 namespace Server_side
@@ -6,6 +7,7 @@ namespace Server_side
     {
         public static Socket listenerSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         public static Properties.Settings mySettings = new Properties.Settings();
+        public static Configuration myConfigs = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
         /// <summary>
         ///  The main entry point for the application.
         /// </summary>

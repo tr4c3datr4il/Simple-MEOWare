@@ -25,17 +25,24 @@ namespace Server_side.UserControls
             string downloadFolder = ConfigurationManager.AppSettings["DownloadFolder"];
             int port = int.Parse(ConfigurationManager.AppSettings["Port"]);
 
-            txtDownloadFolder.Text = downloadFolder;
-            txtPort.Text = port.ToString();
+            downloadFolderBox.Text = downloadFolder;
+            portBox.Text = port.ToString();
         }
 
         private void SaveConfig_btn_Click(object sender, EventArgs e)
         {
-            Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-            config.AppSettings.Settings["DownloadFolder"].Value = txtDownloadFolder.Text;
-            config.AppSettings.Settings["Port"].Value = txtPort.Text;
-            config.Save(ConfigurationSaveMode.Modified);
+            Program.myConfigs.AppSettings.Settings["DownloadFolder"].Value = downloadFolderBox.Text;
+            Program.myConfigs.AppSettings.Settings["Port"].Value = portBox.Text;
+            Program.myConfigs.Save(ConfigurationSaveMode.Modified);
             ConfigurationManager.RefreshSection("appSettings");
+
+            MessageBox.Show("Config saved", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void folderBrowserBtn_Click(object sender, EventArgs e)
+        {
+            folderBrowserDialog1.ShowDialog();
+            downloadFolderBox.Text = folderBrowserDialog1.SelectedPath;
         }
     }
 }

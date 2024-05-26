@@ -48,7 +48,7 @@ namespace Server_side
 
         private static void StartListening()
         {
-            IPEndPoint localEndPoint = new IPEndPoint(IPAddress.Any, 1337);
+            IPEndPoint localEndPoint = new IPEndPoint(IPAddress.Any, int.Parse(Program.myConfigs.AppSettings.Settings["Port"].Value));
             Program.listenerSocket.Bind(localEndPoint);
             Program.listenerSocket.Listen(100);
             MessageBox.Show("Server started", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);

@@ -55,9 +55,10 @@ namespace Server_side
             label5 = new Label();
             groupBox2 = new GroupBox();
             sendCommandBtn1 = new Button();
-            textBox1 = new TextBox();
+            pidBox = new TextBox();
             label1 = new Label();
             groupBox3 = new GroupBox();
+            clearLogBtn = new Button();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             groupBox3.SuspendLayout();
@@ -285,12 +286,12 @@ namespace Server_side
             sendCommandBtn1.UseVisualStyleBackColor = true;
             sendCommandBtn1.Click += sendCommandBtn1_Click;
             // 
-            // textBox1
+            // pidBox
             // 
-            textBox1.Location = new Point(6, 183);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(125, 27);
-            textBox1.TabIndex = 13;
+            pidBox.Location = new Point(6, 183);
+            pidBox.Name = "pidBox";
+            pidBox.Size = new Size(125, 27);
+            pidBox.TabIndex = 13;
             // 
             // label1
             // 
@@ -305,7 +306,7 @@ namespace Server_side
             // 
             groupBox3.Controls.Add(cmdComboBox);
             groupBox3.Controls.Add(sendCommandBtn1);
-            groupBox3.Controls.Add(textBox1);
+            groupBox3.Controls.Add(pidBox);
             groupBox3.Controls.Add(label5);
             groupBox3.Controls.Add(label1);
             groupBox3.Controls.Add(agentfileBox);
@@ -316,11 +317,22 @@ namespace Server_side
             groupBox3.TabStop = false;
             groupBox3.Text = "Built-in Commands";
             // 
+            // clearLogBtn
+            // 
+            clearLogBtn.Location = new Point(506, 405);
+            clearLogBtn.Name = "clearLogBtn";
+            clearLogBtn.Size = new Size(72, 29);
+            clearLogBtn.TabIndex = 15;
+            clearLogBtn.Text = "Clear";
+            clearLogBtn.UseVisualStyleBackColor = true;
+            clearLogBtn.Click += clearLogBtn_Click;
+            // 
             // ClientInfo
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1297, 877);
+            Controls.Add(clearLogBtn);
             Controls.Add(agentLogBox);
             Controls.Add(groupBox1);
             Controls.Add(groupBox2);
@@ -361,8 +373,9 @@ namespace Server_side
         private Label label5;
         private GroupBox groupBox2;
         private Button sendCommandBtn1;
-        private TextBox textBox1;
+        private TextBox pidBox;
         private Label label1;
         private GroupBox groupBox3;
+        private Button clearLogBtn;
     }
 }
