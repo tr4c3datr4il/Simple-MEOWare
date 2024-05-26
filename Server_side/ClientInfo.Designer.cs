@@ -32,13 +32,12 @@ namespace Server_side
         /// </summary>
         private void InitializeComponent()
         {
-            sendCommandBtn = new Button();
+            sendCommandBtn2 = new Button();
             ClientIP = new Label();
             ClientHostname = new Label();
             ConnectTime = new Label();
             ClientOS = new Label();
             agentLogBox = new RichTextBox();
-            label1 = new Label();
             groupBox1 = new GroupBox();
             passLabel = new Label();
             ivLabel = new Label();
@@ -54,18 +53,25 @@ namespace Server_side
             cmdComboBox = new ComboBox();
             agentfileBox = new TextBox();
             label5 = new Label();
+            groupBox2 = new GroupBox();
+            sendCommandBtn1 = new Button();
+            textBox1 = new TextBox();
+            label1 = new Label();
+            groupBox3 = new GroupBox();
             groupBox1.SuspendLayout();
+            groupBox2.SuspendLayout();
+            groupBox3.SuspendLayout();
             SuspendLayout();
             // 
-            // sendCommandBtn
+            // sendCommandBtn2
             // 
-            sendCommandBtn.Location = new Point(1137, 579);
-            sendCommandBtn.Name = "sendCommandBtn";
-            sendCommandBtn.Size = new Size(148, 56);
-            sendCommandBtn.TabIndex = 0;
-            sendCommandBtn.Text = "Send";
-            sendCommandBtn.UseVisualStyleBackColor = true;
-            sendCommandBtn.Click += sendCommandBtn_Click;
+            sendCommandBtn2.Location = new Point(1120, 26);
+            sendCommandBtn2.Name = "sendCommandBtn2";
+            sendCommandBtn2.Size = new Size(148, 56);
+            sendCommandBtn2.TabIndex = 0;
+            sendCommandBtn2.Text = "Send";
+            sendCommandBtn2.UseVisualStyleBackColor = true;
+            sendCommandBtn2.Click += sendCommandBtn_Click;
             // 
             // ClientIP
             // 
@@ -111,15 +117,6 @@ namespace Server_side
             agentLogBox.Size = new Size(701, 418);
             agentLogBox.TabIndex = 5;
             agentLogBox.Text = "";
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Location = new Point(11, 585);
-            label1.Name = "label1";
-            label1.Size = new Size(131, 20);
-            label1.TabIndex = 6;
-            label1.Text = "Command Prompt";
             // 
             // groupBox1
             // 
@@ -236,67 +233,117 @@ namespace Server_side
             // 
             // commandBox
             // 
-            commandBox.Location = new Point(11, 608);
+            commandBox.Location = new Point(6, 55);
             commandBox.Name = "commandBox";
-            commandBox.Size = new Size(845, 27);
+            commandBox.Size = new Size(905, 27);
             commandBox.TabIndex = 8;
             // 
             // cmdComboBox
             // 
             cmdComboBox.AllowDrop = true;
+            cmdComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
             cmdComboBox.FormattingEnabled = true;
-            cmdComboBox.Location = new Point(11, 437);
+            cmdComboBox.Location = new Point(7, 37);
             cmdComboBox.Name = "cmdComboBox";
-            cmdComboBox.Size = new Size(151, 28);
+            cmdComboBox.Size = new Size(222, 28);
             cmdComboBox.TabIndex = 9;
-            cmdComboBox.SelectedIndexChanged += cmdComboBox_SelectedIndexChanged;
             // 
             // agentfileBox
             // 
-            agentfileBox.Location = new Point(11, 504);
+            agentfileBox.Location = new Point(6, 113);
             agentfileBox.Name = "agentfileBox";
-            agentfileBox.Size = new Size(845, 27);
+            agentfileBox.Size = new Size(905, 27);
             agentfileBox.TabIndex = 10;
             // 
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(11, 481);
+            label5.Location = new Point(0, 90);
             label5.Name = "label5";
             label5.Size = new Size(118, 20);
             label5.TabIndex = 11;
             label5.Text = "File Path (Agent)";
             // 
+            // groupBox2
+            // 
+            groupBox2.Controls.Add(commandBox);
+            groupBox2.Controls.Add(sendCommandBtn2);
+            groupBox2.Location = new Point(11, 766);
+            groupBox2.Name = "groupBox2";
+            groupBox2.Size = new Size(1274, 99);
+            groupBox2.TabIndex = 12;
+            groupBox2.TabStop = false;
+            groupBox2.Text = "Command Prompt CMD";
+            // 
+            // sendCommandBtn1
+            // 
+            sendCommandBtn1.Location = new Point(1120, 154);
+            sendCommandBtn1.Name = "sendCommandBtn1";
+            sendCommandBtn1.Size = new Size(148, 56);
+            sendCommandBtn1.TabIndex = 9;
+            sendCommandBtn1.Text = "Send";
+            sendCommandBtn1.UseVisualStyleBackColor = true;
+            sendCommandBtn1.Click += sendCommandBtn1_Click;
+            // 
+            // textBox1
+            // 
+            textBox1.Location = new Point(6, 183);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(125, 27);
+            textBox1.TabIndex = 13;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(1, 160);
+            label1.Name = "label1";
+            label1.Size = new Size(77, 20);
+            label1.TabIndex = 14;
+            label1.Text = "Process ID";
+            // 
+            // groupBox3
+            // 
+            groupBox3.Controls.Add(cmdComboBox);
+            groupBox3.Controls.Add(sendCommandBtn1);
+            groupBox3.Controls.Add(textBox1);
+            groupBox3.Controls.Add(label5);
+            groupBox3.Controls.Add(label1);
+            groupBox3.Controls.Add(agentfileBox);
+            groupBox3.Location = new Point(11, 464);
+            groupBox3.Name = "groupBox3";
+            groupBox3.Size = new Size(1274, 225);
+            groupBox3.TabIndex = 15;
+            groupBox3.TabStop = false;
+            groupBox3.Text = "Built-in Commands";
+            // 
             // ClientInfo
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1297, 659);
-            Controls.Add(label5);
-            Controls.Add(agentfileBox);
-            Controls.Add(cmdComboBox);
-            Controls.Add(commandBox);
-            Controls.Add(label1);
+            ClientSize = new Size(1297, 877);
             Controls.Add(agentLogBox);
-            Controls.Add(sendCommandBtn);
             Controls.Add(groupBox1);
+            Controls.Add(groupBox2);
+            Controls.Add(groupBox3);
             Name = "ClientInfo";
-            Text = "ClientInfo";
+            Text = "Client Interact";
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
+            groupBox2.ResumeLayout(false);
+            groupBox2.PerformLayout();
+            groupBox3.ResumeLayout(false);
+            groupBox3.PerformLayout();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
 
-        private Button sendCommandBtn;
+        private Button sendCommandBtn2;
         private Label ClientIP;
         private Label ClientHostname;
         private Label ConnectTime;
         private Label ClientOS;
         private RichTextBox agentLogBox;
-        private Label label1;
         private GroupBox groupBox1;
         private TextBox commandBox;
         private Label osLabel;
@@ -312,5 +359,10 @@ namespace Server_side
         private ComboBox cmdComboBox;
         private TextBox agentfileBox;
         private Label label5;
+        private GroupBox groupBox2;
+        private Button sendCommandBtn1;
+        private TextBox textBox1;
+        private Label label1;
+        private GroupBox groupBox3;
     }
 }
