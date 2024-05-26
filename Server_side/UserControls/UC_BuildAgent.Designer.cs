@@ -63,7 +63,7 @@ namespace Server_side.UserControls
             // 
             // buildBtn
             // 
-            buildBtn.Location = new Point(1585, 705);
+            buildBtn.Location = new Point(105, 261);
             buildBtn.Name = "buildBtn";
             buildBtn.Size = new Size(137, 65);
             buildBtn.TabIndex = 2;
@@ -97,7 +97,7 @@ namespace Server_side.UserControls
             Controls.Add(buildBtn);
             Controls.Add(groupBox1);
             Name = "UC_BuildAgent";
-            Size = new Size(1839, 861);
+            Size = new Size(1600, 900);
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
             ResumeLayout(false);

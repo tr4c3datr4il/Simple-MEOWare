@@ -48,6 +48,28 @@ namespace Server_side
         {
             Environment.Exit(0);
         }
+
+        // for moving panel
+        bool mousedown = false;
+        private void panel1_MouseDown(object sender, MouseEventArgs e)
+        {
+            mousedown = true;
+        }
+
+        private void panel1_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (mousedown)
+            {
+                int mousex = MousePosition.X - (panel1.Width/2);
+                int mousey = MousePosition.Y - (panel1.Height/2);
+                this.SetDesktopLocation(mousex, mousey);
+            }
+        }
+
+        private void panel1_MouseUp(object sender, MouseEventArgs e)
+        {
+            mousedown = false;
+        }
     }
 }
 

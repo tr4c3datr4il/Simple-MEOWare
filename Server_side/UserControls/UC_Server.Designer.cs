@@ -40,7 +40,7 @@
             // 
             // Listen
             // 
-            Listen.Location = new Point(1468, 37);
+            Listen.Location = new Point(1393, 37);
             Listen.Name = "Listen";
             Listen.Size = new Size(193, 89);
             Listen.TabIndex = 0;
@@ -87,7 +87,7 @@
             // 
             // Stop
             // 
-            Stop.Location = new Point(1468, 132);
+            Stop.Location = new Point(1393, 132);
             Stop.Name = "Stop";
             Stop.Size = new Size(193, 89);
             Stop.TabIndex = 2;
@@ -106,7 +106,7 @@
             Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold, GraphicsUnit.Point);
             Margin = new Padding(5);
             Name = "UC_Server";
-            Size = new Size(1839, 861);
+            Size = new Size(1600, 900);
             ResumeLayout(false);
         }
 

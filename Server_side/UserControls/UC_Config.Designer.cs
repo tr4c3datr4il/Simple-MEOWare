@@ -76,7 +76,7 @@ namespace Server_side.UserControls
             // 
             // SaveConfig_btn
             // 
-            SaveConfig_btn.Location = new Point(1176, 434);
+            SaveConfig_btn.Location = new Point(1173, 430);
             SaveConfig_btn.Name = "SaveConfig_btn";
             SaveConfig_btn.Size = new Size(157, 83);
             SaveConfig_btn.TabIndex = 8;
@@ -124,7 +124,7 @@ namespace Server_side.UserControls
             Controls.Add(portBox);
             Controls.Add(downloadFolderBox);
             Name = "UC_Config";
-            Size = new Size(1839, 861);
+            Size = new Size(1600, 900);
             ResumeLayout(false);
             PerformLayout();
         }

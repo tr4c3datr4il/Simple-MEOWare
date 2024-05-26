@@ -1,12 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "6mwa9nA75lKDdR5vac6GDAhevznH/DM9oZwEnDYZqbow1udEtlOkNzwVbeTfng/YPFFjJAgX+wVOYZS7Dz1n9w==",
+  "dgSpecHash": "zvGSCXSQ0CN+Cv8aDezKHOXMQ0pozjctNu12xNoivouAMFMzQdmQqZ3GPzLnj/DHMpco07RcugvljkUaaauQNg==",
   "success": true,
-  "projectFilePath": "D:\\Local-Lab\\Workspace\\C2_Meoware\\Simple-MEOWare\\Server_side\\Server_side.csproj",
+  "projectFilePath": "\\\\wsl.localhost\\Ubuntu\\home\\tranminhprvt01\\Backup\\STUDY\\LTM\\Simple-MEOWare\\Server_side\\Server_side.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\huadu\\.nuget\\packages\\guna.ui2.winforms\\2.0.4.6\\guna.ui2.winforms.2.0.4.6.nupkg.sha512",
-    "C:\\Users\\huadu\\.nuget\\packages\\system.codedom\\6.0.0\\system.codedom.6.0.0.nupkg.sha512",
-    "C:\\Users\\huadu\\.nuget\\packages\\system.management\\6.0.0\\system.management.6.0.0.nupkg.sha512"
+    "C:\\Users\\tranminhprvt01\\.nuget\\packages\\guna.ui2.winforms\\2.0.4.6\\guna.ui2.winforms.2.0.4.6.nupkg.sha512",
+    "C:\\Users\\tranminhprvt01\\.nuget\\packages\\system.codedom\\6.0.0\\system.codedom.6.0.0.nupkg.sha512",
+    "C:\\Users\\tranminhprvt01\\.nuget\\packages\\system.management\\6.0.0\\system.management.6.0.0.nupkg.sha512"
   ],
   "logs": []
 }
