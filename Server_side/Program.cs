@@ -17,7 +17,9 @@ namespace Server_side
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            Application.Run(new Intro());
+            Intro intro = new Intro();
+            _ = new DarkModeCS(intro);
+            Application.Run(intro);
         }
     }
 }

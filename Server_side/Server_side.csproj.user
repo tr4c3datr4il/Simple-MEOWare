@@ -7,6 +7,12 @@
     <Compile Update="DisplayScreenshot.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="FlatComboBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="FlatTabControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Update="Intro.cs">
       <SubType>Form</SubType>
     </Compile>
