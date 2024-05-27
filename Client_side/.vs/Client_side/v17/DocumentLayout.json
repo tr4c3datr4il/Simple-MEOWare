@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "D:\\Local-Lab\\Workspace\\C2_Meoware\\Simple-MEOWare\\Client_side\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{12C91A0D-CCC9-4029-8850-0C9B4476F10A}|Client_side.csproj|d:\\local-lab\\workspace\\c2_meoware\\simple-meoware\\client_side\\minidumphandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12C91A0D-CCC9-4029-8850-0C9B4476F10A}|Client_side.csproj|solutionrelative:minidumphandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{12C91A0D-CCC9-4029-8850-0C9B4476F10A}|Client_side.csproj|d:\\local-lab\\workspace\\c2_meoware\\simple-meoware\\client_side\\handlecommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{12C91A0D-CCC9-4029-8850-0C9B4476F10A}|Client_side.csproj|solutionrelative:handlecommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -23,19 +27,32 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "MiniDumpHandler.cs",
+              "DocumentMoniker": "D:\\Local-Lab\\Workspace\\C2_Meoware\\Simple-MEOWare\\Client_side\\MiniDumpHandler.cs",
+              "RelativeDocumentMoniker": "MiniDumpHandler.cs",
+              "ToolTip": "D:\\Local-Lab\\Workspace\\C2_Meoware\\Simple-MEOWare\\Client_side\\MiniDumpHandler.cs",
+              "RelativeToolTip": "MiniDumpHandler.cs",
+              "ViewState": "AQIAAEgAAAAAAAAAAAAmwG0AAABEAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-27T14:48:08.924Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "HandleCommand.cs",
               "DocumentMoniker": "D:\\Local-Lab\\Workspace\\C2_Meoware\\Simple-MEOWare\\Client_side\\HandleCommand.cs",
               "RelativeDocumentMoniker": "HandleCommand.cs",
               "ToolTip": "D:\\Local-Lab\\Workspace\\C2_Meoware\\Simple-MEOWare\\Client_side\\HandleCommand.cs",
               "RelativeToolTip": "HandleCommand.cs",
-              "ViewState": "AQIAALkAAAAAAAAAAAA8wMcAAAAAAAAA",
+              "ViewState": "AQIAABMAAAAAAAAAAAAswFAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-05-26T08:17:17.077Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "Program.cs",
               "DocumentMoniker": "D:\\Local-Lab\\Workspace\\C2_Meoware\\Simple-MEOWare\\Client_side\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
@@ -43,8 +60,7 @@
               "RelativeToolTip": "Program.cs",
               "ViewState": "AQIAAAgAAAAAAAAAAAAcwBYAAAAsAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-21T10:25:42.727Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-21T10:25:42.727Z"
             }
           ]
         }
