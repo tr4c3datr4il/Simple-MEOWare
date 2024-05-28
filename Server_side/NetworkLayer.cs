@@ -13,12 +13,14 @@ namespace Server_side
     internal class NetworkLayer
     {
         private static readonly RSACryptoServiceProvider rsa = new RSACryptoServiceProvider(2048);
+        private static Task listeningTask;
+        private static bool isListening = false;
         public static List<Dictionary<Socket, string>> clientList = new List<Dictionary<Socket, string>>();
         public static event Action<string, string, string, string> OnClientConnected;
 
         public static void StartUnsafeThread()
         {
-            Task.Run(() =>
+            listeningTask = Task.Run(() =>
             {
                 try
                 {
@@ -26,39 +28,43 @@ namespace Server_side
                 }
                 catch (Exception e)
                 {
-                    MessageBox.Show("Error in StartListening: " + e.Message);
+                    Program.listenerSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                    StartListening();
                 }
             });
         }
 
         public static void StopUnsafeThread()
         {
-            Task.Run(() =>
+            if (isListening)
             {
-                try
-                {
-                    StopListening();
-                }
-                catch (Exception e)
-                {
-                    MessageBox.Show("Error in StopListening: " + e.Message);
-                }
-            });
+                Program.listenerSocket?.Close();
+                isListening = false;
+                MessageBox.Show("Server stopped", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
         private static void StartListening()
         {
+            if (isListening)
+            {
+                MessageBox.Show("Server is already running", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            IPAddress ipAddress = IPAddress.Parse(Program.myConfigs.AppSettings.Settings["ListeningAddress"].Value);
             IPEndPoint localEndPoint = new IPEndPoint(IPAddress.Any, int.Parse(Program.myConfigs.AppSettings.Settings["Port"].Value));
             Program.listenerSocket.Bind(localEndPoint);
             Program.listenerSocket.Listen(100);
             MessageBox.Show("Server started", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
+            isListening = true;
+
             while (true)
             {
-                Socket clientSocket = null;
                 try
                 {
-                    clientSocket = Program.listenerSocket.Accept();
+                    Socket clientSocket = Program.listenerSocket.Accept();
                     ReceivePublicKey(clientSocket);
                     SendPassPhrase(clientSocket);
 
@@ -71,17 +77,19 @@ namespace Server_side
 
                     OnClientConnected?.Invoke(clientIPPort, clientHostname, connectTime, clientOS);
                 }
+                catch (ObjectDisposedException)
+                {
+                    break;
+                }
                 catch (Exception e)
                 {
-                    MessageBox.Show("Error in StartListening loop: " + e.Message);
-                    clientSocket?.Close();
+                    if (isListening)
+                    {
+                        MessageBox.Show("Error in StartListening loop: " + e.Message);
+                    }
                 }
+                
             }
-        }
-
-        private static void StopListening()
-        {
-            Program.listenerSocket.Close();
         }
 
         public static void Send(Socket socket, byte[] data)

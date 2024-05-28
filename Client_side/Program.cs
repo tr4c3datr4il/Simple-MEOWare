@@ -7,6 +7,8 @@ public class Program
     
     public static void Main()
     {
+
+
         // Connect to the server and send the public key
         NetworkLayer.Connect(Utils.IP, Utils.PORT);
         NetworkLayer.SendPublicKey();

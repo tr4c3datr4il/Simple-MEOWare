@@ -22,15 +22,18 @@ namespace Server_side.UserControls
 
         private void LoadServerConfig()
         {
+            string listenIP = ConfigurationManager.AppSettings["ListeningAddress"];
             string downloadFolder = ConfigurationManager.AppSettings["DownloadFolder"];
             int port = int.Parse(ConfigurationManager.AppSettings["Port"]);
 
+            addressBox.Text = listenIP;
             downloadFolderBox.Text = downloadFolder;
             portBox.Text = port.ToString();
         }
 
         private void SaveConfig_btn_Click(object sender, EventArgs e)
         {
+            Program.myConfigs.AppSettings.Settings["ListeningAddress"].Value = addressBox.Text;
             Program.myConfigs.AppSettings.Settings["DownloadFolder"].Value = downloadFolderBox.Text;
             Program.myConfigs.AppSettings.Settings["Port"].Value = portBox.Text;
             Program.myConfigs.Save(ConfigurationSaveMode.Modified);
