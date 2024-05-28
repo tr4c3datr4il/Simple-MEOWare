@@ -28,8 +28,12 @@ namespace Server_side
                 }
                 catch (Exception e)
                 {
-                    Program.listenerSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                    StartListening();
+                    // Temporary fix for the disposed object error
+                    if (e.Message.Contains("cannot access a disposed object"))
+                    {
+                        Program.listenerSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                        StartListening();
+                    }
                 }
             });
         }
