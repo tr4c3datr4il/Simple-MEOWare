@@ -44,14 +44,14 @@ namespace Server_side.UserControls
             // 
             // downloadFolderBox
             // 
-            downloadFolderBox.Location = new Point(291, 255);
+            downloadFolderBox.Location = new Point(484, 364);
             downloadFolderBox.Name = "downloadFolderBox";
             downloadFolderBox.Size = new Size(609, 27);
             downloadFolderBox.TabIndex = 0;
             // 
             // portBox
             // 
-            portBox.Location = new Point(291, 330);
+            portBox.Location = new Point(484, 439);
             portBox.Name = "portBox";
             portBox.Size = new Size(609, 27);
             portBox.TabIndex = 1;
@@ -59,7 +59,7 @@ namespace Server_side.UserControls
             // DowloadFolder_lbl
             // 
             DowloadFolder_lbl.AutoSize = true;
-            DowloadFolder_lbl.Location = new Point(96, 255);
+            DowloadFolder_lbl.Location = new Point(289, 364);
             DowloadFolder_lbl.Name = "DowloadFolder_lbl";
             DowloadFolder_lbl.Size = new Size(151, 20);
             DowloadFolder_lbl.TabIndex = 4;
@@ -68,7 +68,7 @@ namespace Server_side.UserControls
             // Port_lbl
             // 
             Port_lbl.AutoSize = true;
-            Port_lbl.Location = new Point(96, 337);
+            Port_lbl.Location = new Point(289, 446);
             Port_lbl.Name = "Port_lbl";
             Port_lbl.Size = new Size(44, 20);
             Port_lbl.TabIndex = 5;
@@ -76,7 +76,7 @@ namespace Server_side.UserControls
             // 
             // SaveConfig_btn
             // 
-            SaveConfig_btn.Location = new Point(1173, 430);
+            SaveConfig_btn.Location = new Point(1310, 734);
             SaveConfig_btn.Name = "SaveConfig_btn";
             SaveConfig_btn.Size = new Size(157, 83);
             SaveConfig_btn.TabIndex = 8;
@@ -86,7 +86,7 @@ namespace Server_side.UserControls
             // 
             // folderBrowserBtn
             // 
-            folderBrowserBtn.Location = new Point(915, 254);
+            folderBrowserBtn.Location = new Point(1108, 363);
             folderBrowserBtn.Name = "folderBrowserBtn";
             folderBrowserBtn.Size = new Size(42, 29);
             folderBrowserBtn.TabIndex = 9;
@@ -97,7 +97,7 @@ namespace Server_side.UserControls
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(98, 162);
+            label1.Location = new Point(291, 271);
             label1.Name = "label1";
             label1.Size = new Size(149, 20);
             label1.TabIndex = 10;
@@ -105,7 +105,7 @@ namespace Server_side.UserControls
             // 
             // addressBox
             // 
-            addressBox.Location = new Point(291, 162);
+            addressBox.Location = new Point(484, 271);
             addressBox.Name = "addressBox";
             addressBox.Size = new Size(609, 27);
             addressBox.TabIndex = 11;

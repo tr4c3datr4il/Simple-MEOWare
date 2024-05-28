@@ -3,12 +3,12 @@
   "WorkspaceRootPath": "D:\\Local-Lab\\Workspace\\C2_Meoware\\Simple-MEOWare\\Client_side\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{12C91A0D-CCC9-4029-8850-0C9B4476F10A}|Client_side.csproj|d:\\local-lab\\workspace\\c2_meoware\\simple-meoware\\client_side\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{12C91A0D-CCC9-4029-8850-0C9B4476F10A}|Client_side.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{12C91A0D-CCC9-4029-8850-0C9B4476F10A}|Client_side.csproj|d:\\local-lab\\workspace\\c2_meoware\\simple-meoware\\client_side\\handlecommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{12C91A0D-CCC9-4029-8850-0C9B4476F10A}|Client_side.csproj|solutionrelative:handlecommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12C91A0D-CCC9-4029-8850-0C9B4476F10A}|Client_side.csproj|d:\\local-lab\\workspace\\c2_meoware\\simple-meoware\\client_side\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12C91A0D-CCC9-4029-8850-0C9B4476F10A}|Client_side.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{12C91A0D-CCC9-4029-8850-0C9B4476F10A}|Client_side.csproj|d:\\local-lab\\workspace\\c2_meoware\\simple-meoware\\client_side\\networklayer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -26,7 +26,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
@@ -38,8 +38,7 @@
               "RelativeToolTip": "Encryptor.cs",
               "ViewState": "AQIAAHEAAAAAAAAAAAAQwAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-28T11:10:45.229Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-28T11:10:45.229Z"
             },
             {
               "$type": "Document",
@@ -51,31 +50,30 @@
               "RelativeToolTip": "NetworkLayer.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAABAAAAAMAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-28T06:01:04.516Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-28T06:01:04.516Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "HandleCommand.cs",
               "DocumentMoniker": "D:\\Local-Lab\\Workspace\\C2_Meoware\\Simple-MEOWare\\Client_side\\HandleCommand.cs",
               "RelativeDocumentMoniker": "HandleCommand.cs",
               "ToolTip": "D:\\Local-Lab\\Workspace\\C2_Meoware\\Simple-MEOWare\\Client_side\\HandleCommand.cs",
               "RelativeToolTip": "HandleCommand.cs",
-              "ViewState": "AQIAAA8AAAAAAAAAAAAAAC8AAAAAAAAA",
+              "ViewState": "AQIAAJIBAAAAAAAAAAAYwJUBAABNAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-05-26T08:17:17.077Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "Program.cs",
               "DocumentMoniker": "D:\\Local-Lab\\Workspace\\C2_Meoware\\Simple-MEOWare\\Client_side\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
               "ToolTip": "D:\\Local-Lab\\Workspace\\C2_Meoware\\Simple-MEOWare\\Client_side\\Program.cs",
               "RelativeToolTip": "Program.cs",
-              "ViewState": "AQIAAA0AAAAAAAAAAAAswBgAAAAsAAAA",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAAAAoAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-05-21T10:25:42.727Z",
               "EditorCaption": ""

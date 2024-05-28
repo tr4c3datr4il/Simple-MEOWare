@@ -259,7 +259,7 @@ namespace Server_side
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(0, 90);
+            label5.Location = new Point(6, 90);
             label5.Name = "label5";
             label5.Size = new Size(118, 20);
             label5.TabIndex = 11;
@@ -296,7 +296,7 @@ namespace Server_side
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(1, 160);
+            label1.Location = new Point(7, 160);
             label1.Name = "label1";
             label1.Size = new Size(77, 20);
             label1.TabIndex = 14;

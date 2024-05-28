@@ -4,7 +4,13 @@
     <Compile Update="ClientInfo.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="DisplayPSList.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="DisplayScreenshot.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="DisplaySystemInfo.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="FlatComboBox.cs">

