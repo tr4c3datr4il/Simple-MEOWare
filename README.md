@@ -5,7 +5,9 @@ This is my noob project for educational purpose!
 
 # Feature
 - Get Files from agent
-- Get Screenshot from agent
+- Get SystemInfo
+- Get ProcessDump
+- Get Screenshot
 - Run command prompt from agent
 - More...
 
