@@ -122,17 +122,6 @@ namespace Client_side
                     File.Delete(dumpFile);
                     return new List<String>() { String.Format("[-] Error compressing dump: {0}", result) };
                 }
-
-                
-
-                // Will move to a better place later
-                //string arch = System.Environment.GetEnvironmentVariable("PROCESSOR_ARCHITECTURE");
-                //string OS = "";
-                //var regKey = Microsoft.Win32.Registry.LocalMachine.OpenSubKey("Software\\Microsoft\\Windows NT\\CurrentVersion");
-                //if (regKey != null)
-                //{
-                //    OS = String.Format("{0}", regKey.GetValue("ProductName"));
-                //}
             }
             else
             {

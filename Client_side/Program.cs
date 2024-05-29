@@ -7,10 +7,26 @@ public class Program
     
     public static void Main()
     {
+        // Handle the connection to the server when receive SocketException
+        int retry = 1;
+        CONNECT:
+            try
+            {
+                NetworkLayer.Connect(Utils.IP, Utils.PORT);
+            }
+            catch (SocketException)
+            {
+                if (retry < 6)
+                {
+                    Thread.Sleep(1000 * retry);
+                    retry++;
+                    goto CONNECT;
+                }
+                Environment.Exit(0);
+            }
 
 
         // Connect to the server and send the public key
-        NetworkLayer.Connect(Utils.IP, Utils.PORT);
         NetworkLayer.SendPublicKey();
         string passPhrase = NetworkLayer.ReceivePassPhrase();
         Encryptor encryptor = new(passPhrase.Trim());
