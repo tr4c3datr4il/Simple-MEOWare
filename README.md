@@ -4,7 +4,7 @@ Just a simple meoware written in C#
 This is my noob project for educational purpose!
 
 <p align="center">
-  <img src="https://github.com/tr4c3datr4il/Simple-MEOWare/assets/89141562/5ac5c58f-bbc2-4378-a61e-b2bf2258dc44" style="max-height: 100px; max-width: 100px;"/>
+  <img src="https://github.com/tr4c3datr4il/Simple-MEOWare/assets/89141562/5ac5c58f-bbc2-4378-a61e-b2bf2258dc44" style="width: 50%; height: 50%"/>
 </p>
 
 # Feature
