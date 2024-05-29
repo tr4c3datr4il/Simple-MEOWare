@@ -124,7 +124,6 @@ namespace Server_side.UserControls
             // 
             portBox.Location = new Point(410, 164);
             portBox.Name = "portBox";
-            portBox.ReadOnly = true;
             portBox.Size = new Size(125, 27);
             portBox.TabIndex = 7;
             // 

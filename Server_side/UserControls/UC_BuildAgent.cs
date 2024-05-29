@@ -16,6 +16,11 @@ namespace Server_side.UserControls
         public UC_BuildAgent()
         {
             InitializeComponent();
+            this.Load += new EventHandler(UC_BuildAgent_Load);
+        }
+
+        private void UC_BuildAgent_Load(object sender, EventArgs e)
+        {
             addressBox.Text = Program.myConfigs.AppSettings.Settings["ListeningAddress"].Value;
             portBox.Text = Program.myConfigs.AppSettings.Settings["Port"].Value;
         }
@@ -35,6 +40,24 @@ namespace Server_side.UserControls
             }
 
             string solutionFile = $"{path}\\Client_side.sln";
+            string utilFile = $"{path}\\Utils.cs";
+
+            // Replace IP address and port in Utils.cs
+            string[] lines = System.IO.File.ReadAllLines(utilFile);
+            for (int i = 0; i < lines.Length; i++)
+            {
+                if (lines[i].Contains("IP"))
+                {
+                    lines[i] = $"        public static string IP = \"{addressBox.Text}\";";
+                }
+                else if (lines[i].Contains("PORT"))
+                {
+                    lines[i] = $"        public static int PORT = {portBox.Text};";
+                }
+            }
+
+            System.IO.File.WriteAllLines(utilFile, lines);
+
 
             string cmd = $"dotnet publish {solutionFile} -c Release -r win-x86 --self-contained {selfcontained.ToString().ToLower()} -p:PublishSingleFile={singlefile.ToString().ToLower()} -p:PublishTrimmed={trimmed.ToString().ToLower()} -p:PublishReadyToRun={readytorun.ToString().ToLower()} -o {path}\\bin\\Release\\net6.0\\publish\\win-x86\\";
 
