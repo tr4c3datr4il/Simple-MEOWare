@@ -11,6 +11,7 @@ namespace Client_side
     internal class NetworkLayer
     {
         private static readonly RSACryptoServiceProvider rsa = new RSACryptoServiceProvider(2048);
+        private static Encryptor stageEncryptor = new();
 
         public static void Connect(string ip, int port)
         {
@@ -46,7 +47,10 @@ namespace Client_side
         public static void SendPublicKey()
         {
             byte[] publicKey = rsa.ExportSubjectPublicKeyInfo();
-            Program.clientSocket.Send(publicKey);
+            string publicKey64 = Encryptor.ConvertStr(publicKey);
+            byte[] encryptedData = stageEncryptor.Encrypt(publicKey64);
+
+            Program.clientSocket.Send(encryptedData);
         }
 
         public static string ReceivePassPhrase()
@@ -55,9 +59,9 @@ namespace Client_side
             int bytesRead = Program.clientSocket.Receive(recvBuffer);
             byte[] encryptedData = new byte[bytesRead];
             Array.Copy(recvBuffer, encryptedData, bytesRead);
-
-            byte[] decryptedData = rsa.Decrypt(encryptedData, true);
-            string passPhrase = Encoding.UTF8.GetString(decryptedData);
+            string encryptedData64 = stageEncryptor.Decrypt(encryptedData);
+            byte[] encryptedPassPhrase = Encryptor.InvertStr(encryptedData64);
+            string passPhrase = Encoding.UTF8.GetString(rsa.Decrypt(encryptedPassPhrase, true));
 
             return passPhrase;
         }

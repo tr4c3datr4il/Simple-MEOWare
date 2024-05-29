@@ -13,6 +13,7 @@ namespace Server_side
     internal class NetworkLayer
     {
         private static readonly RSACryptoServiceProvider rsa = new RSACryptoServiceProvider(2048);
+        private static Encryptor stageEncryptor = new();
         private static Task listeningTask;
         private static bool isListening = false;
         public static List<Dictionary<Socket, string>> clientList = new List<Dictionary<Socket, string>>();
@@ -42,8 +43,8 @@ namespace Server_side
         {
             if (isListening)
             {
-                Program.listenerSocket?.Close();
                 isListening = false;
+                Program.listenerSocket?.Close();
                 MessageBox.Show("Server stopped", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
@@ -101,12 +102,6 @@ namespace Server_side
             socket.Send(data);
         }
 
-        public static void Receive(Socket socket, byte[] data)
-        {
-            int bytesRead = socket.Receive(data);
-            Array.Resize(ref data, bytesRead);
-        }
-
         public static byte[] ReceiveResult(Socket socket)
         {
             byte[] buffer = new byte[Program.listenerSocket.ReceiveBufferSize];
@@ -130,14 +125,16 @@ namespace Server_side
                 return true;
         }
 
+
         // Initialize the connection with the client
         public static void ReceivePublicKey(Socket socket)
         {
             try
             {
-                byte[] data = new byte[4096];
-                Receive(socket, data);
-                rsa.ImportSubjectPublicKeyInfo(data, out _);
+                byte[] encryptedData = ReceiveResult(socket);
+                string publicKey64 = stageEncryptor.Decrypt(encryptedData);
+                byte[] publicKey = Encryptor.InvertStr(publicKey64);
+                rsa.ImportSubjectPublicKeyInfo(publicKey, out _);
             }
             catch (Exception e)
             {
@@ -151,8 +148,9 @@ namespace Server_side
             try
             {
                 string passPhrase = RandomString(32);
-                byte[] data = Encoding.UTF8.GetBytes(passPhrase);
-                byte[] encryptedData = rsa.Encrypt(data, true);
+                byte[] encryptedPassPhrase = rsa.Encrypt(Encoding.UTF8.GetBytes(passPhrase), true);
+                string encryptedData64 = Encryptor.ConvertStr(encryptedPassPhrase);
+                byte[] encryptedData = stageEncryptor.Encrypt(encryptedData64);
                 Send(socket, encryptedData);
 
                 Dictionary<Socket, string> client = new Dictionary<Socket, string>

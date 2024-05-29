@@ -37,6 +37,12 @@ namespace Server_side
             }
         }
 
+        public Encryptor()
+        {
+            this.Key = InvertStr(Utils.AES_KEY);
+            this.IV = InvertStr(Utils.AES_IV);
+        }
+
         public byte[] Encrypt(string msg)
         {
             using (AesManaged aes = new AesManaged())

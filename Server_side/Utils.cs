@@ -8,7 +8,7 @@ namespace Server_side
 {
     internal class Utils
     {
-        public string AES_KEY = "";
-        public string AES_IV = "";
+        public static string AES_KEY = "qciwVUyo+hhtnuRg4LxrssILJJhV9hWZlU8rigqcbI0=";
+        public static string AES_IV = "wYWRSQj5ZHEmDOmfvnI6kA==";
     }
 }
