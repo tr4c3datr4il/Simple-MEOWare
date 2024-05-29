@@ -59,7 +59,11 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(897, 549);
             Controls.Add(systeminfoListView);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            MaximizeBox = false;
+            MinimizeBox = false;
             Name = "DisplaySystemInfo";
+            ShowIcon = false;
             Text = "DisplaySystemInfo";
             ResumeLayout(false);
         }

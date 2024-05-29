@@ -36,6 +36,10 @@ namespace Server_side.UserControls
             buildBtn = new Button();
             richTextBox1 = new RichTextBox();
             groupBox1 = new GroupBox();
+            addressBox = new TextBox();
+            label1 = new Label();
+            label2 = new Label();
+            portBox = new TextBox();
             groupBox1.SuspendLayout();
             SuspendLayout();
             // 
@@ -63,7 +67,7 @@ namespace Server_side.UserControls
             // 
             // buildBtn
             // 
-            buildBtn.Location = new Point(105, 261);
+            buildBtn.Location = new Point(128, 485);
             buildBtn.Name = "buildBtn";
             buildBtn.Size = new Size(137, 65);
             buildBtn.TabIndex = 2;
@@ -72,7 +76,7 @@ namespace Server_side.UserControls
             // 
             // richTextBox1
             // 
-            richTextBox1.Location = new Point(672, 135);
+            richTextBox1.Location = new Point(902, 293);
             richTextBox1.Name = "richTextBox1";
             richTextBox1.Size = new Size(427, 298);
             richTextBox1.TabIndex = 3;
@@ -89,10 +93,48 @@ namespace Server_side.UserControls
             groupBox1.TabStop = false;
             groupBox1.Text = "Operating System";
             // 
+            // addressBox
+            // 
+            addressBox.Location = new Point(396, 99);
+            addressBox.Name = "addressBox";
+            addressBox.ReadOnly = true;
+            addressBox.Size = new Size(125, 27);
+            addressBox.TabIndex = 5;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(396, 76);
+            label1.Name = "label1";
+            label1.Size = new Size(120, 20);
+            label1.TabIndex = 6;
+            label1.Text = "Connect Address";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(396, 149);
+            label2.Name = "label2";
+            label2.Size = new Size(93, 20);
+            label2.TabIndex = 8;
+            label2.Text = "Connect Port";
+            // 
+            // portBox
+            // 
+            portBox.Location = new Point(396, 172);
+            portBox.Name = "portBox";
+            portBox.ReadOnly = true;
+            portBox.Size = new Size(125, 27);
+            portBox.TabIndex = 7;
+            // 
             // UC_BuildAgent
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(label2);
+            Controls.Add(portBox);
+            Controls.Add(label1);
+            Controls.Add(addressBox);
             Controls.Add(richTextBox1);
             Controls.Add(buildBtn);
             Controls.Add(groupBox1);
@@ -101,6 +143,7 @@ namespace Server_side.UserControls
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -110,5 +153,9 @@ namespace Server_side.UserControls
         private Button buildBtn;
         private RichTextBox richTextBox1;
         private GroupBox groupBox1;
+        private TextBox addressBox;
+        private Label label1;
+        private Label label2;
+        private TextBox portBox;
     }
 }

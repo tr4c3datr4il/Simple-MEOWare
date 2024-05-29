@@ -15,6 +15,8 @@ namespace Server_side.UserControls
         public UC_BuildAgent()
         {
             InitializeComponent();
+            addressBox.Text = Program.myConfigs.AppSettings.Settings["ListeningAddress"].Value;
+            portBox.Text = Program.myConfigs.AppSettings.Settings["Port"].Value;
         }
     }
 }

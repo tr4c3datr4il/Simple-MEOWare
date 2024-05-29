@@ -46,7 +46,9 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(820, 574);
             Controls.Add(screenshotBox);
+            MaximizeBox = false;
             Name = "DisplayScreenshot";
+            ShowIcon = false;
             Text = "DisplayScreenshot";
             ((System.ComponentModel.ISupportInitialize)screenshotBox).EndInit();
             ResumeLayout(false);
