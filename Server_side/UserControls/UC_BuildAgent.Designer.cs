@@ -76,7 +76,7 @@ namespace Server_side.UserControls
             // 
             // buildBtn
             // 
-            buildBtn.Location = new Point(1317, 762);
+            buildBtn.Location = new Point(1265, 685);
             buildBtn.Name = "buildBtn";
             buildBtn.Size = new Size(137, 65);
             buildBtn.TabIndex = 2;

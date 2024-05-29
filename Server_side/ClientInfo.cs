@@ -277,7 +277,7 @@ namespace Server_side
                         byte[] response = GetResultFile(false);
                         logging("Response received|---|" + Encoding.UTF8.GetString(response));
 
-                        if (Encoding.UTF8.GetString(response).Contains("Decrypt failed!"))
+                        if (Encoding.UTF8.GetString(response).Contains("Decrypt failed!") || Encoding.UTF8.GetString(response).Contains("Browser not supported!"))
                         {
                             break;
                         }

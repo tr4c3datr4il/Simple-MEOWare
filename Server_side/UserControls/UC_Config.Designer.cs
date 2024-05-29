@@ -76,7 +76,7 @@ namespace Server_side.UserControls
             // 
             // SaveConfig_btn
             // 
-            SaveConfig_btn.Location = new Point(1310, 734);
+            SaveConfig_btn.Location = new Point(1299, 687);
             SaveConfig_btn.Name = "SaveConfig_btn";
             SaveConfig_btn.Size = new Size(157, 83);
             SaveConfig_btn.TabIndex = 8;

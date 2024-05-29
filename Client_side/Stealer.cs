@@ -25,11 +25,11 @@ namespace Client_side
             // Identify the default browser
             string reg_key = @"HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\Shell\Associations\URLAssociations\http\UserChoice";
             string defaultBrowser = (string)Microsoft.Win32.Registry.GetValue(reg_key, "Progid", null);
-            if (defaultBrowser.Contains("chrome"))
+            if (defaultBrowser.Contains("chrome") || defaultBrowser.Contains("Chrome"))
             {
                 return 1;
             }
-            else if (defaultBrowser.Contains("msedge"))
+            else if (defaultBrowser.Contains("msedge") || defaultBrowser.Contains("MSEdge"))
             {
                 return 2;
             }
