@@ -78,7 +78,7 @@ namespace Server_side
                     string clientIPPort = $"{clientIP}:{port}";
                     string clientHostname = Dns.GetHostEntry(clientIP).HostName;
                     string connectTime = DateTime.Now.ToString();
-                    string clientOS = "";
+                    string clientOS = Encoding.UTF8.GetString(ReceiveResult(clientSocket));
 
                     OnClientConnected?.Invoke(clientIPPort, clientHostname, connectTime, clientOS);
                 }
@@ -88,6 +88,10 @@ namespace Server_side
                 }
                 catch (Exception e)
                 {
+                    if (e.Message.Contains("Padding is invalid and cannot be removed"))
+                    {
+                        continue;
+                    }
                     if (isListening)
                     {
                         MessageBox.Show("Error in StartListening loop: " + e.Message);

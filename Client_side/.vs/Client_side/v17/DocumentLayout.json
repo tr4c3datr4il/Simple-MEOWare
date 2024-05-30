@@ -3,28 +3,24 @@
   "WorkspaceRootPath": "D:\\Local-Lab\\Workspace\\C2_Meoware\\Simple-MEOWare\\Client_side\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{12C91A0D-CCC9-4029-8850-0C9B4476F10A}|Client_side.csproj|d:\\local-lab\\workspace\\c2_meoware\\simple-meoware\\client_side\\utils.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{12C91A0D-CCC9-4029-8850-0C9B4476F10A}|Client_side.csproj|solutionrelative:utils.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{12C91A0D-CCC9-4029-8850-0C9B4476F10A}|Client_side.csproj|d:\\local-lab\\workspace\\c2_meoware\\simple-meoware\\client_side\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{12C91A0D-CCC9-4029-8850-0C9B4476F10A}|Client_side.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{12C91A0D-CCC9-4029-8850-0C9B4476F10A}|Client_side.csproj|d:\\local-lab\\workspace\\c2_meoware\\simple-meoware\\client_side\\stealerutils\\edgedecrypt.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{12C91A0D-CCC9-4029-8850-0C9B4476F10A}|Client_side.csproj|solutionrelative:stealerutils\\edgedecrypt.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{12C91A0D-CCC9-4029-8850-0C9B4476F10A}|Client_side.csproj|d:\\local-lab\\workspace\\c2_meoware\\simple-meoware\\client_side\\utils.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12C91A0D-CCC9-4029-8850-0C9B4476F10A}|Client_side.csproj|solutionrelative:utils.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{12C91A0D-CCC9-4029-8850-0C9B4476F10A}|Client_side.csproj|d:\\local-lab\\workspace\\c2_meoware\\simple-meoware\\client_side\\stealerutils\\chromedecrypt.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{12C91A0D-CCC9-4029-8850-0C9B4476F10A}|Client_side.csproj|solutionrelative:stealerutils\\chromedecrypt.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{12C91A0D-CCC9-4029-8850-0C9B4476F10A}|Client_side.csproj|d:\\local-lab\\workspace\\c2_meoware\\simple-meoware\\client_side\\stealerutils\\bravedecrypt.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{12C91A0D-CCC9-4029-8850-0C9B4476F10A}|Client_side.csproj|solutionrelative:stealerutils\\bravedecrypt.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{12C91A0D-CCC9-4029-8850-0C9B4476F10A}|Client_side.csproj|d:\\local-lab\\workspace\\c2_meoware\\simple-meoware\\client_side\\handlecommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12C91A0D-CCC9-4029-8850-0C9B4476F10A}|Client_side.csproj|solutionrelative:handlecommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{12C91A0D-CCC9-4029-8850-0C9B4476F10A}|Client_side.csproj|d:\\local-lab\\workspace\\c2_meoware\\simple-meoware\\client_side\\networklayer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{12C91A0D-CCC9-4029-8850-0C9B4476F10A}|Client_side.csproj|solutionrelative:networklayer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12C91A0D-CCC9-4029-8850-0C9B4476F10A}|Client_side.csproj|d:\\local-lab\\workspace\\c2_meoware\\simple-meoware\\client_side\\stealer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12C91A0D-CCC9-4029-8850-0C9B4476F10A}|Client_side.csproj|solutionrelative:stealer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{12C91A0D-CCC9-4029-8850-0C9B4476F10A}|Client_side.csproj|d:\\local-lab\\workspace\\c2_meoware\\simple-meoware\\client_side\\encryptor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -42,64 +38,63 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "ChromeDecrypt.cs",
-              "DocumentMoniker": "D:\\Local-Lab\\Workspace\\C2_Meoware\\Simple-MEOWare\\Client_side\\StealerUtils\\ChromeDecrypt.cs",
-              "RelativeDocumentMoniker": "StealerUtils\\ChromeDecrypt.cs",
-              "ToolTip": "D:\\Local-Lab\\Workspace\\C2_Meoware\\Simple-MEOWare\\Client_side\\StealerUtils\\ChromeDecrypt.cs",
-              "RelativeToolTip": "StealerUtils\\ChromeDecrypt.cs",
-              "ViewState": "AQIAABUAAAAAAAAAAAA1wCEAAAAjAAAA",
+              "DocumentIndex": 1,
+              "Title": "Utils.cs",
+              "DocumentMoniker": "D:\\Local-Lab\\Workspace\\C2_Meoware\\Simple-MEOWare\\Client_side\\Utils.cs",
+              "RelativeDocumentMoniker": "Utils.cs",
+              "ToolTip": "D:\\Local-Lab\\Workspace\\C2_Meoware\\Simple-MEOWare\\Client_side\\Utils.cs",
+              "RelativeToolTip": "Utils.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAAsAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-29T14:54:16.03Z",
+              "WhenOpened": "2024-05-30T01:38:30.58Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "BraveDecrypt.cs",
-              "DocumentMoniker": "D:\\Local-Lab\\Workspace\\C2_Meoware\\Simple-MEOWare\\Client_side\\StealerUtils\\BraveDecrypt.cs",
-              "RelativeDocumentMoniker": "StealerUtils\\BraveDecrypt.cs",
-              "ToolTip": "D:\\Local-Lab\\Workspace\\C2_Meoware\\Simple-MEOWare\\Client_side\\StealerUtils\\BraveDecrypt.cs",
-              "RelativeToolTip": "StealerUtils\\BraveDecrypt.cs",
-              "ViewState": "AQIAABcAAAAAAAAAAAAAACcAAABiAAAA",
+              "Title": "Stealer.cs",
+              "DocumentMoniker": "D:\\Local-Lab\\Workspace\\C2_Meoware\\Simple-MEOWare\\Client_side\\Stealer.cs",
+              "RelativeDocumentMoniker": "Stealer.cs",
+              "ToolTip": "D:\\Local-Lab\\Workspace\\C2_Meoware\\Simple-MEOWare\\Client_side\\Stealer.cs",
+              "RelativeToolTip": "Stealer.cs",
+              "ViewState": "AQIAABYAAAAAAAAAAAA9wD0AAABeAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-29T14:53:55.112Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-29T15:33:58.022Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "EdgeDecrypt.cs",
-              "DocumentMoniker": "D:\\Local-Lab\\Workspace\\C2_Meoware\\Simple-MEOWare\\Client_side\\StealerUtils\\EdgeDecrypt.cs",
-              "RelativeDocumentMoniker": "StealerUtils\\EdgeDecrypt.cs",
-              "ToolTip": "D:\\Local-Lab\\Workspace\\C2_Meoware\\Simple-MEOWare\\Client_side\\StealerUtils\\EdgeDecrypt.cs",
-              "RelativeToolTip": "StealerUtils\\EdgeDecrypt.cs",
-              "ViewState": "AQIAAGoAAAAAAAAAAABCwHoAAABIAAAA",
+              "Title": "HandleCommand.cs",
+              "DocumentMoniker": "D:\\Local-Lab\\Workspace\\C2_Meoware\\Simple-MEOWare\\Client_side\\HandleCommand.cs",
+              "RelativeDocumentMoniker": "HandleCommand.cs",
+              "ToolTip": "D:\\Local-Lab\\Workspace\\C2_Meoware\\Simple-MEOWare\\Client_side\\HandleCommand.cs",
+              "RelativeToolTip": "HandleCommand.cs",
+              "ViewState": "AQIAABsAAAAAAAAAAAD4vxgAAAApAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-29T14:53:50.794Z",
+              "WhenOpened": "2024-05-29T15:22:34.107Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 5,
               "Title": "Encryptor.cs",
               "DocumentMoniker": "D:\\Local-Lab\\Workspace\\C2_Meoware\\Simple-MEOWare\\Client_side\\Encryptor.cs",
               "RelativeDocumentMoniker": "Encryptor.cs",
               "ToolTip": "D:\\Local-Lab\\Workspace\\C2_Meoware\\Simple-MEOWare\\Client_side\\Encryptor.cs",
               "RelativeToolTip": "Encryptor.cs",
-              "ViewState": "AQIAABMAAAAAAAAAAAAvwG4AAAAdAAAA",
+              "ViewState": "AQIAABMAAAAAAAAAAIA+wG4AAAAdAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-05-29T08:11:32.81Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 3,
               "Title": "NetworkLayer.cs",
               "DocumentMoniker": "D:\\Local-Lab\\Workspace\\C2_Meoware\\Simple-MEOWare\\Client_side\\NetworkLayer.cs",
               "RelativeDocumentMoniker": "NetworkLayer.cs",
               "ToolTip": "D:\\Local-Lab\\Workspace\\C2_Meoware\\Simple-MEOWare\\Client_side\\NetworkLayer.cs",
               "RelativeToolTip": "NetworkLayer.cs",
-              "ViewState": "AQIAAAMAAAAAAAAAAAAAAAUAAAASAAAA",
+              "ViewState": "AQIAAA0AAAAAAAAAAAAhwBQAAAAlAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-05-29T08:12:18.786Z",
               "EditorCaption": ""
@@ -107,25 +102,12 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Utils.cs",
-              "DocumentMoniker": "D:\\Local-Lab\\Workspace\\C2_Meoware\\Simple-MEOWare\\Client_side\\Utils.cs",
-              "RelativeDocumentMoniker": "Utils.cs",
-              "ToolTip": "D:\\Local-Lab\\Workspace\\C2_Meoware\\Simple-MEOWare\\Client_side\\Utils.cs",
-              "RelativeToolTip": "Utils.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAuwAsAAAAuAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-29T08:10:41.146Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
               "Title": "Program.cs",
               "DocumentMoniker": "D:\\Local-Lab\\Workspace\\C2_Meoware\\Simple-MEOWare\\Client_side\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
               "ToolTip": "D:\\Local-Lab\\Workspace\\C2_Meoware\\Simple-MEOWare\\Client_side\\Program.cs",
               "RelativeToolTip": "Program.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAAA0AAAA",
+              "ViewState": "AQIAAA8AAAAAAAAAAAAswCUAAAA4AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-05-21T10:25:42.727Z",
               "EditorCaption": ""

