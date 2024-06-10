@@ -9,8 +9,9 @@ namespace Server_side
 
         private void startBtn_Click(object sender, EventArgs e)
         {
-            Menu menu = new Menu();
-            menu.Show();
+            Login login = new Login();
+            _ = new DarkModeCS(login);
+            login.Show();
             Hide();
         }
     }

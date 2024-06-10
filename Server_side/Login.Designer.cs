@@ -28,50 +28,58 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Login));
             label1 = new Label();
             label2 = new Label();
             loguser_txtbox = new TextBox();
             logpass_txtbox = new TextBox();
             Login_btn = new Button();
             log_showpass_checkbox = new CheckBox();
+            linkLabel = new LinkLabel();
+            flowLayoutPanel1 = new FlowLayoutPanel();
+            pictureBox1 = new PictureBox();
+            flowLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(112, 105);
+            label1.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point);
+            label1.Location = new Point(446, 61);
             label1.Name = "label1";
-            label1.Size = new Size(82, 20);
+            label1.Size = new Size(87, 23);
             label1.TabIndex = 0;
-            label1.Text = "Username: ";
+            label1.Text = "Username";
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(112, 163);
+            label2.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point);
+            label2.Location = new Point(446, 155);
             label2.Name = "label2";
-            label2.Size = new Size(73, 20);
+            label2.Size = new Size(80, 23);
             label2.TabIndex = 1;
-            label2.Text = "Password:";
+            label2.Text = "Password";
             // 
             // loguser_txtbox
             // 
-            loguser_txtbox.Location = new Point(223, 105);
+            loguser_txtbox.Location = new Point(446, 84);
             loguser_txtbox.Name = "loguser_txtbox";
-            loguser_txtbox.Size = new Size(293, 27);
+            loguser_txtbox.Size = new Size(434, 27);
             loguser_txtbox.TabIndex = 2;
             // 
             // logpass_txtbox
             // 
-            logpass_txtbox.Location = new Point(223, 163);
+            logpass_txtbox.Location = new Point(446, 181);
             logpass_txtbox.Name = "logpass_txtbox";
             logpass_txtbox.PasswordChar = '*';
-            logpass_txtbox.Size = new Size(175, 27);
+            logpass_txtbox.Size = new Size(434, 27);
             logpass_txtbox.TabIndex = 3;
             // 
             // Login_btn
             // 
-            Login_btn.Location = new Point(223, 286);
+            Login_btn.Location = new Point(446, 439);
             Login_btn.Name = "Login_btn";
             Login_btn.Size = new Size(163, 65);
             Login_btn.TabIndex = 4;
@@ -82,7 +90,7 @@
             // log_showpass_checkbox
             // 
             log_showpass_checkbox.AutoSize = true;
-            log_showpass_checkbox.Location = new Point(223, 211);
+            log_showpass_checkbox.Location = new Point(446, 254);
             log_showpass_checkbox.Name = "log_showpass_checkbox";
             log_showpass_checkbox.Size = new Size(132, 24);
             log_showpass_checkbox.TabIndex = 5;
@@ -90,19 +98,59 @@
             log_showpass_checkbox.UseVisualStyleBackColor = true;
             log_showpass_checkbox.CheckedChanged += log_showpass_checkbox_CheckedChanged;
             // 
+            // linkLabel
+            // 
+            linkLabel.AutoSize = true;
+            linkLabel.Location = new Point(684, 461);
+            linkLabel.Name = "linkLabel";
+            linkLabel.Size = new Size(225, 20);
+            linkLabel.TabIndex = 6;
+            linkLabel.TabStop = true;
+            linkLabel.Text = "Don't have an account? Register!";
+            linkLabel.LinkClicked += linkLabel_LinkClicked;
+            // 
+            // flowLayoutPanel1
+            // 
+            flowLayoutPanel1.BackColor = SystemColors.ActiveCaption;
+            flowLayoutPanel1.Controls.Add(pictureBox1);
+            flowLayoutPanel1.ForeColor = SystemColors.ActiveCaption;
+            flowLayoutPanel1.Location = new Point(0, 0);
+            flowLayoutPanel1.Name = "flowLayoutPanel1";
+            flowLayoutPanel1.Size = new Size(405, 565);
+            flowLayoutPanel1.TabIndex = 7;
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
+            pictureBox1.Location = new Point(3, 3);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(402, 275);
+            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox1.TabIndex = 8;
+            pictureBox1.TabStop = false;
+            // 
             // Login
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(933, 564);
+            Controls.Add(flowLayoutPanel1);
+            Controls.Add(linkLabel);
             Controls.Add(log_showpass_checkbox);
             Controls.Add(Login_btn);
             Controls.Add(logpass_txtbox);
             Controls.Add(loguser_txtbox);
             Controls.Add(label2);
             Controls.Add(label1);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            MaximizeBox = false;
+            MinimizeBox = false;
             Name = "Login";
+            ShowIcon = false;
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Login";
+            flowLayoutPanel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -115,5 +163,8 @@
         private TextBox logpass_txtbox;
         private Button Login_btn;
         private CheckBox log_showpass_checkbox;
+        private LinkLabel linkLabel;
+        private FlowLayoutPanel flowLayoutPanel1;
+        private PictureBox pictureBox1;
     }
 }

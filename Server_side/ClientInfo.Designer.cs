@@ -59,6 +59,9 @@ namespace Server_side
             label1 = new Label();
             groupBox3 = new GroupBox();
             clearLogBtn = new Button();
+            label6 = new Label();
+            textBox1 = new TextBox();
+            fileChooseBtn = new Button();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             groupBox3.SuspendLayout();
@@ -269,7 +272,7 @@ namespace Server_side
             // 
             groupBox2.Controls.Add(commandBox);
             groupBox2.Controls.Add(sendCommandBtn2);
-            groupBox2.Location = new Point(11, 766);
+            groupBox2.Location = new Point(11, 854);
             groupBox2.Name = "groupBox2";
             groupBox2.Size = new Size(1274, 99);
             groupBox2.TabIndex = 12;
@@ -278,7 +281,7 @@ namespace Server_side
             // 
             // sendCommandBtn1
             // 
-            sendCommandBtn1.Location = new Point(1120, 154);
+            sendCommandBtn1.Location = new Point(1120, 245);
             sendCommandBtn1.Name = "sendCommandBtn1";
             sendCommandBtn1.Size = new Size(148, 56);
             sendCommandBtn1.TabIndex = 9;
@@ -288,7 +291,7 @@ namespace Server_side
             // 
             // pidBox
             // 
-            pidBox.Location = new Point(6, 183);
+            pidBox.Location = new Point(6, 268);
             pidBox.Name = "pidBox";
             pidBox.Size = new Size(125, 27);
             pidBox.TabIndex = 13;
@@ -296,7 +299,7 @@ namespace Server_side
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(7, 160);
+            label1.Location = new Point(7, 245);
             label1.Name = "label1";
             label1.Size = new Size(77, 20);
             label1.TabIndex = 14;
@@ -304,6 +307,9 @@ namespace Server_side
             // 
             // groupBox3
             // 
+            groupBox3.Controls.Add(fileChooseBtn);
+            groupBox3.Controls.Add(label6);
+            groupBox3.Controls.Add(textBox1);
             groupBox3.Controls.Add(cmdComboBox);
             groupBox3.Controls.Add(sendCommandBtn1);
             groupBox3.Controls.Add(pidBox);
@@ -312,7 +318,7 @@ namespace Server_side
             groupBox3.Controls.Add(agentfileBox);
             groupBox3.Location = new Point(11, 464);
             groupBox3.Name = "groupBox3";
-            groupBox3.Size = new Size(1274, 225);
+            groupBox3.Size = new Size(1274, 316);
             groupBox3.TabIndex = 15;
             groupBox3.TabStop = false;
             groupBox3.Text = "Built-in Commands";
@@ -327,17 +333,47 @@ namespace Server_side
             clearLogBtn.UseVisualStyleBackColor = true;
             clearLogBtn.Click += clearLogBtn_Click;
             // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Location = new Point(7, 163);
+            label6.Name = "label6";
+            label6.Size = new Size(113, 20);
+            label6.TabIndex = 16;
+            label6.Text = "File Path (Local)";
+            // 
+            // textBox1
+            // 
+            textBox1.Location = new Point(7, 186);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(905, 27);
+            textBox1.TabIndex = 15;
+            // 
+            // fileChooseBtn
+            // 
+            fileChooseBtn.Location = new Point(927, 186);
+            fileChooseBtn.Name = "fileChooseBtn";
+            fileChooseBtn.Size = new Size(44, 29);
+            fileChooseBtn.TabIndex = 16;
+            fileChooseBtn.Text = "...";
+            fileChooseBtn.UseVisualStyleBackColor = true;
+            // 
             // ClientInfo
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1297, 877);
+            ClientSize = new Size(1297, 993);
             Controls.Add(clearLogBtn);
             Controls.Add(agentLogBox);
             Controls.Add(groupBox1);
             Controls.Add(groupBox2);
             Controls.Add(groupBox3);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            MaximizeBox = false;
+            MinimizeBox = false;
             Name = "ClientInfo";
+            ShowIcon = false;
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Client Interact";
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
@@ -377,5 +413,8 @@ namespace Server_side
         private Label label1;
         private GroupBox groupBox3;
         private Button clearLogBtn;
+        private Label label6;
+        private TextBox textBox1;
+        private Button fileChooseBtn;
     }
 }

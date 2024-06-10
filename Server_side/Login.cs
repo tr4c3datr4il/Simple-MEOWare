@@ -1,21 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
+using System.Data.SQLite;
+using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Data;
-using System.Data.SqlClient;
 
 namespace Server_side
 {
     public partial class Login : Form
     {
-        String connectionstring = System.IO.Directory.GetCurrentDirectory();
-        SqlConnection connect = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\tranminhprvt01\OneDrive\Documents\LoginData.mdf;Integrated Security=True;Connect Timeout=30");
         public Login()
         {
             InitializeComponent();
@@ -41,47 +34,55 @@ namespace Server_side
             }
             else
             {
-                if (connect.State != ConnectionState.Open)
+                if (Program.SQLConnector.State != ConnectionState.Open)
                 {
                     try
                     {
-                        connect.Open();
+                        Program.SQLConnector.Open();
 
-                        String selectData = "SELECT * from admin WHERE username = @username AND password = @password";
-                        using (SqlCommand cmd = new SqlCommand(selectData, connect))
+                        string selectData = "SELECT * FROM user WHERE username = @username AND password = @password";
+                        using (SQLiteCommand cmd = new SQLiteCommand(selectData, Program.SQLConnector))
                         {
+                            byte[] hashedPassword = MD5.HashData(Encoding.UTF8.GetBytes(logpass_txtbox.Text.Trim()));
                             cmd.Parameters.AddWithValue("@username", loguser_txtbox.Text);
-                            cmd.Parameters.AddWithValue("@password", logpass_txtbox.Text);
+                            cmd.Parameters.AddWithValue("@password", Convert.ToBase64String(hashedPassword));
 
-                            SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                            SQLiteDataAdapter adapter = new SQLiteDataAdapter(cmd);
                             DataTable table = new DataTable();
                             adapter.Fill(table);
 
                             if (table.Rows.Count > 0)
                             {
-                                MessageBox.Show("Logged in successfully", "Information message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                MessageBox.Show("Logged in successfully", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                                // Redirect to main form
-
-
+                                Menu menu = new Menu();
+                                menu.Show();
+                                Hide();
                             }
                             else
                             {
-                                MessageBox.Show("Incorrect username/password", "Error message", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                MessageBox.Show("Incorrect Username or Password", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             }
                         }
-
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show("Error connecting database: " + ex, "Error message", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Error connecting to database: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     finally
                     {
-                        connect.Close();
+                        Program.SQLConnector.Close();
                     }
                 }
             }
+        }
+
+        private void linkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Register register = new Register();
+            _ = new DarkModeCS(register);
+            register.Show();
+            Hide();
         }
     }
 }

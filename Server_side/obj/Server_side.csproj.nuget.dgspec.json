@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "\\\\wsl.localhost\\Ubuntu\\home\\tranminhprvt01\\Backup\\STUDY\\LTM\\Simple-MEOWare\\Server_side\\Server_side.csproj": {}
+    "D:\\Local-Lab\\Workspace\\C2_Meoware\\Simple-MEOWare\\Server_side\\Server_side.csproj": {}
   },
   "projects": {
-    "\\\\wsl.localhost\\Ubuntu\\home\\tranminhprvt01\\Backup\\STUDY\\LTM\\Simple-MEOWare\\Server_side\\Server_side.csproj": {
+    "D:\\Local-Lab\\Workspace\\C2_Meoware\\Simple-MEOWare\\Server_side\\Server_side.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "\\\\wsl.localhost\\Ubuntu\\home\\tranminhprvt01\\Backup\\STUDY\\LTM\\Simple-MEOWare\\Server_side\\Server_side.csproj",
+        "projectUniqueName": "D:\\Local-Lab\\Workspace\\C2_Meoware\\Simple-MEOWare\\Server_side\\Server_side.csproj",
         "projectName": "Server_side",
-        "projectPath": "\\\\wsl.localhost\\Ubuntu\\home\\tranminhprvt01\\Backup\\STUDY\\LTM\\Simple-MEOWare\\Server_side\\Server_side.csproj",
-        "packagesPath": "C:\\Users\\tranminhprvt01\\.nuget\\packages\\",
-        "outputPath": "\\\\wsl.localhost\\Ubuntu\\home\\tranminhprvt01\\Backup\\STUDY\\LTM\\Simple-MEOWare\\Server_side\\obj\\",
+        "projectPath": "D:\\Local-Lab\\Workspace\\C2_Meoware\\Simple-MEOWare\\Server_side\\Server_side.csproj",
+        "packagesPath": "C:\\Users\\huadu\\.nuget\\packages\\",
+        "outputPath": "D:\\Local-Lab\\Workspace\\C2_Meoware\\Simple-MEOWare\\Server_side\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "D:\\Win-Tools\\ETC\\VStudio-SDK\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\tranminhprvt01\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\huadu\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -49,9 +53,9 @@
               "target": "Package",
               "version": "[2.0.4.6, )"
             },
-            "System.Data.SqlClient": {
+            "System.Data.SQLite": {
               "target": "Package",
-              "version": "[4.8.6, )"
+              "version": "[1.0.118, )"
             }
           },
           "imports": [
@@ -73,7 +77,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.300\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204\\RuntimeIdentifierGraph.json"
         }
       }
     }

@@ -8,15 +8,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data;
-using System.Data.SqlClient;
+using System.Data.SQLite;
+using System.Security.Cryptography;
 
 
 namespace Server_side
 {
     public partial class Register : Form
     {
-        String connectionstring = System.IO.Directory.GetCurrentDirectory();
-        SqlConnection connect = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\tranminhprvt01\OneDrive\Documents\LoginData.mdf;Integrated Security=True;Connect Timeout=30");
         public Register()
         {
             InitializeComponent();
@@ -32,16 +31,16 @@ namespace Server_side
 
             else
             {
-                if (connect.State != ConnectionState.Open)
+                if (Program.SQLConnector.State != ConnectionState.Open)
                 {
                     try
                     {
-                        connect.Open();
-                        String checkUsername = "SELECT * FROM admin WHERE username = '" + reguser_txtbox.Text.Trim() + "'";
+                        Program.SQLConnector.Open();
+                        String checkUsername = "SELECT * FROM user WHERE username = '" + reguser_txtbox.Text.Trim() + "'";
 
-                        using (SqlCommand checkUser = new SqlCommand(checkUsername, connect))
+                        using (SQLiteCommand checkUser = new SQLiteCommand(checkUsername, Program.SQLConnector))
                         {
-                            SqlDataAdapter adapter = new SqlDataAdapter(checkUser);
+                            SQLiteDataAdapter adapter = new SQLiteDataAdapter(checkUser);
                             DataTable table = new DataTable();
                             adapter.Fill(table);
 
@@ -51,23 +50,21 @@ namespace Server_side
                             }
                             else
                             {
-                                string insertData = "INSERT INTO admin (username, password) VALUES(@username, @password)";
+                                string insertData = "INSERT INTO user (username, password) VALUES(@username, @password)";
 
-                                using (SqlCommand cmd = new SqlCommand(insertData, connect))
+                                using (SQLiteCommand cmd = new SQLiteCommand(insertData, Program.SQLConnector))
                                 {
+                                    byte[] hashedPassword = MD5.HashData(Encoding.UTF8.GetBytes(regpass_txtbox.Text.Trim()));
                                     cmd.Parameters.AddWithValue("@username", reguser_txtbox.Text.Trim());
-                                    cmd.Parameters.AddWithValue("@password", regpass_txtbox.Text.Trim());
-
+                                    cmd.Parameters.AddWithValue("@password", Convert.ToBase64String(hashedPassword));
                                     cmd.ExecuteNonQuery();
 
                                     MessageBox.Show("Registered successfully", "Information message", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-
-                                    //Switch form??
-                                    Login lform = new Login();
-                                    lform.Show();
+                                    Login login = new Login();
+                                    _ = new DarkModeCS(login);
+                                    login.Show();
                                     this.Hide();
-
                                 }
                             }
                         }
@@ -78,7 +75,7 @@ namespace Server_side
                     }
                     finally
                     {
-                        connect.Close();
+                        Program.SQLConnector.Close();
                     }
                 }
             }
@@ -94,6 +91,14 @@ namespace Server_side
             {
                 regpass_txtbox.PasswordChar = '*';
             }
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Login login = new Login();
+            _ = new DarkModeCS(login);
+            login.Show();
+            this.Hide();
         }
     }
 }
