@@ -106,15 +106,24 @@ namespace Server_side
             socket.Send(data);
         }
 
+        //public static byte[] ReceiveResult(Socket socket)
+        //{
+        //    byte[] buffer = new byte[Program.listenerSocket.ReceiveBufferSize];
+        //    int bytesRead = socket.Receive(buffer);
+        //    byte[] data = new byte[bytesRead];
+        //    for (int i = 0; i < bytesRead; i++)
+        //    {
+        //        data[i] = buffer[i];
+        //    }
+
+        //    return data;
+        //}
         public static byte[] ReceiveResult(Socket socket)
         {
             byte[] buffer = new byte[Program.listenerSocket.ReceiveBufferSize];
             int bytesRead = socket.Receive(buffer);
             byte[] data = new byte[bytesRead];
-            for (int i = 0; i < bytesRead; i++)
-            {
-                data[i] = buffer[i];
-            }
+            Array.Copy(buffer, data, bytesRead);
 
             return data;
         }

@@ -461,17 +461,39 @@ namespace Client_side
             return chunks;
         }
 
+        //private static void SendChunks(List<string> chunks, Encryptor encryptor, string fileID)
+        //{
+        //    int counter = 0;
+        //    foreach (string chunk in chunks)
+        //    {
+        //        string formattedChunk = $"{fileID}{delimiter}{chunk}{delimiter}{counter}";
+        //        byte[] encryptedChunk = encryptor.Encrypt(formattedChunk);
+        //        NetworkLayer.SendResult(encryptedChunk);
+        //        Thread.Sleep(10);
+        //        counter++;
+        //    }
+        //}
+
         private static void SendChunks(List<string> chunks, Encryptor encryptor, string fileID)
         {
             int counter = 0;
+            List<Task> tasks = new List<Task>();
+
             foreach (string chunk in chunks)
             {
-                string formattedChunk = $"{fileID}{delimiter}{chunk}{delimiter}{counter}";
-                byte[] encryptedChunk = encryptor.Encrypt(formattedChunk);
-                NetworkLayer.SendResult(encryptedChunk);
-                Thread.Sleep(10);
+                int currentCounter = counter;
+                tasks.Add(Task.Run(() =>
+                {
+                    string formattedChunk = $"{fileID}{delimiter}{chunk}{delimiter}{currentCounter}";
+                    Console.WriteLine(formattedChunk);
+                    byte[] encryptedChunk = encryptor.Encrypt(formattedChunk);
+                    NetworkLayer.SendResult(encryptedChunk);
+                }));
+
                 counter++;
             }
+
+            Task.WaitAll(tasks.ToArray());
         }
     }
 }
