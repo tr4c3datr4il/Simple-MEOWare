@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Local-Lab\\Workspace\\C2_Meoware\\Simple-MEOWare\\Server_side\\Server_side.csproj": {}
+    "\\\\wsl.localhost\\Ubuntu\\home\\tranminhprvt01\\Backup\\STUDY\\LTM\\Simple-MEOWare\\Server_side\\Server_side.csproj": {}
   },
   "projects": {
-    "D:\\Local-Lab\\Workspace\\C2_Meoware\\Simple-MEOWare\\Server_side\\Server_side.csproj": {
+    "\\\\wsl.localhost\\Ubuntu\\home\\tranminhprvt01\\Backup\\STUDY\\LTM\\Simple-MEOWare\\Server_side\\Server_side.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Local-Lab\\Workspace\\C2_Meoware\\Simple-MEOWare\\Server_side\\Server_side.csproj",
+        "projectUniqueName": "\\\\wsl.localhost\\Ubuntu\\home\\tranminhprvt01\\Backup\\STUDY\\LTM\\Simple-MEOWare\\Server_side\\Server_side.csproj",
         "projectName": "Server_side",
-        "projectPath": "D:\\Local-Lab\\Workspace\\C2_Meoware\\Simple-MEOWare\\Server_side\\Server_side.csproj",
-        "packagesPath": "C:\\Users\\huadu\\.nuget\\packages\\",
-        "outputPath": "D:\\Local-Lab\\Workspace\\C2_Meoware\\Simple-MEOWare\\Server_side\\obj\\",
+        "projectPath": "\\\\wsl.localhost\\Ubuntu\\home\\tranminhprvt01\\Backup\\STUDY\\LTM\\Simple-MEOWare\\Server_side\\Server_side.csproj",
+        "packagesPath": "C:\\Users\\tranminhprvt01\\.nuget\\packages\\",
+        "outputPath": "\\\\wsl.localhost\\Ubuntu\\home\\tranminhprvt01\\Backup\\STUDY\\LTM\\Simple-MEOWare\\Server_side\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "D:\\Win-Tools\\ETC\\VStudio-SDK\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\huadu\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\tranminhprvt01\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -52,6 +48,10 @@
             "Guna.UI2.WinForms": {
               "target": "Package",
               "version": "[2.0.4.6, )"
+            },
+            "System.Data.SqlClient": {
+              "target": "Package",
+              "version": "[4.8.6, )"
             }
           },
           "imports": [
@@ -73,7 +73,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.300\\RuntimeIdentifierGraph.json"
         }
       }
     }
