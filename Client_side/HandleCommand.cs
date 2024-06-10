@@ -461,19 +461,6 @@ namespace Client_side
             return chunks;
         }
 
-        //private static void SendChunks(List<string> chunks, Encryptor encryptor, string fileID)
-        //{
-        //    int counter = 0;
-        //    foreach (string chunk in chunks)
-        //    {
-        //        string formattedChunk = $"{fileID}{delimiter}{chunk}{delimiter}{counter}";
-        //        byte[] encryptedChunk = encryptor.Encrypt(formattedChunk);
-        //        NetworkLayer.SendResult(encryptedChunk);
-        //        Thread.Sleep(10);
-        //        counter++;
-        //    }
-        //}
-
         private static void SendChunks(List<string> chunks, Encryptor encryptor, string fileID)
         {
             int counter = 0;

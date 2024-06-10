@@ -118,7 +118,6 @@ namespace Server_side
             agentLogBox.AppendText(boldText);
             // Set the rest of the text to black color
             agentLogBox.SelectionStart = agentLogBox.TextLength;
-            // Got error with the below line. Fix it tomorrow
             agentLogBox.SelectionLength = log.Length - boldText.Length;
             agentLogBox.SelectionColor = Color.Black;
 
@@ -324,37 +323,19 @@ namespace Server_side
 
             logging($"File received|---|{fileName}_{guid}_{chunkCount}");
 
-            //string fileBase64 = "";
-            //for (int i = 0; i < chunkCount; i++)
-            //{
-            //    byte[] chunk = NetworkLayer.ReceiveResult(clientSocket);
-            //    string chunkDecrypted = encryptor.Decrypt(chunk);
-            //    string[] chunkParts = chunkDecrypted.Split(delimiter);
-            //    string chunkGuid = chunkParts[0];
-            //    if (chunkGuid != guid)
-            //    {
-            //        MessageBox.Show("Error in GetResultFile: GUID mismatch");
-            //        return null;
-            //    }
-            //    string chunkData = chunkParts[1];
-            //    fileBase64 += chunkData;
-            //}
-
-            //byte[] fileData = Encryptor.InvertStr(fileBase64);
-
             ConcurrentDictionary<int, string> chunks = new ConcurrentDictionary<int, string>();
 
             List<Task> tasks = new List<Task>();
 
             for (int i = 0; i < chunkCount; i++)
             {
-                int chunkIndex = i;
                 tasks.Add(Task.Run(() =>
                 {
                     byte[] chunk = NetworkLayer.ReceiveResult(clientSocket);
                     string chunkDecrypted = encryptor.Decrypt(chunk);
                     string[] chunkParts = chunkDecrypted.Split(delimiter);
                     string chunkGuid = chunkParts[0];
+                    int chunkIndex = int.Parse(chunkParts[2]);
 
                     if (chunkGuid != guid)
                     {
