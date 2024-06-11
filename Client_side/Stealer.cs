@@ -51,7 +51,10 @@ namespace Client_side
                         break;
                     }
                 case 2:
-                    break;
+                    {
+                        credentials = EdgeDecrypt.MainFunction();
+                        break;
+                    }
                 case 3:
                     {
                         credentials = BraveDecrypt.MainFunction();

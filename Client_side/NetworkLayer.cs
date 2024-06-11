@@ -18,6 +18,11 @@ namespace Client_side
             Program.clientSocket.Connect(ip, port);
         }
 
+        public static void SendResult(byte[] msg, int length)
+        {
+            Program.clientSocket.Send(msg, 0, length, SocketFlags.None);
+        }
+
         public static void SendResult(byte[] msg)
         {
             Program.clientSocket.Send(msg, 0, msg.Length, SocketFlags.None);
@@ -34,14 +39,10 @@ namespace Client_side
             byte[] buffer = new byte[Program.clientSocket.ReceiveBufferSize];
             int bytesRead = Program.clientSocket.Receive(buffer);
             byte[] data = new byte[bytesRead];
-            for (int i = 0; i < bytesRead; i++)
-            {
-                data[i] = buffer[i];
-            }
-            
+            Array.Copy(buffer, data, bytesRead);
+
             return data;
         }
-
 
         // Initialize the connection by sending the public key
         public static void SendPublicKey()

@@ -31,7 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Register));
             label1 = new Label();
             label2 = new Label();
-            label3 = new Label();
+            cpasswdLabel = new Label();
             reguser_txtbox = new TextBox();
             regpass_txtbox = new TextBox();
             cpass_txtbox = new TextBox();
@@ -40,6 +40,7 @@
             linkLabel1 = new LinkLabel();
             flowLayoutPanel1 = new FlowLayoutPanel();
             pictureBox1 = new PictureBox();
+            label3 = new Label();
             flowLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
@@ -64,15 +65,15 @@
             label2.TabIndex = 2;
             label2.Text = "Password";
             // 
-            // label3
+            // cpasswdLabel
             // 
-            label3.AutoSize = true;
-            label3.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point);
-            label3.Location = new Point(446, 233);
-            label3.Name = "label3";
-            label3.Size = new Size(146, 23);
-            label3.TabIndex = 3;
-            label3.Text = "Confirm Password";
+            cpasswdLabel.AutoSize = true;
+            cpasswdLabel.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point);
+            cpasswdLabel.Location = new Point(446, 233);
+            cpasswdLabel.Name = "cpasswdLabel";
+            cpasswdLabel.Size = new Size(146, 23);
+            cpasswdLabel.TabIndex = 3;
+            cpasswdLabel.Text = "Confirm Password";
             // 
             // reguser_txtbox
             // 
@@ -133,37 +134,52 @@
             // 
             flowLayoutPanel1.BackColor = SystemColors.ActiveCaption;
             flowLayoutPanel1.Controls.Add(pictureBox1);
+            flowLayoutPanel1.Controls.Add(label3);
+            flowLayoutPanel1.FlowDirection = FlowDirection.TopDown;
             flowLayoutPanel1.ForeColor = SystemColors.ActiveCaption;
-            flowLayoutPanel1.Location = new Point(1, 0);
+            flowLayoutPanel1.Location = new Point(1, -1);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Size = new Size(406, 566);
+            flowLayoutPanel1.Size = new Size(406, 567);
             flowLayoutPanel1.TabIndex = 10;
             // 
             // pictureBox1
             // 
+            pictureBox1.BackColor = SystemColors.ActiveCaption;
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
             pictureBox1.Location = new Point(3, 3);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(402, 275);
+            pictureBox1.Size = new Size(406, 275);
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox1.TabIndex = 8;
             pictureBox1.TabStop = false;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Font = new Font("Segoe UI", 28.2F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
+            label3.ForeColor = SystemColors.ButtonFace;
+            label3.Location = new Point(3, 281);
+            label3.Name = "label3";
+            label3.Size = new Size(364, 62);
+            label3.TabIndex = 11;
+            label3.Text = "Welcome Back!";
+            label3.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // Register
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(933, 564);
-            Controls.Add(flowLayoutPanel1);
             Controls.Add(linkLabel1);
             Controls.Add(reg_showpass_checkbox);
             Controls.Add(Register_btn);
             Controls.Add(cpass_txtbox);
             Controls.Add(regpass_txtbox);
             Controls.Add(reguser_txtbox);
-            Controls.Add(label3);
+            Controls.Add(cpasswdLabel);
             Controls.Add(label2);
             Controls.Add(label1);
+            Controls.Add(flowLayoutPanel1);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
             MinimizeBox = false;
@@ -172,6 +188,7 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Register";
             flowLayoutPanel1.ResumeLayout(false);
+            flowLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -181,7 +198,7 @@
 
         private Label label1;
         private Label label2;
-        private Label label3;
+        private Label cpasswdLabel;
         private TextBox reguser_txtbox;
         private TextBox regpass_txtbox;
         private TextBox cpass_txtbox;
@@ -190,5 +207,6 @@
         private LinkLabel linkLabel1;
         private FlowLayoutPanel flowLayoutPanel1;
         private PictureBox pictureBox1;
+        private Label label3;
     }
 }

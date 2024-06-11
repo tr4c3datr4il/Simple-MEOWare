@@ -38,6 +38,7 @@
             linkLabel = new LinkLabel();
             flowLayoutPanel1 = new FlowLayoutPanel();
             pictureBox1 = new PictureBox();
+            label3 = new Label();
             flowLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
@@ -113,6 +114,7 @@
             // 
             flowLayoutPanel1.BackColor = SystemColors.ActiveCaption;
             flowLayoutPanel1.Controls.Add(pictureBox1);
+            flowLayoutPanel1.Controls.Add(label3);
             flowLayoutPanel1.ForeColor = SystemColors.ActiveCaption;
             flowLayoutPanel1.Location = new Point(0, 0);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
@@ -128,6 +130,18 @@
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox1.TabIndex = 8;
             pictureBox1.TabStop = false;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Font = new Font("Segoe UI", 28.2F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
+            label3.ForeColor = SystemColors.ButtonFace;
+            label3.Location = new Point(3, 281);
+            label3.Name = "label3";
+            label3.Size = new Size(364, 62);
+            label3.TabIndex = 12;
+            label3.Text = "Welcome Back!";
+            label3.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // Login
             // 
@@ -150,6 +164,7 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Login";
             flowLayoutPanel1.ResumeLayout(false);
+            flowLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -166,5 +181,6 @@
         private LinkLabel linkLabel;
         private FlowLayoutPanel flowLayoutPanel1;
         private PictureBox pictureBox1;
+        private Label label3;
     }
 }

@@ -86,10 +86,14 @@ namespace Server_side
             if (reg_showpass_checkbox.Checked == true)
             {
                 regpass_txtbox.PasswordChar = '\0';
+                cpasswdLabel.Hide();
+                cpass_txtbox.Hide();
             }
             else
             {
                 regpass_txtbox.PasswordChar = '*';
+                cpasswdLabel.Show();
+                cpass_txtbox.Show();
             }
         }
 

@@ -3,20 +3,12 @@
   "WorkspaceRootPath": "D:\\Local-Lab\\Workspace\\C2_Meoware\\Simple-MEOWare\\Server_side\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{77E219EC-B3A2-480C-AC53-339D06CD2737}|Server_side.csproj|d:\\local-lab\\workspace\\c2_meoware\\simple-meoware\\server_side\\clientinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{77E219EC-B3A2-480C-AC53-339D06CD2737}|Server_side.csproj|solutionrelative:clientinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{77E219EC-B3A2-480C-AC53-339D06CD2737}|Server_side.csproj|d:\\local-lab\\workspace\\c2_meoware\\simple-meoware\\server_side\\encryptor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{77E219EC-B3A2-480C-AC53-339D06CD2737}|Server_side.csproj|solutionrelative:encryptor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{77E219EC-B3A2-480C-AC53-339D06CD2737}|Server_side.csproj|d:\\local-lab\\workspace\\c2_meoware\\simple-meoware\\server_side\\networklayer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{77E219EC-B3A2-480C-AC53-339D06CD2737}|Server_side.csproj|solutionrelative:networklayer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{77E219EC-B3A2-480C-AC53-339D06CD2737}|Server_side.csproj|d:\\local-lab\\workspace\\c2_meoware\\simple-meoware\\server_side\\clientinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{77E219EC-B3A2-480C-AC53-339D06CD2737}|Server_side.csproj|solutionrelative:clientinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{77E219EC-B3A2-480C-AC53-339D06CD2737}|Server_side.csproj|d:\\local-lab\\workspace\\c2_meoware\\simple-meoware\\server_side\\clientinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{77E219EC-B3A2-480C-AC53-339D06CD2737}|Server_side.csproj|solutionrelative:clientinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -26,57 +18,32 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
               "Title": "NetworkLayer.cs",
               "DocumentMoniker": "D:\\Local-Lab\\Workspace\\C2_Meoware\\Simple-MEOWare\\Server_side\\NetworkLayer.cs",
               "RelativeDocumentMoniker": "NetworkLayer.cs",
               "ToolTip": "D:\\Local-Lab\\Workspace\\C2_Meoware\\Simple-MEOWare\\Server_side\\NetworkLayer.cs",
               "RelativeToolTip": "NetworkLayer.cs",
-              "ViewState": "AQIAAHQAAAAAAAAAAAAQwIAAAAAJAAAA",
+              "ViewState": "AQIAACwAAAAAAAAAAAApwHUAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-10T18:51:33.151Z",
+              "WhenOpened": "2024-06-11T16:13:24.762Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "ClientInfo.cs",
               "DocumentMoniker": "D:\\Local-Lab\\Workspace\\C2_Meoware\\Simple-MEOWare\\Server_side\\ClientInfo.cs",
               "RelativeDocumentMoniker": "ClientInfo.cs",
               "ToolTip": "D:\\Local-Lab\\Workspace\\C2_Meoware\\Simple-MEOWare\\Server_side\\ClientInfo.cs",
               "RelativeToolTip": "ClientInfo.cs",
-              "ViewState": "AQIAAFABAAAAAAAAAAAtwGMBAAAAAAAA",
+              "ViewState": "AQIAAAoCAAAAAAAAAABCwMcBAAAXAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-06-10T18:46:27.824Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "ClientInfo.cs [Design]",
-              "DocumentMoniker": "D:\\Local-Lab\\Workspace\\C2_Meoware\\Simple-MEOWare\\Server_side\\ClientInfo.cs",
-              "RelativeDocumentMoniker": "ClientInfo.cs",
-              "ToolTip": "D:\\Local-Lab\\Workspace\\C2_Meoware\\Simple-MEOWare\\Server_side\\ClientInfo.cs [Design]",
-              "RelativeToolTip": "ClientInfo.cs [Design]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-10T18:46:24.704Z",
-              "EditorCaption": " [Design]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Encryptor.cs",
-              "DocumentMoniker": "D:\\Local-Lab\\Workspace\\C2_Meoware\\Simple-MEOWare\\Server_side\\Encryptor.cs",
-              "RelativeDocumentMoniker": "Encryptor.cs",
-              "ToolTip": "D:\\Local-Lab\\Workspace\\C2_Meoware\\Simple-MEOWare\\Server_side\\Encryptor.cs",
-              "RelativeToolTip": "Encryptor.cs",
-              "ViewState": "AQIAABEAAAAAAAAAAAAhwBoAAAAMAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-10T18:33:24.109Z",
               "EditorCaption": ""
             }
           ]

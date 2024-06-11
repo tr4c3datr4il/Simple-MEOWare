@@ -58,10 +58,11 @@ namespace Server_side
             pidBox = new TextBox();
             label1 = new Label();
             groupBox3 = new GroupBox();
-            clearLogBtn = new Button();
-            label6 = new Label();
-            textBox1 = new TextBox();
             fileChooseBtn = new Button();
+            label6 = new Label();
+            localfileBox = new TextBox();
+            clearLogBtn = new Button();
+            openFileDialog = new OpenFileDialog();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             groupBox3.SuspendLayout();
@@ -309,7 +310,7 @@ namespace Server_side
             // 
             groupBox3.Controls.Add(fileChooseBtn);
             groupBox3.Controls.Add(label6);
-            groupBox3.Controls.Add(textBox1);
+            groupBox3.Controls.Add(localfileBox);
             groupBox3.Controls.Add(cmdComboBox);
             groupBox3.Controls.Add(sendCommandBtn1);
             groupBox3.Controls.Add(pidBox);
@@ -323,15 +324,15 @@ namespace Server_side
             groupBox3.TabStop = false;
             groupBox3.Text = "Built-in Commands";
             // 
-            // clearLogBtn
+            // fileChooseBtn
             // 
-            clearLogBtn.Location = new Point(506, 405);
-            clearLogBtn.Name = "clearLogBtn";
-            clearLogBtn.Size = new Size(72, 29);
-            clearLogBtn.TabIndex = 15;
-            clearLogBtn.Text = "Clear";
-            clearLogBtn.UseVisualStyleBackColor = true;
-            clearLogBtn.Click += clearLogBtn_Click;
+            fileChooseBtn.Location = new Point(927, 186);
+            fileChooseBtn.Name = "fileChooseBtn";
+            fileChooseBtn.Size = new Size(44, 29);
+            fileChooseBtn.TabIndex = 16;
+            fileChooseBtn.Text = "...";
+            fileChooseBtn.UseVisualStyleBackColor = true;
+            fileChooseBtn.Click += fileChooseBtn_Click;
             // 
             // label6
             // 
@@ -342,21 +343,26 @@ namespace Server_side
             label6.TabIndex = 16;
             label6.Text = "File Path (Local)";
             // 
-            // textBox1
+            // localfileBox
             // 
-            textBox1.Location = new Point(7, 186);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(905, 27);
-            textBox1.TabIndex = 15;
+            localfileBox.Location = new Point(7, 186);
+            localfileBox.Name = "localfileBox";
+            localfileBox.Size = new Size(905, 27);
+            localfileBox.TabIndex = 15;
             // 
-            // fileChooseBtn
+            // clearLogBtn
             // 
-            fileChooseBtn.Location = new Point(927, 186);
-            fileChooseBtn.Name = "fileChooseBtn";
-            fileChooseBtn.Size = new Size(44, 29);
-            fileChooseBtn.TabIndex = 16;
-            fileChooseBtn.Text = "...";
-            fileChooseBtn.UseVisualStyleBackColor = true;
+            clearLogBtn.Location = new Point(506, 405);
+            clearLogBtn.Name = "clearLogBtn";
+            clearLogBtn.Size = new Size(72, 29);
+            clearLogBtn.TabIndex = 15;
+            clearLogBtn.Text = "Clear";
+            clearLogBtn.UseVisualStyleBackColor = true;
+            clearLogBtn.Click += clearLogBtn_Click;
+            // 
+            // openFileDialog
+            // 
+            openFileDialog.FileName = "openFileDialog1";
             // 
             // ClientInfo
             // 
@@ -414,7 +420,8 @@ namespace Server_side
         private GroupBox groupBox3;
         private Button clearLogBtn;
         private Label label6;
-        private TextBox textBox1;
+        private TextBox localfileBox;
         private Button fileChooseBtn;
+        private OpenFileDialog openFileDialog;
     }
 }

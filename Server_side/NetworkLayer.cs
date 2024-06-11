@@ -58,7 +58,7 @@ namespace Server_side
             }
 
             IPAddress ipAddress = IPAddress.Parse(Program.myConfigs.AppSettings.Settings["ListeningAddress"].Value);
-            IPEndPoint localEndPoint = new IPEndPoint(IPAddress.Any, int.Parse(Program.myConfigs.AppSettings.Settings["Port"].Value));
+            IPEndPoint localEndPoint = new IPEndPoint(ipAddress, int.Parse(Program.myConfigs.AppSettings.Settings["Port"].Value));
             Program.listenerSocket.Bind(localEndPoint);
             Program.listenerSocket.Listen(100);
             MessageBox.Show("Server started", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
