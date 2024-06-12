@@ -501,7 +501,6 @@ namespace Client_side
 
         private static async Task SendChunkAsync(string chunk, Encryptor encryptor, string fileID, int counter, SemaphoreSlim semaphore, object lockObject)
         {
-            
             try
             {
                 string formattedChunk = $"{fileID}{delimiter}{chunk}{delimiter}{counter}{delimiter}";
@@ -524,7 +523,6 @@ namespace Client_side
 
         private static bool ReceiveFile(Encryptor encryptor)
         {
-            string delimiter = "|;|";
             byte[] received = NetworkLayer.ReceiveCommand();
             string decrypted = encryptor.Decrypt(received);
             string[] parts = decrypted.Split(delimiter);
@@ -535,20 +533,36 @@ namespace Client_side
 
             ConcurrentDictionary<int, string> chunks = new ConcurrentDictionary<int, string>();
 
-            while (chunks.Count < chunkCount)
+            string endSignal = "<END - EOF>";
+
+            while (true)
             {
                 byte[] chunk = NetworkLayer.ReceiveCommand();
                 string chunkDecrypted = encryptor.Decrypt(chunk);
-                string[] chunkParts = chunkDecrypted.Split(delimiter);
-                string chunkGuid = chunkParts[0];
-                int chunkIndex = int.Parse(chunkParts[2]);
 
-                if (chunkGuid != guid)
+                if (chunkDecrypted.Contains(endSignal))
+                {
+                    break;
+                }
+
+                string[] chunkParts = chunkDecrypted.Split(delimiter);
+                if (chunkParts.Length >= 3)
+                {
+                    int chunkIndex;
+                    if (int.TryParse(chunkParts[2], out chunkIndex))
+                    {
+                        string chunkData = chunkParts[1];
+                        chunks.TryAdd(chunkIndex, chunkData);
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                else
                 {
                     return false;
                 }
-
-                chunks[chunkIndex] = chunkParts[1];
             }
 
             string fileBase64 = string.Join("", chunks.OrderBy(kv => kv.Key).Select(kv => kv.Value));

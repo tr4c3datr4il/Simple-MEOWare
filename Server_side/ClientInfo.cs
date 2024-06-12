@@ -349,7 +349,6 @@ namespace Server_side
 
             logging($"File received|---|{fileName}_{guid}_{chunkCount}");
 
-            List<string> tempChunks = new List<string>();
             ConcurrentDictionary<int, string> chunks = new ConcurrentDictionary<int, string>();
 
             string endSignal = "<END - EOF>";
@@ -371,7 +370,6 @@ namespace Server_side
                     if (int.TryParse(chunkParts[2], out chunkIndex))
                     {
                         string chunkData = chunkParts[1];
-                        tempChunks.Add(chunkDecrypted);
                         chunks.TryAdd(chunkIndex, chunkData);
                     }
                     else
