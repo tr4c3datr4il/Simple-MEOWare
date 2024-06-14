@@ -385,7 +385,7 @@ namespace Server_side
 
             if (chunks.Count != chunkCount)
             {
-                MessageBox.Show("Error in GetResultFile: Chunk count mismatch", $"{chunks.Count} != {chunkCount}");
+                MessageBox.Show($"{chunks.Count} != {chunkCount}", "Error in GetResultFile: Chunk count mismatch");
                 return Encoding.UTF8.GetBytes("Error in GetResultFile: Chunk count mismatch");
             }
 
@@ -447,6 +447,10 @@ namespace Server_side
                 }
 
                 await Task.WhenAll(tasks.ToArray());
+
+                string endSignal = $"{fileID}{delimiter}<END - EOF>{delimiter}{counter}{delimiter}";
+                byte[] encryptedEndSignal = encryptor.Encrypt(endSignal);
+                NetworkLayer.Send(clientSocket, encryptedEndSignal);
             }
             catch (Exception e)
             {
